@@ -1,0 +1,31 @@
+logging:
+  level:
+    org.springframework.security: INFO
+    
+server:
+  port: -1
+  ssl:
+    keyStore: classpath:server.jks
+    trustStore: classpath:server.jks
+    keyStorePassword: password
+    trustStorePassword: password
+    keyAlias: servercert
+    clientAuth: NEED
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:test_mem
+    username: SA
+
+connector:
+  contextRoot: dev
+  host: 127.0.0.1
+  port: 8080
+  dataSourceConfiguration:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:test_mem
+    username: SA
+    password:  
+
+wiremock:
+  port: 8089

@@ -1,0 +1,30 @@
+logging:
+  level:
+    org.springframework: DEBUG
+
+server:
+  port: 0
+  
+connector-test:
+  contextRoot: 
+  host: 127.0.0.1
+  port: 8080
+  dataSourceConfiguration:
+    username: SA
+    password: 
+    host: localhost
+    port: 1433
+    name: cockpit
+    testWhileIdle: true
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost:1433;DatabaseName=cockpit
+    validationQuery: SELECT 1
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: 
+    show-sql: true
+   

@@ -1,0 +1,15 @@
+server:
+  port: 9124
+  contextPath: /test
+
+endpoints:
+  shutdown:
+    sensitive: false
+    enabled: true
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: validate
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy

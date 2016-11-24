@@ -1,0 +1,10 @@
+!2 Database Has Record - Fixture documentation and tests
+
+|Query: database has record| !-fitnesse-connector-! | SELECT * FROM car ORDER BY id|
+| ID | MAKE |MODEL | YEAR | COLOR |
+| 0 | Honda | Civic | 1997 | red |
+| 1 | Honda | Accord| 2003| green |
+| 2 | Ford |  Escort| 1985| blue |
+
+''Please note these are the initial records in the test database.''
+

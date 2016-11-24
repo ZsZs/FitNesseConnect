@@ -1,0 +1,13 @@
+!2 !c Smart Monitoring & Smart Data Analysis
+!4 !c Dokumentation and Acceptance Tests
+
+!4 [[Connectors Configuration][^ConfigureConnectors]]
+!4 [[RDBMS Connector][^RdbmsConnector]]
+!4 [[REST Connector][^RestConnector]]
+
+!*> '''Variables Defined'''
+!define TEST_SYSTEM {slim}
+*!
+!*> '''Classpath'''
+${maven.classpath}
+*!

@@ -1,0 +1,15 @@
+flyway:
+  baselineOnMigrate: true
+  
+spring:
+  datasource:
+    initialize: true
+    url: jdbc:h2:tcp://localhost/~/connector-test
+    username: SA
+    password: 
+    testWhileIdle: true
+    validationQuery: SELECT 1
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

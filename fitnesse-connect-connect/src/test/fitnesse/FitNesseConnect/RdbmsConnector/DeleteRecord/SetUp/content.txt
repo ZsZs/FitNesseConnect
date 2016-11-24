@@ -1,0 +1,3 @@
+|Table: insert record into database| !-fitnesse-connector-! |!-CAR-!|
+| ID | MAKE | MODEL | YEAR | COLOR |
+| 4 | 'BMW' | '318' | 1999 | 'blue'|

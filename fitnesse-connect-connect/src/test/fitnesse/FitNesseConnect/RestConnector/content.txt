@@ -1,0 +1,10 @@
+!2 REST Connector - Fixture documentation and tests
+The REST Connector can be used with CRUD fixtures:
+ * [[delete resource][^DeleteResource]] - delete resource
+ * [[get resource][^GetResource]] - retrives the resource(s)
+ * [[patch resource][^PatchResource]] - partially updates the given resource
+ * [[post resource][^PostResource]] - creates new resource
+ * [[put resource][^PutResource]] - updates given resource
+or with a scenario fixture:
+ * [[REST scenario][^RestScenario]]
+ 

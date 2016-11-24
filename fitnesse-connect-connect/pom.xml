@@ -1,0 +1,254 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <artifactId>fitnesse-connect-connect</artifactId>
+   <name>FitNesseConnect - Connect</name>
+   <description>Implementation of SUT connectors.</description>
+
+   <parent>
+      <groupId>com.processpuzzle.fitnesse</groupId>
+      <artifactId>fitnesse-connect-parent</artifactId>
+      <version>1.0.0</version>
+      <relativePath>../fitnesse-connect-parent</relativePath>
+   </parent>
+
+   <properties>
+      <fitnesse.suite>FitNesseConnect</fitnesse.suite>
+   </properties>
+
+   <dependencies>
+      <!-- spring boot -->
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
+         <scope>compile</scope>
+      </dependency>
+
+      <!-- security -->
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-security</artifactId>
+      </dependency>
+
+      <!-- persistence -->
+      <dependency>
+         <groupId>com.fasterxml.jackson.core</groupId>
+         <artifactId>jackson-databind</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-jdbc</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>com.h2database</groupId>
+         <artifactId>h2</artifactId>
+      </dependency>
+
+      <!-- helper libraries -->
+      <dependency>
+         <groupId>com.google.guava</groupId>
+         <artifactId>guava</artifactId>
+         <version>19.0</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-lang3</artifactId>
+         <version>3.4</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.apache.httpcomponents</groupId>
+         <artifactId>httpclient</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- Test dependencies -->
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <plugins>
+
+         <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+               <excludedGroups>com.processpuzzle.fitnesse.connect.configuration.GlueCodeIntegrationTest</excludedGroups>
+            </configuration>
+         </plugin>
+
+         <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <configuration>
+               <includes>
+                  <include>**/*.java</include>
+               </includes>
+               <skipTests>${skip.integration.test}</skipTests>
+               <groups>com.processpuzzle.fitnesse.connect.configuration.GlueCodeIntegrationTest</groups>
+            </configuration>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>integration-test</goal>
+                     <goal>verify</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>plugins</id>
+                  <phase>validate</phase>
+                  <goals>
+                     <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${project.build.directory}/fitnesse</outputDirectory>
+                     <resources>
+                        <resource>
+                           <directory>src/test/fitnesse</directory>
+                           <includes>
+                              <include>plugins.properties</include>
+                           </includes>
+                        </resource>
+                     </resources>
+                  </configuration>
+               </execution>
+
+               <execution>
+                  <id>frontpage</id>
+                  <phase>validate</phase>
+                  <goals>
+                     <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${project.build.directory}/fitnesse/FitNesseRoot/FrontPage</outputDirectory>
+                     <resources>
+                        <resource>
+                           <directory>src/test/fitnesse/FrontPage</directory>
+                        </resource>
+                     </resources>
+                  </configuration>
+               </execution>
+
+               <execution>
+                  <id>files</id>
+                  <phase>validate</phase>
+                  <goals>
+                     <goal>copy-resources</goal>
+                  </goals>
+                  <configuration>
+                     <outputDirectory>${project.build.directory}/fitnesse/FitNesseRoot/files</outputDirectory>
+                     <resources>
+                        <resource>
+                           <directory>src/test/fitnesse/files</directory>
+                        </resource>
+                     </resources>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+
+         <plugin>
+            <groupId>com.processpuzzle.fitnesse</groupId>
+            <artifactId>fitnesse-launcher-maven-plugin</artifactId>
+            <version>${fitnesse.maven.plugin.version}</version>
+            <configuration>
+               <properties>
+               </properties>
+               <logDir>target/fitnesse/logs</logDir>
+               <maxErrorsToConsole>100</maxErrorsToConsole>
+               <launches>
+                  <launch>
+                     <suite>FitNesseConnect</suite>
+                  </launch>
+               </launches>
+               <useProjectDependencies>
+                  <scope>test</scope>
+                  <scope>compile</scope>
+                  <scope>runtime</scope>
+               </useProjectDependencies>
+            </configuration>
+         </plugin>
+
+         <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+         </plugin>
+
+      </plugins>
+   </build>
+
+   <profiles>
+      <profile>
+         <id>wiki</id>
+         <!-- This profile is for use when writing tests using the FitNesse wiki. Simply run 'mvn verify -P wiki' and use a browser to visit http://localhost:9123/JavaExample -->
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>com.processpuzzle.fitnesse</groupId>
+                  <artifactId>fitnesse-launcher-maven-plugin</artifactId>
+                  <executions>
+                     <execution>
+                        <goals>
+                           <goal>set-up</goal>
+                           <goal>wiki</goal>
+                           <goal>tear-down</goal>
+                        </goals>
+                     </execution>
+                  </executions>
+
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+
+      <profile>
+         <id>auto</id>
+         <!-- This profile will boot FitNesse to automatically run the configured test suite. Simply run 'mvn verify -P auto' -->
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>com.processpuzzle.fitnesse</groupId>
+                  <artifactId>fitnesse-launcher-maven-plugin</artifactId>
+                  <configuration>
+                     <launches>
+                        <launch>
+                           <suite>${fitnesse.suite}</suite>
+                        </launch>
+                     </launches>
+                     <!-- <failIfNoTests>false</failIfNoTests> -->
+                  </configuration>
+                  <dependencies>
+                  </dependencies>
+                  <executions>
+                     <execution>
+                        <goals>
+                           <goal>set-up</goal>
+                           <goal>run-tests</goal>
+                           <goal>tear-down</goal>
+                        </goals>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
+
+</project>

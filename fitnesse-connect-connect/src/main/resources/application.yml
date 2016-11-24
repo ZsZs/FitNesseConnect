@@ -1,0 +1,12 @@
+logging:
+  level:
+    org.springframework: INFO
+    org.springframework.security: INFO
+
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:test_db
+    username: SA
+
+wiremock:
+  port: 8089

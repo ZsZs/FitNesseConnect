@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <groupId>com.processpuzzle.fitnesse</groupId>
+   <artifactId>fitnesse-connect</artifactId>
+   <version>1.0.0</version>
+   <packaging>pom</packaging>
+   <name>FitNesseConnect</name>
+   <description>Connects FitNesse Slim test to the SUT with various interfaces, like REST, SOAP, RDBMS, filesystem.</description>
+
+   <parent>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-parent</artifactId>
+      <version>1.4.2.RELEASE</version>
+   </parent>
+
+   <modules>
+      <module>fitnesse-connect-test</module>
+      <module>fitnesse-connect-connect</module>
+      <module>fitnesse-connect-parent</module>
+   </modules>
+</project>

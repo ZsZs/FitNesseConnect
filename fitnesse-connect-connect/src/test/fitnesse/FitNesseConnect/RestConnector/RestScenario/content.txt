@@ -1,0 +1,6 @@
+!2 REST Scenario - Fixture documenation and tests
+
+|script: rest scenario | fitnesse-connector | cars |
+|get resource||
+|check|response status|200|
+|show|response body|
