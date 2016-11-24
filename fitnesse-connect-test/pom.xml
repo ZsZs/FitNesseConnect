@@ -8,7 +8,7 @@
    <parent>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-parent</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.0-RELEASE</version>
       <relativePath>../fitnesse-connect-parent</relativePath>
    </parent>
 

@@ -8,7 +8,7 @@
    <parent>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-parent</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.0-RELEASE</version>
       <relativePath>../fitnesse-connect-parent</relativePath>
    </parent>
 
@@ -212,7 +212,6 @@
                         </goals>
                      </execution>
                   </executions>
-
                </plugin>
             </plugins>
          </build>
@@ -235,6 +234,11 @@
                      <!-- <failIfNoTests>false</failIfNoTests> -->
                   </configuration>
                   <dependencies>
+                     <dependency>
+                        <groupId>com.processpuzzle.fitnesse</groupId>
+                        <artifactId>fitnesse-connect-connect</artifactId>
+                        <version>${project.version}</version>
+                     </dependency>
                   </dependencies>
                   <executions>
                      <execution>

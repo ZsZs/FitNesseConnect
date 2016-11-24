@@ -3,7 +3,7 @@
 
    <groupId>com.processpuzzle.fitnesse</groupId>
    <artifactId>fitnesse-connect</artifactId>
-   <version>1.0.0</version>
+   <version>1.0.0-RELEASE</version>
    <packaging>pom</packaging>
    <name>FitNesseConnect</name>
    <description>Connects FitNesse Slim test to the SUT with various interfaces, like REST, SOAP, RDBMS, filesystem.</description>
@@ -19,4 +19,26 @@
       <module>fitnesse-connect-connect</module>
       <module>fitnesse-connect-parent</module>
    </modules>
+   
+   <distributionManagement>
+      <snapshotRepository>
+         <id>sonatype-nexus-snapshots</id>
+         <name>Nexus Snapshot Repository</name>
+         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      </snapshotRepository>
+
+      <repository>
+         <id>sonatype-nexus-staging</id>
+         <name>Nexus Staging Repository</name>
+         <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+      </repository>
+
+      <site>
+         <id>git-hub-finesse-connect</id>
+         <name>FitNesseConnect Wiki</name>
+         <url>https://github.com/ZsZs/FitNesseConnect/wiki</url>
+      </site>
+      
+   </distributionManagement>
+   
 </project>
