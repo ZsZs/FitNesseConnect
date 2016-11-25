@@ -3,7 +3,7 @@
 
    <groupId>com.processpuzzle.fitnesse</groupId>
    <artifactId>fitnesse-connect</artifactId>
-   <version>1.0.0-RELEASE</version>
+   <version>1.0.1-SNAPSHOT</version>
    <packaging>pom</packaging>
    <name>FitNesseConnect</name>
    <description>Connects FitNesse Slim test to the SUT with various interfaces, like REST, SOAP, RDBMS, filesystem.</description>

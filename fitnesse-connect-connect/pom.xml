@@ -8,7 +8,7 @@
    <parent>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-parent</artifactId>
-      <version>1.0.0-RELEASE</version>
+      <version>1.0.1-SNAPSHOT</version>
       <relativePath>../fitnesse-connect-parent</relativePath>
    </parent>
 
@@ -50,13 +50,13 @@
       <dependency>
          <groupId>com.google.guava</groupId>
          <artifactId>guava</artifactId>
-         <version>19.0</version>
+         <version>${guava.version}</version>
       </dependency>
 
       <dependency>
          <groupId>org.apache.commons</groupId>
          <artifactId>commons-lang3</artifactId>
-         <version>3.4</version>
+         <version>${commons.lang3.version}</version>
       </dependency>
 
       <dependency>
