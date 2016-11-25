@@ -16,7 +16,7 @@
    <properties>
       <java.version>1.8</java.version>
       <fitnesse.host>9123</fitnesse.host>
-      <fitnesse.maven.plugin.version>1.6.3-RELEASE</fitnesse.maven.plugin.version>
+      <fitnesse.maven.plugin.version>1.6.4-RELEASE</fitnesse.maven.plugin.version>
       <skip.integration.test>false</skip.integration.test>
       <jacoco.maven.plugin.version>0.7.7.201606060606</jacoco.maven.plugin.version>
    </properties>
