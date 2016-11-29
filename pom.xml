@@ -3,7 +3,7 @@
 
    <groupId>com.processpuzzle.fitnesse</groupId>
    <artifactId>fitnesse-connect</artifactId>
-   <version>1.0.1-SNAPSHOT</version>
+   <version>1.0.1</version>
    <packaging>pom</packaging>
    <name>FitNesseConnect</name>
    <description>Connects FitNesse Slim test to the SUT with various interfaces, like REST, SOAP, RDBMS, filesystem.</description>
@@ -13,6 +13,44 @@
       <artifactId>spring-boot-starter-parent</artifactId>
       <version>1.4.2.RELEASE</version>
    </parent>
+
+   <inceptionYear>2016</inceptionYear>
+   <organization>
+      <name>Agile Renovation</name>
+      <url>http://www.agilerenovation.com</url>
+   </organization>
+   
+   <licenses>
+      <license>
+         <name>Apache License version 2.0</name>
+         <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+         <distribution>repo</distribution>
+      </license>
+   </licenses>
+
+   <developers>
+      <developer>
+         <id>zszs</id>
+         <name>Zsolt Zsuffa</name>
+         <email>zsolt . zsuffa @ gmail.com</email>
+         <url>http://www.linkedin.com/in/zsoltzsuffa</url>
+         <timezone>0</timezone>
+      </developer>
+   </developers>
+
+   <contributors>
+   </contributors>
+
+   <scm>
+      <url>https://github.com/ZsZs/FitNesseConnect</url>
+      <connection>scm:git:git://github.com/ZsZs/FitNesseConnect.git</connection>
+      <developerConnection>scm:git:git@github.com:ZsZs/FitNesseConnect.git</developerConnection>
+      <tag>fitnesse-connect-1.0.1</tag>
+   </scm>
+   <issueManagement>
+      <url>https://github.com/ZsZs/FitNesseConnect/issues</url>
+      <system>GitHub Issues</system>
+   </issueManagement>
 
    <modules>
       <module>fitnesse-connect-test</module>
