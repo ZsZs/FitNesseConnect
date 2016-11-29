@@ -26,6 +26,22 @@
       <maven.plugin.source.version>3.0.1</maven.plugin.source.version>
    </properties>
 
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+         </dependency>
+
+         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.lang3.version}</version>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+
    <build>
       <pluginManagement>
          <plugins>
@@ -78,6 +94,29 @@
                   <!-- <execution> <id>check</id> <goals> <goal>check</goal> </goals> </execution> -->
                </executions>
             </plugin>
+
+            <plugin>
+               <groupId>com.processpuzzle.fitnesse</groupId>
+               <artifactId>fitnesse-launcher-maven-plugin</artifactId>
+               <version>${fitnesse.maven.plugin.version}</version>
+               <configuration>
+                  <properties>
+                  </properties>
+                  <logDir>target/fitnesse/logs</logDir>
+                  <maxErrorsToConsole>100</maxErrorsToConsole>
+                  <launches>
+                     <launch>
+                        <suite>FitNesseConnect</suite>
+                     </launch>
+                  </launches>
+                  <useProjectDependencies>
+                     <scope>test</scope>
+                     <scope>compile</scope>
+                     <scope>runtime</scope>
+                  </useProjectDependencies>
+               </configuration>
+            </plugin>
+
          </plugins>
       </pluginManagement>
    </build>
