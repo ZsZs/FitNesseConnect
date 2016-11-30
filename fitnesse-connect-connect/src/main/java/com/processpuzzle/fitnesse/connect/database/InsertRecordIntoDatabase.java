@@ -27,11 +27,11 @@ public class InsertRecordIntoDatabase extends DatabaseFixture {
       this( IntegratedApplicationTester.getInstance().getConfiguration( configurationName ), tableName );
    }
    
-   private InsertRecordIntoDatabase( ApplicationConfiguration applicationConfiguration, String tableName ) {
+   public InsertRecordIntoDatabase( ApplicationConfiguration applicationConfiguration, String tableName ) {
       this( applicationConfiguration, null, tableName );
    }
 
-   private InsertRecordIntoDatabase( ApplicationConfiguration applicationConfiguration, String databaseName, String tableName ) {
+   public InsertRecordIntoDatabase( ApplicationConfiguration applicationConfiguration, String databaseName, String tableName ) {
       super( applicationConfiguration, databaseName );
       this.tableName = tableName;
    }

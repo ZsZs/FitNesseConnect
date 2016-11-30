@@ -22,11 +22,11 @@ public class DatabaseHasRecord extends DatabaseFixture{
       this( IntegratedApplicationTester.getInstance().getConfiguration( configurationName ), queryString );
    }
    
-   DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String queryString ) {
+   public DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String queryString ) {
       this( serviceConfiguration, null, queryString );
    }
    
-   DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String databaseName, String queryString ) {
+   public DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String databaseName, String queryString ) {
       super( serviceConfiguration, databaseName );
       this.query = queryString;
    }
