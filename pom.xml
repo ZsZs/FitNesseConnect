@@ -1,82 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
-   <groupId>com.processpuzzle.fitnesse</groupId>
+   <parent>
+      <groupId>com.processpuzzle.fitnesse</groupId>
+      <artifactId>fitnesse-connect-parent</artifactId>
+      <version>1.0.3-SNAPSHOT</version>
+      <relativePath>fitnesse-connect-parent</relativePath>
+   </parent>
+
    <artifactId>fitnesse-connect</artifactId>
-   <version>1.0.2</version>
    <packaging>pom</packaging>
    <name>FitNesseConnect</name>
    <description>Connects FitNesse Slim test to the SUT with various interfaces, like REST, SOAP, RDBMS, filesystem.</description>
 
-   <parent>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-parent</artifactId>
-      <version>1.4.2.RELEASE</version>
-   </parent>
-
-   <inceptionYear>2016</inceptionYear>
-   <organization>
-      <name>Agile Renovation</name>
-      <url>http://www.agilerenovation.com</url>
-   </organization>
-   
-   <licenses>
-      <license>
-         <name>Apache License version 2.0</name>
-         <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-         <distribution>repo</distribution>
-      </license>
-   </licenses>
-
-   <developers>
-      <developer>
-         <id>zszs</id>
-         <name>Zsolt Zsuffa</name>
-         <email>zsolt . zsuffa @ gmail.com</email>
-         <url>http://www.linkedin.com/in/zsoltzsuffa</url>
-         <timezone>0</timezone>
-      </developer>
-   </developers>
-
-   <contributors>
-   </contributors>
-
-   <scm>
-      <url>https://github.com/ZsZs/FitNesseConnect</url>
-      <connection>scm:git:git://github.com/ZsZs/FitNesseConnect.git</connection>
-      <developerConnection>scm:git:git@github.com:ZsZs/FitNesseConnect.git</developerConnection>
-      <tag>fitnesse-connect-1.0.2</tag>
-   </scm>
-   <issueManagement>
-      <url>https://github.com/ZsZs/FitNesseConnect/issues</url>
-      <system>GitHub Issues</system>
-   </issueManagement>
-
    <modules>
-      <module>fitnesse-connect-test</module>
       <module>fitnesse-connect-connect</module>
       <module>fitnesse-connect-parent</module>
+      <module>fitnesse-connect-test</module>
    </modules>
-   
-   <distributionManagement>
-      <snapshotRepository>
-         <id>sonatype-nexus-snapshots</id>
-         <name>Nexus Snapshot Repository</name>
-         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      </snapshotRepository>
 
-      <repository>
-         <id>sonatype-nexus-staging</id>
-         <name>Nexus Staging Repository</name>
-         <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-      </repository>
 
-      <site>
-         <id>git-hub-finesse-connect</id>
-         <name>FitNesseConnect Wiki</name>
-         <url>https://github.com/ZsZs/FitNesseConnect/wiki</url>
-      </site>
-      
-   </distributionManagement>
-   
 </project>
