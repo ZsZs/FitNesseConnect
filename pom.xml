@@ -44,8 +44,8 @@
    <scm>
       <url>https://github.com/ZsZs/FitNesseConnect</url>
       <connection>scm:git:git://github.com/ZsZs/FitNesseConnect.git</connection>
-      <developerConnection>scm:git:git@github.com:ZsZs/FitNesseConnect.git</developerConnection>
-      <tag>fitnesse-connect-1.0.1</tag>
+      <developerConnection>https://github.com/ZsZs/FitNesseConnect.git</developerConnection>
+      <tag>1.0.1</tag>
    </scm>
    <issueManagement>
       <url>https://github.com/ZsZs/FitNesseConnect/issues</url>
