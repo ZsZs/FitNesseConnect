@@ -3,7 +3,7 @@
 
    <groupId>com.processpuzzle.fitnesse</groupId>
    <artifactId>fitnesse-connect</artifactId>
-   <version>1.0.1</version>
+   <version>1.0.2</version>
    <packaging>pom</packaging>
    <name>FitNesseConnect</name>
    <description>Connects FitNesse Slim test to the SUT with various interfaces, like REST, SOAP, RDBMS, filesystem.</description>
@@ -44,8 +44,8 @@
    <scm>
       <url>https://github.com/ZsZs/FitNesseConnect</url>
       <connection>scm:git:git://github.com/ZsZs/FitNesseConnect.git</connection>
-      <developerConnection>https://github.com/ZsZs/FitNesseConnect.git</developerConnection>
-      <tag>1.0.1</tag>
+      <developerConnection>scm:git:git@github.com:ZsZs/FitNesseConnect.git</developerConnection>
+      <tag>fitnesse-connect-1.0.2</tag>
    </scm>
    <issueManagement>
       <url>https://github.com/ZsZs/FitNesseConnect/issues</url>

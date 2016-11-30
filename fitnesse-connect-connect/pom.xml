@@ -3,12 +3,13 @@
 
    <artifactId>fitnesse-connect-connect</artifactId>
    <name>FitNesseConnect - Connect</name>
+   <packaging>jar</packaging>
    <description>Implementation of SUT connectors.</description>
 
    <parent>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-parent</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
       <relativePath>../fitnesse-connect-parent</relativePath>
    </parent>
 

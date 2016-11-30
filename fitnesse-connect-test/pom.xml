@@ -2,13 +2,14 @@
    <modelVersion>4.0.0</modelVersion>
 
    <artifactId>fitnesse-connect-test</artifactId>
+   <packaging>jar</packaging>
    <name>FitNesseConnect - Test</name>
    <description>Test server for integration tests</description>
 
    <parent>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-parent</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
       <relativePath>../fitnesse-connect-parent</relativePath>
    </parent>
 
