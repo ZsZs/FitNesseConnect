@@ -31,6 +31,10 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
    }
    
    // public accessors and mutators
+   public void addConfiguration( final String configurationName, final ApplicationConfiguration configuration ){
+      configurations.put( configurationName, currentConfiguration );
+   }
+   
    public void configure( final String configurationName ){
       currentConfiguration = configurations.get( configurationName );
       if( currentConfiguration == null ){
