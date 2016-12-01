@@ -18,11 +18,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith( SpringRunner.class )
-@SpringBootTest( classes={ ApplicationConfiguration.class })
+@SpringBootTest( classes={ IntegratedApplicationTester.class, ConnectorApplicationConfiguration.class })
 @EnableConfigurationProperties
 @ActiveProfiles( "unit-test" )
 public class ApplicationConfigurationTest {
-   @Autowired ApplicationConfiguration applicationConfiguration;
+   @Autowired ConnectorApplicationConfiguration applicationConfiguration;
    
    @Test public void autoconfiguration_selectsServiceSpecificProperties(){
       assertThat( applicationConfiguration.getHost(), equalTo( "127.0.0.1" ));

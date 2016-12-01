@@ -33,7 +33,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.ResourceAccessException;
 
 @RunWith( SpringRunner.class )
-@SpringBootTest( classes=BasicHttpsSecurityApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT )
+@SpringBootTest( classes = { IntegratedApplicationTester.class, ConnectorApplicationConfiguration.class, BasicHttpsSecurityApplication.class }, webEnvironment = WebEnvironment.RANDOM_PORT )
 @ComponentScan( basePackages = {"com.processpuzzle.fitnesse.connect.database"} )
 @ActiveProfiles( "unit-test" )
 public class BasicHttpsSecurityApplicationTests {

@@ -4,7 +4,6 @@ import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -13,8 +12,6 @@ import com.processpuzzle.fitnesse.connect.database.DatabaseConnector;
 import com.processpuzzle.fitnesse.connect.rest.RestClient;
 import com.processpuzzle.fitnesse.connect.rest.SslRestClient;
 
-@Component
-@ConfigurationProperties( prefix = "connector" )
 public class ApplicationConfiguration {
    protected String contextRoot;
    protected String host;

@@ -18,10 +18,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.google.common.collect.Lists;
+import com.processpuzzle.fitnesse.connect.application.ConnectorApplicationConfiguration;
 import com.processpuzzle.fitnesse.connect.application.IntegratedApplicationTester;
 
 @RunWith( SpringRunner.class )
-@SpringBootTest( classes = { IntegratedApplicationTester.class } )
+@SpringBootTest( classes = { IntegratedApplicationTester.class, ConnectorApplicationConfiguration.class } )
 @EnableAutoConfiguration
 @ActiveProfiles( "unit-test" )
 public class InsertRecordIntoTestDatabaseTest {

@@ -16,7 +16,7 @@ import com.processpuzzle.fitnesse.connect.database.DatabaseHasRecord;
 
 @RunWith( SpringRunner.class )
 @EnableAutoConfiguration
-@ComponentScan( basePackages = {"com.processpuzzle.fitnesse.connect.application", "com.processpuzzle.fitnesse.connect.database"} )
+@ComponentScan( basePackages = { "com.processpuzzle.fitnesse.connect.database" })
 @ActiveProfiles( "unit-test" )
 public class DatabaseHasRecordTest {
    private DatabaseHasRecord databaseHasRecord;

@@ -2,8 +2,6 @@ package com.processpuzzle.fitnesse.connect.application;
 
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +20,7 @@ import com.processpuzzle.fitnesse.connect.application.ApplicationConfiguration.D
 public class IntegratedApplicationTester implements ApplicationContextAware{
    @Autowired private static ApplicationContext applicationContext;
    private Map<String, ApplicationConfiguration> configurations = Maps.newHashMap();
-   @Autowired private ApplicationConfiguration currentConfiguration;
+   private ApplicationConfiguration currentConfiguration;
    private static IntegratedApplicationTester soleInstance;
 
    // constructors
@@ -32,7 +30,7 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
    
    // public accessors and mutators
    public void addConfiguration( final String configurationName, final ApplicationConfiguration configuration ){
-      configurations.put( configurationName, currentConfiguration );
+      configurations.put( configurationName, configuration );
    }
    
    public void configure( final String configurationName ){
@@ -52,13 +50,8 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
    public void initialize( String activeProfile ) {
       applicationContext = SpringApplication.run( IntegratedApplicationTester.class, new String[]{ "--spring.profiles.active=" + activeProfile } );
       soleInstance = getBean( IntegratedApplicationTester.class );
-      soleInstance.configurations.put( "connector", soleInstance.currentConfiguration );
    }
 
-   @PostConstruct public void postConstruct(){
-      configurations.put( "connector", currentConfiguration );
-   }
-   
    // properties
    // @formatter:off
    public static <T> T getBean( Class<T> requiredType ){ return applicationContext.getBean( requiredType ); }

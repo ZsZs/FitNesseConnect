@@ -22,6 +22,6 @@ public class IntegratedApplicationTesterTest {
       IntegratedApplicationTester applicationTester = new IntegratedApplicationTester();
       applicationTester.initialize( "unit-test" );
       
-      assertThat( IntegratedApplicationTester.getInstance().getCurrentConfiguration().getHost(), equalTo( "127.0.0.1" ));
+      assertThat( IntegratedApplicationTester.getInstance().getConfiguration( "connector" ).getHost(), equalTo( "127.0.0.1" ));
    }
 }
