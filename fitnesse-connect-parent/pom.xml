@@ -188,7 +188,6 @@
                <configuration>
                   <properties>
                   </properties>
-                  <logDir>target/fitnesse/logs</logDir>
                   <maxErrorsToConsole>100</maxErrorsToConsole>
                   <launches>
                      <launch>
