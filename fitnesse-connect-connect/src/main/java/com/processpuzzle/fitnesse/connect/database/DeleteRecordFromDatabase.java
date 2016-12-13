@@ -11,11 +11,11 @@ public class DeleteRecordFromDatabase extends DatabaseFixture {
       this( IntegratedApplicationTester.getInstance().getConfiguration( configurationName ), sqlStatement );
    }
    
-   public DeleteRecordFromDatabase( ApplicationConfiguration serviceConfiguration, String sqlStatement ) {
+   protected DeleteRecordFromDatabase( ApplicationConfiguration serviceConfiguration, String sqlStatement ) {
       this( serviceConfiguration, null, sqlStatement );
    }
 
-   public DeleteRecordFromDatabase( ApplicationConfiguration serviceConfiguration, String databaseName, String sqlStatement ) {
+   protected DeleteRecordFromDatabase( ApplicationConfiguration serviceConfiguration, String databaseName, String sqlStatement ) {
       super( serviceConfiguration, databaseName );
       this.sqlStatement = sqlStatement;
    }

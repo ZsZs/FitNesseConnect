@@ -1,7 +1,7 @@
 logging:
   level:
     org.springframework: INFO
-    
+
 server:
   port: -1
   ssl:
@@ -11,11 +11,6 @@ server:
     trustStorePassword: password
     keyAlias: servercert
     clientAuth: NEED
-
-spring:
-  datasource:
-    url: jdbc:h2:mem:test_mem
-    username: SA
 
 connector:
   contextRoot: dev

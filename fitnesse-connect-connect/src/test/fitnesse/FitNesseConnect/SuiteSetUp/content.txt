@@ -1,7 +1,8 @@
 |import|
 |com.processpuzzle.fitnesse.connect.application|
 |com.processpuzzle.fitnesse.connect.database|
-|com.processpuzzle.fitnesse.connect.file|
+|com.processpuzzle.fitnesse.connect.excel|
+|com.processpuzzle.fitnesse.connect.resource|
 |com.processpuzzle.fitnesse.connect.rest|
 
 !include -c <FitNesseConnect.ConfigureConnectors

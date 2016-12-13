@@ -2,3 +2,6 @@
 |Table: insert record into database| !-fitnesse-connector-! |!-CAR-!|
 | ID | MAKE | MODEL | YEAR | COLOR |
 | 4 | 'BMW' | '318' | 1999 | 'blue'|
+
+''Please note that you can take a look into the test database by following this [[link][${DatabaseUrl}]].''
+

@@ -1,25 +1,20 @@
 logging:
   level:
-    org.springframework: DEBUG
+    org.springframework: INFO
 
-server:
-  port: 0
-  
-connector-test:
+connector:
   contextRoot: 
-  host: 127.0.0.1
-  port: 8080
+  host: localhost
+  port: 9124
   dataSourceConfiguration:
     username: SA
     password: 
-    host: localhost
-    port: 1433
-    name: cockpit
     testWhileIdle: true
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://localhost:1433;DatabaseName=cockpit
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/connector-test
     validationQuery: SELECT 1
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: validate
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
@@ -27,4 +22,4 @@ connector-test:
       hibernate:
         dialect: 
     show-sql: true
-   
+    

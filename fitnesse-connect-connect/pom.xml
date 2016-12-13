@@ -18,6 +18,12 @@
    </properties>
 
    <dependencies>
+      <dependency>
+         <groupId>com.processpuzzle.fitnesse</groupId>
+         <artifactId>fitnesse-connect-test</artifactId>
+         <version>${project.version}</version>
+      </dependency>
+
       <!-- spring boot -->
       <dependency>
          <groupId>org.springframework.boot</groupId>
@@ -161,6 +167,43 @@
                   </configuration>
                </execution>
             </executions>
+         </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>start-test-server</id>
+                  <phase>pre-integration-test</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <target name="start-test-server">
+                        <java fork="true" spawn="true" jar="${basedir}/../fitnesse-connect-test/target/fitnesse-connect-test-${project.version}.jar">
+                           <arg line="--spring.profiles.active=local" />
+                        </java>
+                     </target>
+                  </configuration>
+               </execution>
+               <execution>
+                  <id>stop-test-server</id>
+                  <phase>post-integration-test</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <target name="stop-test-server">
+                        <exec executable="cmd" dir="${basedir}/../fitnesse-connect-test" spawn="false">
+                           <arg value="/c" />
+                           <arg value="curl -X POST localhost:9124/shutdown" />
+                        </exec>
+                     </target>
+                  </configuration>
+               </execution>
+            </executions>
+
          </plugin>
 
          <plugin>

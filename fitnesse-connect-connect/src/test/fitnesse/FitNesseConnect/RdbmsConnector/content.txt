@@ -4,3 +4,4 @@ The RDBMS connector has the following fixtures:
  * [[delete record from database][^DeleteRecord]] - deletes records from a table according to the given select statement
  * [[insert record into database][^InsertRecord]] - inserts records into a given table from the the fixture table
  * [[update record in database][^UpdateRecord]] - update records in a table according to the given select statement
+

@@ -1,13 +1,21 @@
 server:
   port: 9124
-  contextPath: /test
+  contextPath: /
 
 endpoints:
   shutdown:
     sensitive: false
     enabled: true
 
+storage:
+  location: target/upload-dir
+
 spring:
+  http:
+    multipart:
+      max-file-size: 128KB
+      max-request-size: 128KB
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:

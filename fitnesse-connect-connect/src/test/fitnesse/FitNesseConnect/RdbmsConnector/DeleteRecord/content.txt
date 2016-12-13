@@ -1,3 +1,5 @@
 !2 Delete Record From Database - Fixture documentation and tests
 |Script: delete record from database|!-fitnesse-connector-! | delete from !-CAR-! where id = '4'; |
 |delete|
+
+''Please note that you can take a look into the test database by following this [[link][${DatabaseUrl}]].''

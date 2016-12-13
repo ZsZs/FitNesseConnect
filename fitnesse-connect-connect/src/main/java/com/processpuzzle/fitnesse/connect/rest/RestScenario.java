@@ -22,7 +22,7 @@ public class RestScenario {
       this( IntegratedApplicationTester.getInstance().getConfiguration( configurationName ), resourcePath );
    }
    
-   public RestScenario( ApplicationConfiguration configuration, String resourcePath ) {
+   protected RestScenario( ApplicationConfiguration configuration, String resourcePath ) {
       this.configuration = configuration;
       this.resourcePath = resourcePath;
       instantiateRestClient( this.resourcePath );

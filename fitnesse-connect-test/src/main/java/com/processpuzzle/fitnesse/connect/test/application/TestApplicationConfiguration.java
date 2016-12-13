@@ -17,6 +17,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,11 +28,15 @@ public class TestApplicationConfiguration extends WebMvcConfigurerAdapter {
    private static final String SPRING_HATEOAS_OBJECT_MAPPER = "_halObjectMapper";
    @Autowired @Qualifier( SPRING_HATEOAS_OBJECT_MAPPER ) private ObjectMapper springHateoasObjectMapper;
    @Autowired private Jackson2ObjectMapperBuilder springBootObjectMapperBuilder;
-   
+
+   @Override public void addViewControllers( ViewControllerRegistry registry ) {
+      registry.addViewController( "/files" ).setViewName( "uploadForm" );
+   }
+
    @Override public void configureMessageConverters( List<HttpMessageConverter<?>> converters ) {
       StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
       stringConverter.setWriteAcceptCharset( false );
-      
+
       converters.add( new ByteArrayHttpMessageConverter() );
       converters.add( stringConverter );
       converters.add( new ResourceHttpMessageConverter() );

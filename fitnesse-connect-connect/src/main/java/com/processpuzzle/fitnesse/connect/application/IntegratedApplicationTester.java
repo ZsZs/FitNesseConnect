@@ -54,6 +54,7 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
 
    // properties
    // @formatter:off
+   public ApplicationContext getApplicationContext(){ return applicationContext; }
    public static <T> T getBean( Class<T> requiredType ){ return applicationContext.getBean( requiredType ); }
    public ApplicationConfiguration getConfiguration( String configurationName ) { return configurations.get( configurationName ); }
    public ApplicationConfiguration getCurrentConfiguration() { return currentConfiguration; }

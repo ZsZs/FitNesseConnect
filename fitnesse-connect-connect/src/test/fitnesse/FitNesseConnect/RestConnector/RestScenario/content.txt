@@ -4,3 +4,5 @@
 |get resource||
 |check|response status|200|
 |show|response body|
+
+''Please note that you can take a look into the test services by following this [[link][${TestServerUrl}]].''

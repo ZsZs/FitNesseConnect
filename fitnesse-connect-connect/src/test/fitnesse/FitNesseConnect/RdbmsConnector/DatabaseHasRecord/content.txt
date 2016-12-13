@@ -7,4 +7,4 @@
 | 2 | Ford |  Escort| 1985| blue |
 
 ''Please note these are the initial records in the test database.''
-
+''Please note that you can take a look into the test database by following this [[link][${DatabaseUrl}]].''

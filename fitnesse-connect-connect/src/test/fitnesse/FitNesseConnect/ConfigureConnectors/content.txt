@@ -4,12 +4,14 @@
 !define Protocol {http}
 !define Host {localhost}
 !define Port {9124}
-!define ContextPath {test}
+!define ContextPath {}
+!define TestServerUrl (${Protocol}://${Host}:${Port})
 !5 Data Source Configuration:
 !define DataDriverClassName {org.h2.Driver}
 !define DataUrl {jdbc:h2:tcp://localhost/~/connector-test}
 !define DataUserName {SA}
 !define DataPassword {}
+!define DatabaseUrl (${TestServerUrl}/h2-console)
 !5 Test Variables
 ***!
 Before using any of the connectors, you have to configure them with the '''!-IntegratedApplicationTester-!''' fixture. It is possible to define more than one set of configuration and later this configuration can be used to intantiate connectors agains different SUT. For example with microservices you need one configuration for each service and perhaps database.

@@ -1,0 +1,5 @@
+!2 File System Connector
+The File System Connector has the following fixtures:
+ * [[create file][^CreateFile]] - creates a new file
+ * [[delete file][^DeleteFile]] - verifies if a given file or directory exists
+ * [[file exist][^FileExist]] - verifies if a given file or directory exists
