@@ -3,7 +3,6 @@ package com.processpuzzle.fitnesse.connect.application;
 import java.util.Map;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -18,7 +17,7 @@ import com.processpuzzle.fitnesse.connect.application.ApplicationConfiguration.D
 @ComponentScan( basePackages = {"com.processpuzzle.fitnesse.connect.application", "com.processpuzzle.fitnesse.connect.database", "com.processpuzzle.fitnesse.connect.cockpit" })
 @EnableConfigurationProperties
 public class IntegratedApplicationTester implements ApplicationContextAware{
-   @Autowired private static ApplicationContext applicationContext;
+   private static ApplicationContext applicationContext;
    private Map<String, ApplicationConfiguration> configurations = Maps.newHashMap();
    private ApplicationConfiguration currentConfiguration;
    private static IntegratedApplicationTester soleInstance;
