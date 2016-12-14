@@ -4,7 +4,6 @@ The purpose of this fixture is to be able to verify if one or more files, exist 
  * classpath: - the file is searched in the !-FitNesse-! classpath
  * http: - the connector looks for the files thru HTTP protocol
  * file: - the connector looks for the files in the file system
-|Query: directory has file| file:${FitNesseFilesRoot}/sample|
-| file name | size |
-| !-SampleOne.xlsx-! | 8783 |
-| !-SampleTwo.xlsx-! | 8783 |
+The fixture comes in two flavours:
+ * [[single file check][^SingleFileCheck]]
+ * [[files in folder checked][^DirectoryCheck]]

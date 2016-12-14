@@ -1,0 +1,5 @@
+!4 Files in folder verification
+|Query: directory has files| file:${FitNesseFilesRoot}/sample|
+| file name | size |
+| !-SampleOne.xlsx-! | 8783 |
+| !-SampleTwo.xlsx-! | 8783 |

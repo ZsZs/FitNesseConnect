@@ -1,5 +1,6 @@
 package com.processpuzzle.fitnesse.connect.resource;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -37,12 +38,12 @@ public class ResourceConnector {
       return null;
    }
 
-   public Resource retrieveResource() {
+   public Resource retrieveResource() throws FileNotFoundException {
       Resource resource = applicationContext.getResource( resourcePath );
       if( resource.exists() ){
          return resource;
       }else{
-         return null;
+         throw new FileNotFoundException( resourcePath );
       }
    }
 

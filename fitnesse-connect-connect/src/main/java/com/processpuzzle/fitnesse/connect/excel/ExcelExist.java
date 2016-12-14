@@ -2,14 +2,14 @@ package com.processpuzzle.fitnesse.connect.excel;
 
 import java.util.List;
 
-import com.processpuzzle.fitnesse.connect.resource.DirectoryHasFile;
+import com.processpuzzle.fitnesse.connect.resource.DirectoryHasFiles;
 
 public class ExcelExist {
-   private final DirectoryHasFile directoryHasFile;
+   private final DirectoryHasFiles directoryHasFile;
    
    // constructors
    public ExcelExist( final String resourceUrl ){
-      this.directoryHasFile = new DirectoryHasFile( resourceUrl ); 
+      this.directoryHasFile = new DirectoryHasFiles( resourceUrl ); 
    }
    
    // public accessors and mutators

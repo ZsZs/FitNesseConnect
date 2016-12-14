@@ -1,8 +1,12 @@
 !2 Excel file exists - Fixture documentation and tests
 !4 Purpose
 The purpose of this fixture is to be able to verify if one or more Excel file, exist. In the first row you have to specify the resource path. The 'protocoll' part of the resource path specification determines how the connector tries to access the Excel files. You have to following options:
+ * classpath: - the Excel is searched in the !-FitNesse-! classpath
+ * http: - the connector looks for the Excel thru HTTP protocol
  * file: - the connector looks for the Excel file in the file system
-
+The fixture comes in two flavours:
+ * single file is checked
+ * multiple files checked
 |Query: excel exist| file:${FitNesseFilesRoot}/sample|
 | file name |
 | !-SampleOne.xlsx-! |

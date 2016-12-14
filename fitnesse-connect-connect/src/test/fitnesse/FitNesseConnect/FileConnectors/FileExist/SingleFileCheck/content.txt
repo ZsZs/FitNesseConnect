@@ -1,0 +1,6 @@
+!4 Single file verification
+Description: Verifies the existance of the given, single file. 
+Advantage: simple to invoke, focussed on one single file.
+Disadvantage: doesn't verifies other file properties, like size.
+
+|Script: directory has file| file:${FitNesseFilesRoot}/sample/!-SampleOne.xlsx-!|
