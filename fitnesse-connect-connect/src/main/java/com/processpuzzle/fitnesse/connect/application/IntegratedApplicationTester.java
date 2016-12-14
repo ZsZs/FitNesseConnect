@@ -18,13 +18,21 @@ import com.processpuzzle.fitnesse.connect.application.ApplicationConfiguration.D
 @EnableConfigurationProperties
 public class IntegratedApplicationTester implements ApplicationContextAware{
    private static ApplicationContext applicationContext;
-   private Map<String, ApplicationConfiguration> configurations = Maps.newHashMap();
+   private static Map<String, ApplicationConfiguration> configurations = Maps.newHashMap();
    private ApplicationConfiguration currentConfiguration;
    private static IntegratedApplicationTester soleInstance;
 
    // constructors
-   public IntegratedApplicationTester(){
-      soleInstance = this;
+   public IntegratedApplicationTester(){}
+   
+   public static IntegratedApplicationTester getInstance() { 
+      if( applicationContext == null ){
+         String[] args = {};
+         main( args );
+      }else if( soleInstance == null ){
+         soleInstance = applicationContext.getBean( IntegratedApplicationTester.class );
+      }
+      return soleInstance; 
    }
    
    // public accessors and mutators
@@ -43,12 +51,12 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
    
    public static void main( String[] args ) {
       applicationContext = SpringApplication.run( IntegratedApplicationTester.class, args );
-      soleInstance = getBean( IntegratedApplicationTester.class );
+      if( soleInstance == null ) soleInstance = applicationContext.getBean( IntegratedApplicationTester.class );
    }
 
    public void initialize( String activeProfile ) {
       applicationContext = SpringApplication.run( IntegratedApplicationTester.class, new String[]{ "--spring.profiles.active=" + activeProfile } );
-      soleInstance = getBean( IntegratedApplicationTester.class );
+      if( soleInstance == null ) soleInstance = applicationContext.getBean( IntegratedApplicationTester.class );
    }
 
    // properties
@@ -57,7 +65,6 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
    public static <T> T getBean( Class<T> requiredType ){ return applicationContext.getBean( requiredType ); }
    public ApplicationConfiguration getConfiguration( String configurationName ) { return configurations.get( configurationName ); }
    public ApplicationConfiguration getCurrentConfiguration() { return currentConfiguration; }
-   public static IntegratedApplicationTester getInstance() { return soleInstance; }
    @Override public void setApplicationContext( ApplicationContext context ) throws BeansException {  applicationContext = context; }
    public void setContextPath( String contextPath ){ currentConfiguration.setContextRoot( contextPath ); }
    public void setDataDriverClassName( String dataDriverClassName ){ currentConfiguration.setDataDriverClassName( dataDriverClassName ); }

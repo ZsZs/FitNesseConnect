@@ -27,10 +27,11 @@ public class ResourceConnector {
    public List<Resource> retrieveResources() {
       Resource[] foundResources;
       try{
+         logger.info( "Retrieving resource from: " + resourcePath );
          foundResources = applicationContext.getResources( resourcePath );
          return Arrays.asList( foundResources );
       }catch( IOException e ){
-         logger.error( "Failed to access resources at: " + resourcePath );;
+         logger.error( "Failed to access resources at: " + resourcePath );
       }
 
       return null;
@@ -40,7 +41,7 @@ public class ResourceConnector {
       Resource resource = applicationContext.getResource( resourcePath );
       if( resource.exists() ){
          return resource;
-      }else {
+      }else{
          return null;
       }
    }

@@ -11,22 +11,22 @@ public abstract class ResourcePropertyInvestigator {
    }
    
    // factory methods
-   public static ResourcePropertyInvestigator create( final String property, final Resource subjectResource ){
-      if( relaxedPropetyMathcer( property ) == ResourcePropeties.FILE_NAME ){
+   public static ResourcePropertyInvestigator create( final String property, final Resource subjectResource ) throws UnknownResourcePropertyException{
+      if( relaxedPropetyMathcer( property ) == ResourceProperties.FILE_NAME ){
          return new FileNamePropertyInvestigator( subjectResource );
-      } else if( relaxedPropetyMathcer( property ) == ResourcePropeties.SIZE ){
+      } else if( relaxedPropetyMathcer( property ) == ResourceProperties.SIZE ){
          return new SizePropertyInvestigator( subjectResource );
+      }else{
+         throw new UnknownResourcePropertyException( property );
       }
-      
-      return null;
    }
    
    // public accessors and mutators
    public abstract String determinePropertyValue();
 
-   private static ResourcePropeties relaxedPropetyMathcer( final String property ){
-      if( property.equals( "file name" ) ) return ResourcePropeties.FILE_NAME;
-      else if( property.equals( "size" )) return ResourcePropeties.SIZE;
-      else return ResourcePropeties.UNKNOWN;
+   private static ResourceProperties relaxedPropetyMathcer( final String property ){
+      if( property.equals( "file name" ) ) return ResourceProperties.FILE_NAME;
+      else if( property.equals( "size" )) return ResourceProperties.SIZE;
+      else return ResourceProperties.UNKNOWN;
    }
 }

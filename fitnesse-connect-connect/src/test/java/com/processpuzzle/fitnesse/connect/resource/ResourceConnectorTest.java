@@ -20,7 +20,7 @@ import com.processpuzzle.fitnesse.connect.application.IntegratedApplicationTeste
 @SpringBootTest( classes = { IntegratedApplicationTester.class } )
 @ActiveProfiles( "unit-test" )
 public class ResourceConnectorTest {
-   private static final String RELATIVE_DIRECTORY_PATH = "file:./src/test/fitnesse/files/";
+   private static final String RELATIVE_DIRECTORY_PATH = "file:./src/test/fitnesse/files/sample/";
 
    @Test public void retrieveResource_whenRelativeFilePathIsGiven_returnsOneResource() throws IOException{
       ResourceConnector resourceConnector = new ResourceConnector( RELATIVE_DIRECTORY_PATH + "SampleOne.xlsx" );

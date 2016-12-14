@@ -25,16 +25,12 @@
       </dependency>
 
       <!-- spring boot -->
-      <dependency>
-         <groupId>org.springframework.boot</groupId>
-         <artifactId>spring-boot-starter-web</artifactId>
-         <scope>compile</scope>
-      </dependency>
-
+      
       <!-- security -->
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-security</artifactId>
+         <scope>test</scope>
       </dependency>
 
       <!-- persistence -->
@@ -51,6 +47,7 @@
       <dependency>
          <groupId>com.h2database</groupId>
          <artifactId>h2</artifactId>
+         <scope>test</scope>
       </dependency>
 
       <!-- helper libraries -->
@@ -219,9 +216,9 @@
                   </launch>
                </launches>
                <useProjectDependencies>
-                  <scope>test</scope>
                   <scope>compile</scope>
                   <scope>runtime</scope>
+                  <scope>test</scope>
                </useProjectDependencies>
             </configuration>
          </plugin>

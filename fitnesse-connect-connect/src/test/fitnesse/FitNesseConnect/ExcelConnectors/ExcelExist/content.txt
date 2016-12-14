@@ -3,7 +3,7 @@
 The purpose of this fixture is to be able to verify if one or more Excel file, exist. In the first row you have to specify the resource path. The 'protocoll' part of the resource path specification determines how the connector tries to access the Excel files. You have to following options:
  * file: - the connector looks for the Excel file in the file system
 
-|Query: excel exist| file:///|
+|Query: excel exist| file:${FitNesseFilesRoot}/sample|
 | file name |
 | !-SampleOne.xlsx-! |
 | !-SampleTwo.xlsx-! |

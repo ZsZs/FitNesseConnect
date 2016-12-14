@@ -5,11 +5,14 @@ import static java.util.Arrays.asList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
 import com.google.common.collect.Lists;
 
 public class DirectoryHasFile {
+   private static final Logger logger = LoggerFactory.getLogger( DirectoryHasFile.class );
    private List<String> expectedResourceProperties = Lists.newArrayList();
    private final String resourcePath;
 
@@ -27,7 +30,13 @@ public class DirectoryHasFile {
          List<List<String>> row = Lists.newArrayList();
 
          for( String resourceProperty : expectedResourceProperties ){
-            String value = determineResourceProperty( resourceProperty, resource );
+            String value = null;
+            try{
+               value = determineResourceProperty( resourceProperty, resource );
+            }catch( UnknownResourcePropertyException e ){
+               logger.error( e.getLocalizedMessage(), e );
+               value = e.getLocalizedMessage();
+            }
             row.add( asList( resourceProperty, value ) );
          }
          rowList.add( row );
@@ -46,23 +55,18 @@ public class DirectoryHasFile {
    private String adjustResourcePath( String resourcePath ) {
       String adjustedPath = StringUtils.endsWith( resourcePath, "/" ) ? resourcePath : resourcePath + "/";
       adjustedPath = StringUtils.endsWith( adjustedPath, "*" ) ? adjustedPath : adjustedPath + "*";
-      
+
       return adjustedPath;
    }
-   
-   private String determineResourceProperty( String resourceProperty, Resource subjectResource ) {
+
+   private String determineResourceProperty( String resourceProperty, Resource subjectResource ) throws UnknownResourcePropertyException {
       return ResourcePropertyInvestigator.create( resourceProperty, subjectResource ).determinePropertyValue();
    }
 
    // properties
    // @formatter:off
-   public String getResourcePath() {
-      return resourcePath;
-   }
-
-   public List<String> getExpectedResourceProperties() {
-      return expectedResourceProperties;
-   }
+   public String getResourcePath() { return resourcePath; }
+   public List<String> getExpectedResourceProperties() { return expectedResourceProperties; }
    // @formatter:on
 
 }
