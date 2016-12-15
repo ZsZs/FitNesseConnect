@@ -1,0 +1,10 @@
+!2 Excel cell specification - Fixture documentation and tests
+!4 Purpose
+The fixture allows you to specify the expected properties of certain cells in the Excel sheet.
+|specify excel content|file:./target/fitnesse/fitnesseroot/files/sample/SampleTwo.xlsx:Sheet_1|
+| column | data type | is mandatory| is value mandatory | verify column? | description |
+| String Column | String | yes | yes | pass | this column contains text and its mandatory |
+| Integer Column | Integer | yes | yes | pass | this column contains integer and its mandatory |
+| Date Column | Date | yes | yes | pass| this column contains date and its mandatory |
+| Optional Column | String | no | no | pass | this column is optional |
+| Optional Value Column | String | yes | no | pass | this column's value optional |

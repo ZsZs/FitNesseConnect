@@ -26,7 +26,7 @@ public class DirectoryHasFilesTest {
       
       List<String> headerRow = Lists.newArrayList( "file name", "size" );
       List<String> file1 = Lists.newArrayList( "SampleOne.xlsx", "8783" );
-      List<String> file2 = Lists.newArrayList( "SampleTwo.xlsx", "8783" );
+      List<String> file2 = Lists.newArrayList( "SampleTwo.xlsx", "9044" );
       List<String> file3 = Lists.newArrayList( "testresource.txt", "txt" );
       table = Lists.newArrayList( headerRow, file1, file2, file3 );
       directoryHasFile.table( table );      
@@ -46,6 +46,6 @@ public class DirectoryHasFilesTest {
       assertThat( returnTable.get( 0 ).get( 0 ), hasItems( "file name", "SampleOne.xlsx" ));
       assertThat( returnTable.get( 0 ).get( 1 ), hasItems( "size", "8783" ));
       assertThat( returnTable.get( 1 ).get( 0 ), hasItems( "file name", "SampleTwo.xlsx" ));
-      assertThat( returnTable.get( 1 ).get( 1 ), hasItems( "size", "8783" ));
+      assertThat( returnTable.get( 1 ).get( 1 ), hasItems( "size", "9044" ));
    }
 }

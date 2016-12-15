@@ -1,4 +1,4 @@
-!2 Verify Excel sheet content - Fixture documentation and tests
+!2 Compare Excel table - Fixture documentation and tests
 !4 Purpose
 The fixture facilitates to compare a given table with the content of the subject Excel sheet.
 |Table: verify excel content|file:./target/fitnesse/fitnesseroot/files/sample/SampleOne.xlsx|Sheet_1|
