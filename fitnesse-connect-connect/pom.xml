@@ -204,7 +204,7 @@
                      <target name="stop-test-server">
                         <exec executable="cmd" dir="${basedir}/../fitnesse-connect-testbed-backend" spawn="false">
                            <arg value="/c" />
-                           <arg value="curl POST http://localhost:9124/shutdown" />
+                           <arg value="curl -X POST http://localhost:9124/shutdown" />
                         </exec>
                      </target>
                   </configuration>
