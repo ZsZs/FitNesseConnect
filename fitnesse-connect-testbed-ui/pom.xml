@@ -1,0 +1,12 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.processpuzzle.fitnesse</groupId>
+    <artifactId>fitnesse-connect</artifactId>
+    <version>1.0.7</version>
+  </parent>
+  <artifactId>fitnesse-connect-test-ui</artifactId>
+  <packaging>pom</packaging>
+  <name>FitNesseConnect - Test UI</name>
+  <description>Angular User interface for the testbed </description>
+</project>

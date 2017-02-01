@@ -16,7 +16,8 @@
    <modules>
       <module>fitnesse-connect-connect</module>
       <module>fitnesse-connect-parent</module>
-      <module>fitnesse-connect-test</module>
+      <module>fitnesse-connect-testbed-backend</module>
+      <module>fitnesse-connect-testbed-ui</module>
    </modules>
 
 

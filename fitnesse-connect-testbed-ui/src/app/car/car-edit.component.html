@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="carEditForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success" [disabled]="!carEditForm.valid">Save</button>
+          <a class="btn btn-danger" (click)="onCancel()">Cancel</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="make">Producer</label>
+            <input type="text" id="make" class="form-control" formControlName="make">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="model">Model</label>
+            <input type="text" id="model" class="form-control" formControlName="model">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="image-url">Image Url</label>
+            <input type="text" id="image-url" class="form-control" formControlName="imageUrl" #imageRef>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="img">
+            <img [src]="imageRef.value">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="content">Description</label>
+            <textarea type="text" id="content" rows="6" class="form-control" formControlName="description"></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
