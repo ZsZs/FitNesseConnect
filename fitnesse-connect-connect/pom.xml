@@ -20,7 +20,7 @@
    <dependencies>
       <dependency>
          <groupId>com.processpuzzle.fitnesse</groupId>
-         <artifactId>fitnesse-connect-test</artifactId>
+         <artifactId>fitnesse-connect-testbed-backend</artifactId>
          <version>${project.version}</version>
       </dependency>
 
@@ -188,7 +188,7 @@
                   </goals>
                   <configuration>
                      <target name="start-test-server">
-                        <java fork="true" spawn="true" jar="${basedir}/../fitnesse-connect-test/target/fitnesse-connect-test-${project.version}.jar">
+                        <java fork="true" spawn="true" jar="${basedir}/../fitnesse-connect-testbed-backend/target/fitnesse-connect-testbed-backend-${project.version}.jar">
                            <arg line="--spring.profiles.active=local" />
                         </java>
                      </target>
@@ -202,9 +202,9 @@
                   </goals>
                   <configuration>
                      <target name="stop-test-server">
-                        <exec executable="cmd" dir="${basedir}/../fitnesse-connect-test" spawn="false">
+                        <exec executable="cmd" dir="${basedir}/../fitnesse-connect-testbed-backend" spawn="false">
                            <arg value="/c" />
-                           <arg value="curl -X POST localhost:9124/shutdown" />
+                           <arg value="curl POST http://localhost:9124/shutdown" />
                         </exec>
                      </target>
                   </configuration>
