@@ -1,0 +1,135 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <groupId>com.processpuzzle.fitnesse</groupId>
+   <artifactId>sample</artifactId>
+   <version>1.0.0</version>
+   <packaging>jar</packaging>
+   <name>FitNesseConnect - sample</name>
+   <description>Sample project.</description>
+
+   <parent>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-parent</artifactId>
+      <version>1.5.1.RELEASE</version>
+      <relativePath />
+   </parent>
+
+   <properties>
+      <commons.lang3.version>3.5</commons.lang3.version>
+      <java.version>1.8</java.version>
+      <fitnesse.host>9123</fitnesse.host>
+      <fitnesse.maven.plugin.version>1.6.4-RELEASE</fitnesse.maven.plugin.version>
+      <guava.version>20.0</guava.version>
+      <skip.integration.test>false</skip.integration.test>
+      <jacoco.maven.plugin.version>0.7.7.201606060606</jacoco.maven.plugin.version>
+      <maven.plugin.javadoc.version>2.10.4</maven.plugin.javadoc.version>
+      <maven.plugin.nexus.version>1.6.7</maven.plugin.nexus.version>
+      <maven.plugin.source.version>3.0.1</maven.plugin.source.version>
+   </properties>
+
+
+   <dependencies>
+      <!-- spring boot -->
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-web</artifactId>
+         <scope>compile</scope>
+      </dependency>
+
+      <!-- security -->
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-security</artifactId>
+      </dependency>
+
+      <!-- persistence -->
+      <dependency>
+         <groupId>com.fasterxml.jackson.core</groupId>
+         <artifactId>jackson-databind</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-jdbc</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>com.h2database</groupId>
+         <artifactId>h2</artifactId>
+      </dependency>
+
+      <!-- helper libraries -->
+      <dependency>
+         <groupId>com.google.guava</groupId>
+         <artifactId>guava</artifactId>
+		 <version>${guava.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-lang3</artifactId>
+		 <version>${commons.lang3.version}</version>
+      </dependency>
+
+      <dependency>
+         <groupId>org.apache.httpcomponents</groupId>
+         <artifactId>httpclient</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- Test dependencies -->
+      <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.6.0</version>
+         </plugin>
+         <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco.maven.plugin.version}</version>
+         </plugin>
+
+         <plugin>
+            <groupId>com.processpuzzle.fitnesse</groupId>
+            <artifactId>fitnesse-launcher-maven-plugin</artifactId>
+            <version>${fitnesse.maven.plugin.version}</version>
+         </plugin>
+		 
+         <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+         </plugin>
+
+         <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+         </plugin>
+		 
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+         </plugin>
+     </plugins>
+
+   </build>
+
+
+</project>

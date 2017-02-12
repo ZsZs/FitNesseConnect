@@ -18,6 +18,7 @@
       <module>fitnesse-connect-parent</module>
       <module>fitnesse-connect-testbed-backend</module>
       <module>fitnesse-connect-testbed-ui</module>
+      <module>fitnesse-connect-docker</module>
    </modules>
 
 

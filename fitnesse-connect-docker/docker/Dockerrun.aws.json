@@ -1,0 +1,15 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "zsuffazs/nomoretools-user",
+    "Update": "true"
+  },
+  
+  "Ports": [
+    {
+      "ContainerPort": "8082"
+    }
+  ],
+  
+  "Logging": "/var/log/nginx"
+}

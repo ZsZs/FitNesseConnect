@@ -17,6 +17,8 @@ import { CarEditComponent } from './car/car-edit.component';
 import { CarHomeComponent } from './car/car-home.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListAddComponent } from './shopping-list/shopping-list-add.component';
+import { UserComponent } from './user/user.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
    declarations: [
@@ -32,7 +34,9 @@ import { ShoppingListAddComponent } from './shopping-list/shopping-list-add.comp
       CarEditComponent,
       CarHomeComponent,
       ShoppingListComponent,
-      ShoppingListAddComponent
+      ShoppingListAddComponent,
+      UserComponent,
+      AboutComponent
    ],
    imports: [
       BrowserModule,

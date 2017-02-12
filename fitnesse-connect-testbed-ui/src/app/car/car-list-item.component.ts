@@ -15,6 +15,7 @@ import {Car} from "./car";
     </a>
 `
 })
+
 export class CarItemComponent {
   @Input() car: Car;
   @Input() carId: number;

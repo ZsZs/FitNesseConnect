@@ -1,5 +1,9 @@
 !2 File System Connector
+!4 Purpose
+File System Connector connects !-FitNesse-! test with the file system. It facilitates to check the existence of given files or folders or helps to create, delete them. This connector doesn't provides access to the content of the files.
+
 The File System Connector has the following fixtures:
- * [[create file][^CreateFile]] - creates a new file
- * [[delete file][^DeleteFile]] - verifies if a given file or directory exists
- * [[file exist][^FileExist]] - verifies if a given file or directory exists
+
+ * '''[[create file][^CreateFile]]''' - creates a new file
+ * [['''delete file'''][^DeleteFile]] - verifies if a given file or directory exists
+ * [['''file exist'''][^FileExist]] - verifies if a given file or directory exists

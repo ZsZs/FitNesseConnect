@@ -1,4 +1,5 @@
 export class Car {
+   id: number;
    colour: string;
    description: string;
    make: string;

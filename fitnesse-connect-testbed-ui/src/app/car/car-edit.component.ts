@@ -1,9 +1,10 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, EventEmitter, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CarService} from "./car.service";
 import {Car} from "./car";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {error} from "util";
 
 @Component({
   selector: 'app-car-edit',
@@ -34,12 +35,16 @@ export class CarEditComponent implements OnDestroy, OnInit {
          if( params.hasOwnProperty( 'id' )){
            this.isNew = false;
            this.carIndex = +params['id'];
-           this.car = this.carService.getCar( this.carIndex );
+           this.carService.getCar( this.carIndex ).subscribe(
+              ( data: Car ) => {
+                this.car = data;
+                this.updateForm();
+              }
+           );
          }else {
            this.isNew = true;
            this.car = null;
          }
-
          this.initForm();
        }
     );
@@ -51,10 +56,15 @@ export class CarEditComponent implements OnDestroy, OnInit {
 
   onSubmit(){
     const newCar = this.carEditForm.value;
+    newCar.id = this.carIndex;
+
     if( this.isNew ){
-      this.carService.add( newCar );
+      this.carService.add( newCar ).subscribe(
+        data => console.log( data ),
+        error => console.log( error )
+      );
     }else{
-      this.carService.update( this.car, newCar );
+      this.carService.update( newCar ).subscribe();
     }
 
     this.navigateBack();
@@ -63,7 +73,7 @@ export class CarEditComponent implements OnDestroy, OnInit {
   // protected, private helper methods
   private initForm(){
     let carMake, carModel, carDescription, carImageUrl = '';
-    if( !this.isNew ){
+    if( !this.isNew && this.car ){
       carMake = this.car.make; carModel = this.car.model; carDescription = this.car.description; carImageUrl = this.car.imageUrl;
     }
 
@@ -73,5 +83,12 @@ export class CarEditComponent implements OnDestroy, OnInit {
       description: [carDescription, Validators.required],
       imageUrl: [carImageUrl, Validators.required]
     });
+  }
+
+  private updateForm(){
+    (<FormControl>this.carEditForm.controls['make']).setValue( this.car.make, { onlySelf: true });
+    (<FormControl>this.carEditForm.controls['model']).setValue( this.car.model, { onlySelf: true });
+    (<FormControl>this.carEditForm.controls['description']).setValue( this.car.description, { onlySelf: true });
+    (<FormControl>this.carEditForm.controls['imageUrl']).setValue( this.car.imageUrl, { onlySelf: true });
   }
 }

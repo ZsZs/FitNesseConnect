@@ -1,0 +1,5 @@
+!2 Create File - Fixture documentation and tests
+!4 Purpose
+The Create File fixture enables to create a new empty file.
+
+| Script: create file | testfile.txt | in directory | file:./target/fitnesse/fitnesseroot/files/sample |

@@ -1,7 +1,7 @@
 !1 !c !-FitNesse-! Connect
 !4 !c Dokumentation and Acceptance Tests
 
-''!-FitNesseConnect-!'' provides connectors to various APIs of the Software Under Test (SUT). These connectors (in !-FitNesse-! jargon called [[Fixture][http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.FixtureCode]]) are compliant with the [[Slim][http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM]] test system. The goal of these connectors is help test writers from the burden of [[Fixture][http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.FixtureCode]]) implementation and provide a consistent test domain language.
+''!-FitNesseConnect-!'' provides connectors to various APIs of the Software Under Test (SUT). These connectors (in !-FitNesse-! jargon called [[Fixture][http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.FixtureCode]]) are compliant with the [[Slim][http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM]] test system. The goal of these connectors is help test writers from the burden of [[Fixture][http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.FixtureCode]] implementation and provide a consistent test domain language.
 
  * [['''Connectors Configuration'''][^ConfigureConnectors]] - connects !-FitNesse-! tests with the SUT configuration, like URLs, JDBC connections, etc.
  * [['''Excel Connector'''][^ExcelConnectors]] - facilitates to verify, manipulate or create - as test data - Excel files

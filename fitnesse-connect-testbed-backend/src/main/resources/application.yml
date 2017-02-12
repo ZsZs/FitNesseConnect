@@ -2,6 +2,10 @@ server:
   port: 9124
   contextPath: /
 
+security:
+  headers:
+    cache: false
+
 endpoints:
   shutdown:
     sensitive: false

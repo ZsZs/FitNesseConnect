@@ -1,0 +1,217 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.processpuzzle.fitnesse</groupId>
+    <artifactId>fitnesse-connect</artifactId>
+    <version>1.0.7</version>
+  </parent>
+  <artifactId>fitnesse-connect-docker</artifactId>
+  <name>FitNesseConnect - Docker</name>
+  <description>Maven POM to build docker images.</description>
+  <packaging>pom</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.processpuzzle.fitnesse</groupId>
+      <artifactId>fitnesse-connect-connect</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.processpuzzle.fitnesse</groupId>
+      <artifactId>fitnesse-connect-testbed-backend</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.processpuzzle.fitnesse</groupId>
+      <artifactId>fitnesse-connect-testbed-ui</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>${docker.maven.plugin.version}</version>
+        <extensions>true</extensions> <!-- enables using 'docker' packaging above -->
+        <configuration>
+          <watchInterval>500</watchInterval>
+          <logDate>default</logDate>
+          <verbose>true</verbose>
+          <autoPull>always</autoPull>
+          <watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
+          <images>
+            <image>
+              <alias>fit-connect-content</alias>
+              <name>zsuffazs/fit-connect-content:latest</name>
+              <build>
+                <from>${content.image.from.name}</from>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+                <maintainer>zsolt.zsuffa@gmail.com</maintainer>
+                <volumes>
+                  <volume>${container.volume}</volume>
+                </volumes>
+                <workdir>${container.volume}</workdir>
+                <assembly>
+                  <basedir>${container.volume}</basedir>
+                  <mode>dir</mode>
+                  <inline xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+                    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+                    <id>fit-connect-content</id>
+                    <fileSets>
+                      <fileSet>
+                        <directory>${project.basedir}/../</directory>
+                        <includes>
+                          <include>pom.xml</include>
+                        </includes>
+                        <outputDirectory>.</outputDirectory>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.basedir}/../fitnesse-connect-connect</directory>
+                        <outputDirectory>fitnesse-connect-connect</outputDirectory>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.basedir}/../fitnesse-connect-testbed-backend</directory>
+                        <outputDirectory>fitnesse-connect-testbed-backend</outputDirectory>
+                      </fileSet>
+                    </fileSets>
+                  </inline>
+                </assembly>
+                <cmd>/bin/sh</cmd>
+              </build>
+            </image>
+
+            <image>
+              <alias>fit-connect-server</alias>
+              <name>zsuffazs/fit-connect-server:latest</name>
+              <build>
+                <from>${server.image.from.name}</from>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+                <maintainer>zsolt.zsuffa@gmail.com</maintainer>
+                <env>
+                  <JAVA_HOME>/usr/lib/jvm/java-8-openjdk-amd64/jre</JAVA_HOME>
+                  <MAVEN_HOME>/usr/share/maven</MAVEN_HOME>
+                </env>
+                <volumes>
+                  <volume>${container.volume}</volume>
+                  <volume>${repository.volume}</volume>
+                </volumes>
+                <workdir>${container.volume}</workdir>
+                <assembly>
+                  <basedir>/</basedir>
+                  <mode>dir</mode>
+                  <inline xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+                    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+                    <id>sample-pom</id>
+                    <fileSets>
+                      <fileSet>
+                        <directory>${project.basedir}/docker</directory>
+                        <includes>
+                          <include>settings.xml</include>
+                        </includes>
+                        <outputDirectory>/usr/share/maven/conf</outputDirectory>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${local.maven.repository}/com/processpuzzle/fitnesse</directory>
+                        <outputDirectory>/maven/repository/com/processpuzzle/fitnesse</outputDirectory>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.basedir}/docker</directory>
+                        <includes>
+                          <include>pom.xml</include>
+                        </includes>
+                        <outputDirectory>${container.volume}</outputDirectory>
+                      </fileSet>
+                    </fileSets>
+                  </inline>
+                </assembly>
+                <runCmds>
+                  <runCmd>mvn clean install -Dmaven.test.skip=true</runCmd>
+                </runCmds>
+                <ports>
+                  <port>9123</port>
+                  <port>9124</port>
+                </ports>
+                <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true</cmd>
+              </build>
+              <run>
+                <volumes>
+                  <bind>
+                    <volume>${repository.volume}</volume>
+                  </bind>
+                  <from>
+                    <image>fit-connect-content</image>
+                  </from>
+                </volumes>
+                <ports>
+                  <port>9123:9123</port>
+                  <port>9124:9124</port>
+                </ports>
+                <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true</cmd>
+              </run>
+            </image>
+
+          </images>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build-start</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>build</goal>
+              <goal>start</goal>
+            </goals>
+          </execution>
+          <!-- 
+          <execution>
+            <id>stop</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
+           -->
+          <execution>
+            <id>deploy</id>
+            <phase>install</phase>
+            <goals>
+              <goal>push</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>docker-deploy</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <version>${docker.maven.plugin.version}</version>
+            <extensions>true</extensions> <!-- enables using 'docker' packaging above -->
+            <executions>
+              <execution>
+                <id>deploy</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

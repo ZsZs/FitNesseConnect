@@ -13,19 +13,25 @@ import {CarService} from "./car.service";
     <div class="row">
       <div class="col-xs-12">
         <ul class="list-group">
-          <app-car-list-item *ngFor="let car of cars; let i = index" [car]="car" [carId]="i"></app-car-list-item>
+          <app-car-list-item *ngFor="let car of cars; let i = index" [car]="car" [carId]="car.id"></app-car-list-item>
         </ul>
       </div>
     </div>
 `
 })
+
 export class CarListComponent implements OnInit {
   cars: Car[] = [];
+  carsChanged = new EventEmitter<Car[]>();
 
   constructor( private carService: CarService ) { }
 
   ngOnInit() {
-    this.cars = this.carService.getCars();
+    this.carService.getCars().subscribe(
+       ( data: Car[]) => {
+         this.cars = data;
+       }
+    );
   }
 
   onSelected( car: Car ){

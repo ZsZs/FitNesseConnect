@@ -1,31 +1,48 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
+import {Headers, Http, Response} from '@angular/http';
+import 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import {Car} from "./car";
 
 @Injectable()
 export class CarService {
-  private cars: Car[] = [
-    new Car( "Ford", "Mustang", "Mustang Shellby", "http://www.ford.com/ngbs-services/resources/ford/mustang/2017/highlights/mst17_highlight_lg_extdesign.jpg", "2016"),
-    new Car( "Land Rover", "4x4 Discovery Sport", "4x4 Land Rover Discovery", "http://images05.noen.at/LR5.jpg/teaser-col-8/4.587.377", "2016"),
-    new Car( "BMW", "Z4", "BMW Z4 roadster", "http://buyersguide.caranddriver.com/media/assets/submodel/6937.jpg", "2016")
-  ];
+  private hostUrl = 'http://localhost:9124';
+  private serviceUrl = this.hostUrl + '/cars';
 
-  add( newCar: Car ){
-    this.cars.push( newCar );
+  constructor( private http: Http ){}
+
+  add( newCar: Car ): Observable<Response>{
+    const body = JSON.stringify( newCar );
+    const headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : '*' });
+    return this.http.post( this.serviceUrl, body, { headers: headers });
   }
 
-  deteleCar( carToRefactor: Car ){
-    this.cars.splice( this.cars.indexOf( carToRefactor ), 1 );
+  deteleCar( carToRefactor: Car ): Observable<any>{
+    let resourceUrl = this.serviceUrl + '/' + carToRefactor.id;
+    return this.http.delete( resourceUrl );
   }
 
-  getCar( index: number ): Car {
-    return this.cars[index];
+  getCar( index: number ): Observable<Car> {
+    let resourceUrl = this.serviceUrl + '/' + index;
+    return this.http.get( resourceUrl ).map(
+       ( response: Response ) => response.json()
+    );
   }
 
-  getCars(): Car[]{
-    return this.cars;
+  getCars(): Observable<Car[]> {
+    const body = '';
+    const headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : '*' });
+    return this.http.get( this.serviceUrl, { headers: headers } ).map(
+       (response: Response) => response.json()
+    );
   }
 
-  update( oldCar: Car, newCar: Car ){
-    this.cars[this.cars.indexOf(oldCar)] = newCar;
+  update( car: Car ): Observable<Car>{
+    const body = JSON.stringify( car );
+    const headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : '*' });
+    let resourceUrl = this.serviceUrl + '/' + car.id;
+    return this.http.put( resourceUrl, body, { headers: headers }).map(
+       (response: Response) => response.json()
+    );
   }
 }

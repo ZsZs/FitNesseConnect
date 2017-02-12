@@ -3,7 +3,7 @@
 
    <artifactId>fitnesse-connect-testbed-backend</artifactId>
    <packaging>jar</packaging>
-   <name>FitNesseConnect - Test</name>
+   <name>FitNesseConnect - Testbed Backend</name>
    <description>Test server for integration tests</description>
 
    <parent>
@@ -14,6 +14,15 @@
    </parent>
 
    <dependencies>
+      <!-- project internal dependencies -->
+      <dependency>
+   	     <groupId>com.processpuzzle.fitnesse</groupId>
+         <artifactId>fitnesse-connect-testbed-ui</artifactId>
+         <version>${project.version}</version>
+         <type>pom</type>
+      </dependency>
+      
+      <!-- module dependencies -->
       <dependency>
          <groupId>org.springframework.boot</groupId>
          <artifactId>spring-boot-starter-actuator</artifactId>

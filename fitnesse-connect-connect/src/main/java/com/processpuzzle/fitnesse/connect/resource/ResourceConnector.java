@@ -25,6 +25,10 @@ public class ResourceConnector {
    }
 
    // public accessors and mutators
+   public Resource createResource() {
+      return null;
+   }
+
    public List<Resource> retrieveResources() {
       Resource[] foundResources;
       try{

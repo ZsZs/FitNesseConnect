@@ -1,0 +1,86 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	
+	"volumes": [{
+      "name": "fitnesse-content",
+      "host": {
+        "sourcePath": "/var/app/current/fitnesse"
+      }
+    },
+    {
+      "name": "maven-repository",
+      "host": {
+        "sourcePath": "/var/app/current/maven/repository"
+      }
+    },
+    {
+      "name": "nginx-proxy-static",
+      "host": {
+        "sourcePath": "/var/app/current/proxy/html"
+      }
+    },
+    {
+      "name": "nginx-proxy-conf",
+      "host": {
+        "sourcePath": "/var/app/current/proxy/conf.d"
+      }
+    }],
+    
+	"containerDefinitions": [
+	{
+      "name": "nginx-proxy",
+      "image": "nginx",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "fitnesse-app"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "awseb-logs-nginx-proxy",
+          "containerPath": "/var/log/nginx"
+        },
+        {
+          "sourceVolume": "nginx-proxy-static",
+          "containerPath": "/usr/share/nginx/html",
+          "readOnly": true
+        },
+        {
+          "sourceVolume": "nginx-proxy-conf",
+          "containerPath": "/etc/nginx/conf.d",
+          "readOnly": true
+        }
+      ]
+    },
+	
+	{
+      "name": "fitnesse-app",
+      "image": "zsuffazs/fitnesse-docker-server:latest",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [{
+        "hostPort": 9123,
+        "containerPort": 9123
+      }],
+      "volumesFrom": [{
+        "sourceContainer": "fitnesse-content"
+      }],
+      "mountPoints": [{
+        "sourceVolume": "maven-repository",
+        "containerPath": "/maven/repository"
+      }]
+    },
+    
+    {
+	  "name": "fitnesse-content",
+	  "image": "zsuffazs/fitnesse-docker-content:latest",
+	  "essential": false,
+	  "memory": 128
+    }]
+}
