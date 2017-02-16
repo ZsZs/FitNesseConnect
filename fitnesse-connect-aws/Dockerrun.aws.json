@@ -61,7 +61,7 @@
 	
 	{
       "name": "fitnesse-app",
-      "image": "zsuffazs/fitnesse-docker-server:latest",
+      "image": "zsuffazs/fit-connect-server:1.0.8-SNAPSHOT",
       "essential": true,
       "memory": 512,
       "portMappings": [{
@@ -79,7 +79,7 @@
     
     {
 	  "name": "fitnesse-content",
-	  "image": "zsuffazs/fitnesse-docker-content:latest",
+	  "image": "zsuffazs/fit-connect-content:1.0.8-SNAPSHOT",
 	  "essential": false,
 	  "memory": 128
     }]
