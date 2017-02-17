@@ -4,5 +4,11 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  carService: {
+    protocol: 'http:',
+    host: 'localhost:9124',
+    contextPath: ''
+  }
+
 };
