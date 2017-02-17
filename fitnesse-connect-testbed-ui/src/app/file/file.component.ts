@@ -6,5 +6,5 @@ import {Component, Input, EventEmitter, Output} from '@angular/core';
    styles: [`
     `]
 })
-export class FileComponent{
+export class FileComponent {
 }

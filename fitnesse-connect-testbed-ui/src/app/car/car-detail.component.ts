@@ -1,8 +1,8 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {Car} from "./car";
-import {Subscription} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
-import {CarService} from "./car.service";
+import {Car} from './car';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CarService} from './car.service';
 
 @Component({
   selector: 'app-car-detail',
@@ -16,7 +16,7 @@ export class CarDetailComponent implements OnDestroy, OnInit {
 
   constructor( private route: ActivatedRoute, private router: Router, private carService: CarService ) { }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
      this.subscription.unsubscribe();
   }
 
@@ -30,15 +30,15 @@ export class CarDetailComponent implements OnDestroy, OnInit {
             }
          );
        }
-    )
+    );
   }
 
-  onDeleteCar(){
+  onDeleteCar() {
      this.carService.deteleCar( this.selectedCar ).subscribe();
-     this.router.navigate(['/cars'])
+     this.router.navigate(['/cars']);
   }
 
-  onEditCar(){
+  onEditCar() {
      this.router.navigate(['/cars', this.selectedCar.id, 'edit' ]);
   }
 }

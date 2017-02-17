@@ -1,6 +1,6 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
-import {Car} from "./car";
-import {CarService} from "./car.service";
+import {Car} from './car';
+import {CarService} from './car.service';
 
 @Component({
   selector: 'app-car-list',
@@ -34,6 +34,6 @@ export class CarListComponent implements OnInit {
     );
   }
 
-  onSelected( car: Car ){
+  onSelected( car: Car ) {
   }
 }

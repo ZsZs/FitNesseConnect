@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Ingredient} from "../ingredient";
-import {ShoppingListService} from "./shopping-list-service";
+import {Ingredient} from '../ingredient';
+import {ShoppingListService} from './shopping-list-service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -18,11 +18,11 @@ export class ShoppingListComponent implements OnInit {
     this.items = this.shoppingListService.getItems();
   }
 
-  onCleared(){
+  onCleared() {
     this.selectedItem = null;
   }
 
-  onSelectItem( item: Ingredient ){
+  onSelectItem( item: Ingredient ) {
     this.selectedItem = item;
   }
 }

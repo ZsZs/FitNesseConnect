@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angular/core';
-import {Ingredient} from "../ingredient";
-import {ShoppingListService} from "./shopping-list-service";
+import {Ingredient} from '../ingredient';
+import {ShoppingListService} from './shopping-list-service';
 
 @Component({
   selector: 'app-shopping-list-add',
@@ -14,8 +14,8 @@ export class ShoppingListAddComponent implements OnChanges {
 
   constructor( private shoppingListService: ShoppingListService ) { }
 
-  ngOnChanges( changes ){
-    if( changes.item.currentValue === null ){
+  ngOnChanges( changes ) {
+    if ( changes.item.currentValue === null ) {
       this.isAdd = true;
       this.item = { name: null, amount: null };
     }else {
@@ -23,20 +23,20 @@ export class ShoppingListAddComponent implements OnChanges {
     }
   }
 
-  onClear(){
+  onClear() {
     this.isAdd = true;
     this.cleared.emit( null );
   }
 
-  onDelete(){
+  onDelete() {
     this.shoppingListService.deleteItem( this.item );
     this.onClear();
   }
 
-  onSubmit( ingredient: Ingredient ){
-    if( !this.isAdd ){
+  onSubmit( ingredient: Ingredient ) {
+    if ( !this.isAdd ) {
       this.shoppingListService.editItem( this.item, ingredient );
-    }else{
+    }else {
       this.item = ingredient;
       this.shoppingListService.addItem( ingredient );
     }

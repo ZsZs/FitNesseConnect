@@ -1,7 +1,7 @@
-import {Routes} from "@angular/router";
-import {CarDetailComponent} from "./car-detail.component";
-import {CarEditComponent} from "./car-edit.component";
-import {CarHomeComponent} from "./car-home.component";
+import {Routes} from '@angular/router';
+import {CarDetailComponent} from './car-detail.component';
+import {CarEditComponent} from './car-edit.component';
+import {CarHomeComponent} from './car-home.component';
 
 export const CAR_ROUTES: Routes = [
    { path: '', component: CarHomeComponent },

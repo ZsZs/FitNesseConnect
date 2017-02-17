@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Ingredient} from "../ingredient";
+import {Ingredient} from '../ingredient';
 
 @Injectable()
 export class ShoppingListService {
@@ -13,11 +13,11 @@ export class ShoppingListService {
     Array.prototype.push.apply(this.items, items);
   }
 
-  deleteItem( item: Ingredient ){
+  deleteItem( item: Ingredient ) {
     this.items.splice( this.items.indexOf( item ), 1 );
   }
 
-  editItem( oldItem: Ingredient, newItem: Ingredient ){
+  editItem( oldItem: Ingredient, newItem: Ingredient ) {
     this.items[ this.items.indexOf( oldItem )] = newItem;
   }
 

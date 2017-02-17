@@ -7,7 +7,7 @@ export class Car {
    imageUrl: string;
    year: string;
 
-   constructor( make: string, model: string, description: string, imageUrl: string, year: string ){
+   constructor( make: string, model: string, description: string, imageUrl: string, year: string ) {
       this.make = make;
       this.model = model;
       this.description = description;

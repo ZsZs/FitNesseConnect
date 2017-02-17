@@ -1,10 +1,10 @@
 import {Component, EventEmitter, OnInit, OnDestroy} from '@angular/core';
-import {Subscription} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
-import {CarService} from "./car.service";
-import {Car} from "./car";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {error} from "util";
+import {Subscription} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CarService} from './car.service';
+import {Car} from './car';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {error} from 'util';
 
 @Component({
   selector: 'app-car-edit',
@@ -12,7 +12,7 @@ import {error} from "util";
 })
 export class CarEditComponent implements OnDestroy, OnInit {
   private car: Car;
-  private carEditForm: FormGroup;
+  public carEditForm: FormGroup;
   private carIndex: number;
   private isNew = true;
   private subscription: Subscription;
@@ -21,18 +21,18 @@ export class CarEditComponent implements OnDestroy, OnInit {
   constructor( private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder, private carService: CarService ) { }
 
   // public accessors and mutators
-  navigateBack(){
+  navigateBack() {
     this.router.navigate( ['../'] );
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
        ( params: any ) => {
-         if( params.hasOwnProperty( 'id' )){
+         if ( params.hasOwnProperty( 'id' )) {
            this.isNew = false;
            this.carIndex = +params['id'];
            this.carService.getCar( this.carIndex ).subscribe(
@@ -50,20 +50,20 @@ export class CarEditComponent implements OnDestroy, OnInit {
     );
   }
 
-  onCancel(){
+  onCancel() {
     this.navigateBack();
   }
 
-  onSubmit(){
+  onSubmit() {
     const newCar = this.carEditForm.value;
     newCar.id = this.carIndex;
 
-    if( this.isNew ){
+    if ( this.isNew ) {
       this.carService.add( newCar ).subscribe(
         data => console.log( data ),
         error => console.log( error )
       );
-    }else{
+    }else {
       this.carService.update( newCar ).subscribe();
     }
 
@@ -71,9 +71,9 @@ export class CarEditComponent implements OnDestroy, OnInit {
   }
 
   // protected, private helper methods
-  private initForm(){
+  private initForm() {
     let carMake, carModel, carDescription, carImageUrl = '';
-    if( !this.isNew && this.car ){
+    if ( !this.isNew && this.car ) {
       carMake = this.car.make; carModel = this.car.model; carDescription = this.car.description; carImageUrl = this.car.imageUrl;
     }
 
@@ -85,7 +85,7 @@ export class CarEditComponent implements OnDestroy, OnInit {
     });
   }
 
-  private updateForm(){
+  private updateForm() {
     (<FormControl>this.carEditForm.controls['make']).setValue( this.car.make, { onlySelf: true });
     (<FormControl>this.carEditForm.controls['model']).setValue( this.car.model, { onlySelf: true });
     (<FormControl>this.carEditForm.controls['description']).setValue( this.car.description, { onlySelf: true });
