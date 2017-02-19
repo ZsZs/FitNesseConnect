@@ -1,15 +1,18 @@
 package com.processpuzzle.fitnesse.connect.testbed.application;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.xml.transform.Source;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.web.WebMvcRegistrationsAdapter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
@@ -18,12 +21,15 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -38,15 +44,10 @@ public class TestbedApplicationConfiguration extends WebMvcConfigurerAdapter {
    private Jackson2ObjectMapperBuilder springBootObjectMapperBuilder;
 
    @Override
-   public void addCorsMappings( CorsRegistry registry ) {
-      registry.addMapping( "/**" ).allowCredentials( true ).allowedOrigins( "*" ).allowedHeaders( "*" ).allowedMethods( "GET PUT POST DELETE" );
-   }
-
-   @Override
    public void addViewControllers( ViewControllerRegistry registry ) {
-      registry.addViewController( "/files" ).setViewName( "uploadForm" );
+      registry.addViewController( "/api/files" ).setViewName( "uploadForm" );
    }
-
+   
    @Bean
    public FilterRegistrationBean corsFilter() {
       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -88,5 +89,33 @@ public class TestbedApplicationConfiguration extends WebMvcConfigurerAdapter {
       this.springBootObjectMapperBuilder.configure( this.springHateoasObjectMapper );
 
       return springHateoasObjectMapper;
+   }
+
+   @Configuration
+   public class WebConfig {
+      @Bean
+      public WebMvcRegistrationsAdapter webMvcRegistrationsHandlerMapping() {
+         return new WebMvcRegistrationsAdapter() {
+            @Override
+            public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
+               return new RequestMappingHandlerMapping() {
+                  private final static String API_BASE_PATH = "api";
+
+                  @Override
+                  protected void registerHandlerMethod( Object handler, Method method, RequestMappingInfo mapping ) {
+                     Class<?> beanType = method.getDeclaringClass();
+                     if( AnnotationUtils.findAnnotation( beanType, RestController.class ) != null ){
+                        PatternsRequestCondition apiPattern = new PatternsRequestCondition( API_BASE_PATH ).combine( mapping.getPatternsCondition() );
+
+                        mapping = new RequestMappingInfo( mapping.getName(), apiPattern, mapping.getMethodsCondition(), mapping.getParamsCondition(),
+                              mapping.getHeadersCondition(), mapping.getConsumesCondition(), mapping.getProducesCondition(), mapping.getCustomCondition() );
+                     }
+
+                     super.registerHandlerMethod( handler, method, mapping );
+                  }
+               };
+            }
+         };
+      }
    }
 }

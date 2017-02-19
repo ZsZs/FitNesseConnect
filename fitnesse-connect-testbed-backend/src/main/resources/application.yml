@@ -19,7 +19,6 @@ spring:
     multipart:
       max-file-size: 128KB
       max-request-size: 128KB
-
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:

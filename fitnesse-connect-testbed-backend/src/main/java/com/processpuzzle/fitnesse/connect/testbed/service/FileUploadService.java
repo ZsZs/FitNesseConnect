@@ -24,7 +24,7 @@ import com.processpuzzle.fitnesse.connect.testbed.file.StorageFileNotFoundExcept
 import com.processpuzzle.fitnesse.connect.testbed.file.StorageService;
 
 @Controller
-@RequestMapping( "/services/files" )
+@RequestMapping( "/api/files" )
 public class FileUploadService {
    private final StorageService storageService;
 
@@ -39,7 +39,7 @@ public class FileUploadService {
       storageService.store( file );
       redirectAttributes.addFlashAttribute( "message", "You successfully uploaded " + file.getOriginalFilename() + "!" );
 
-      return "redirect:/services/files";
+      return "redirect:/api/files";
    }
 
    @ExceptionHandler( StorageFileNotFoundException.class ) public ResponseEntity<?> handleStorageFileNotFound( StorageFileNotFoundException exc ) {

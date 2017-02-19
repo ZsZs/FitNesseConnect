@@ -38,14 +38,14 @@ public class FileUploadTests {
    @Test public void shouldListAllFiles() throws Exception {
       given( this.storageService.loadAll() ).willReturn( Stream.of( Paths.get( "first.txt" ), Paths.get( "second.txt" ) ) );
 
-      this.mvc.perform( get( "/services/files" ) )
+      this.mvc.perform( get( "/api/files" ) )
               .andExpect( status().isOk() )
-              .andExpect( model().attribute( "files", Matchers.contains( "http://localhost/services/files/files/first.txt", "http://localhost/services/files/files/second.txt" ) ) );
+              .andExpect( model().attribute( "files", Matchers.contains( "http://localhost/api/files/files/first.txt", "http://localhost/api/files/files/second.txt" ) ) );
    }
 
    @Test public void shouldSaveUploadedFile() throws Exception {
       MockMultipartFile multipartFile = new MockMultipartFile( "file", "test.txt", "text/plain", "Spring Framework".getBytes() );
-      this.mvc.perform( fileUpload( "/services/files" ).file( multipartFile ) ).andExpect( status().isFound() ).andExpect( header().string( "Location", "/services/files" ) );
+      this.mvc.perform( fileUpload( "/api/files" ).file( multipartFile ) ).andExpect( status().isFound() ).andExpect( header().string( "Location", "/api/files" ) );
 
       then( this.storageService ).should().store( multipartFile );
    }

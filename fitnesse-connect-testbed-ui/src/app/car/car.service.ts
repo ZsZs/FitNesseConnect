@@ -20,12 +20,12 @@ export class CarService {
   }
 
   deteleCar( carToRefactor: Car ): Observable<any> {
-    let resourceUrl = this.buildResourceUrl( '/' + carToRefactor.id );
+    let resourceUrl = this.buildResourceUrl( String( carToRefactor.id ));
     return this.http.delete( resourceUrl );
   }
 
   getCar( index: number ): Observable<Car> {
-    return this.http.get( this.buildResourceUrl( '/' + index )).map(
+    return this.http.get( this.buildResourceUrl( String( index ))).map(
        ( response: Response ) => response.json()
     );
   }
@@ -41,7 +41,7 @@ export class CarService {
   update( car: Car ): Observable<Car> {
     const body = JSON.stringify( car );
     const headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : '*' });
-    return this.http.put( this.buildResourceUrl( '/' + car.id ), body, { headers: headers }).map(
+    return this.http.put( this.buildResourceUrl( String( car.id ) ), body, { headers: headers }).map(
        (response: Response) => response.json()
     );
   }
@@ -50,9 +50,9 @@ export class CarService {
   private buildResourceUrl( subResource?: string ): string {
     let resourceUrl = environment.carService.protocol;
     resourceUrl += '//' + environment.carService.host;
-    resourceUrl += environment.carService.contextPath != null ? '/' + environment.carService.contextPath : '';
+    resourceUrl += Boolean( environment.carService.contextPath ) ? '/' + environment.carService.contextPath : '';
     resourceUrl += '/' + this.resourcePath;
-    resourceUrl += subResource != null ? '/' + subResource : '';
+    resourceUrl += Boolean( subResource ) ? '/' + subResource : '';
     return resourceUrl;
   }
 }

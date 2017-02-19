@@ -4,6 +4,6 @@ export const environment = {
   carService: {
     protocol: 'http:',
     host: 'localhost:9124',
-    contextPath: ''
+    contextPath: 'api'
   }
 };

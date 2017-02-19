@@ -3,8 +3,8 @@ export const environment = {
 
   carService: {
     protocol: 'http:',
-    host: 'fit-connect.processpuzzle.com',
-    contextPath: ''
+    host: 'test-app.fit-connect.processpuzzle.com',
+    contextPath: 'api'
   }
 
 };
