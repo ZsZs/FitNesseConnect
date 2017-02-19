@@ -14,7 +14,7 @@
   </parent>
 
   <properties>
-    <fitnesse.suite>FitNesseConnect</fitnesse.suite>
+    <!-- <fitnesse.suite>FitNesseConnect</fitnesse.suite> -->
     <my.lib>${com.processpuzzle.fitnesse:fitnesse-connect-testbed-backend:jar}</my.lib>
   </properties>
 
@@ -122,7 +122,7 @@
           <overWriteSnapshots>true</overWriteSnapshots>
         </configuration>
       </plugin>
-      
+
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
@@ -252,7 +252,19 @@
           <maxErrorsToConsole>100</maxErrorsToConsole>
           <launches>
             <launch>
+              <suite>CiGuide</suite>
+            </launch>
+            <launch>
               <suite>FitNesseConnect</suite>
+            </launch>
+            <launch>
+              <suite>TestAutomationStrategy</suite>
+            </launch>
+            <launch>
+              <suite>TestDevelopersGuide</suite>
+            </launch>
+            <launch>
+              <suite>TestWritersGuide</suite>
             </launch>
           </launches>
           <useProjectDependencies>

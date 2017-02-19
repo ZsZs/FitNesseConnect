@@ -1,0 +1,9 @@
+!2 Acceptance Test Driven Development
+Test Driven Development is based on a very simple recognition:
+
+!c ''“Test specification is kinda requirement specification.”''
+
+The only, but significant difference between requirement specification and test specification is that a test specification is concrete example. As soon as we acknowledge that test specification is kinda requirement specification we’ll find it natural to define functional tests along the requirement. Exactly this is what we call Acceptance Test Driven Development. With ATDD the user stories are extended by acceptance tests. Acceptance tests become part of the Definition of Ready, that means a user story can’t be scheduled into a sprint if there is no associated acceptance test. Consequently if the fulfillment of the acceptance tests has to be part of the Definition of Done. The following diagram depicts, how the acceptance tests integrates into the process of Scrum.
+!img http://files/TestAutomationStrategy/ATDD-Cycle.jpg
+ATDD has a large impact on the sprint’s stability. Defining acceptance tests i.e. examples accompany the user story, helps the product owner and tester to understand the requirement in detail. As a consequence it is much more easier to explain and reason about the user story at sprint planning for the developer team too. 
+One the most pleasant consequence of automated acceptance test as they provide a clear cut exit criteria for the user story. If the acceptance tests are “green”, the story is done. 

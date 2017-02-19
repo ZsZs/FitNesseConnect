@@ -1,0 +1,4 @@
+!2 Economy of Test Automation
+It is an absolutely valid question, if the test automation worth the investment? It’s obvious, that writing and maintaining automated test is an extra effort, it adds on top of other development expenditures. On the other hand in the medium term there is saving due to cheaper regression testing, less bugs, faster fault detection, lower technical dept. As the saving - compared to traditional development is reasonable higher than the increased expenditure automated test implementation, the final expenditure is lower than with traditional development.
+The following diagram depicts the expenditures by time while introducing automated test into a project. 
+!img http://files/TestAutomationStrategy/EconomyOfTestautomation.jpg

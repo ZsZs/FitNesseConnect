@@ -238,19 +238,8 @@
             <properties>
             </properties>
             <maxErrorsToConsole>100</maxErrorsToConsole>
-            <launches>
-              <launch>
-                <suite>FitNesseConnect</suite>
-              </launch>
-            </launches>
-            <useProjectDependencies>
-              <scope>test</scope>
-              <scope>compile</scope>
-              <scope>runtime</scope>
-            </useProjectDependencies>
           </configuration>
         </plugin>
-
       </plugins>
     </pluginManagement>
   </build>

@@ -1,0 +1,11 @@
+!2 Testing Quadrants
+Software tests can be largely different by:
+ * '''its goal''', the quality attribute is exercised, like functionality, performance usability etc.
+ * '''automated or manual''',
+ * '''which stakeholders it supports''', the development team, architects, business analysts or product developers, 
+ * '''who specifies, performs''', developer, tester or user
+ * '''scope of the test''', whether a unit, a layer, an integrated system, application or whole application landscape is tested,
+ * '''if it evaluates the fulfilment of requirement''', whether the test is part of a contract or acceptance criteria.
+Although theoretically a test can fall into - almost - any kind of combination of these test classification the practice distilled 4 larger group of test with predefined attributes. The following diagrams depicts these groups of tests and their purpose, properties in quadrants.  
+
+!img -w 800 http://files/TestAutomationStrategy/TestingQuadrants.jpg

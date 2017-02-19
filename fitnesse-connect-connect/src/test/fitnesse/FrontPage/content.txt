@@ -1,5 +1,19 @@
-!1 !c [[!-FitNesse-! Connect][.FitNesseConnect]]
+!1 !c [[!-Fit-Connect-!][.FitNesseConnect]]
 !4 !c Dokumentation and Acceptance Tests
+!c Generic connectors for [[FitNesse][http://fitnesse.org/]] using the [[Slim][http://fitnesse.org/FitNesse.UserGuide.WritingAcceptanceTests.SliM]] test system. Helps to write test agains RDMS, REST, File System and Excel.
 
-!3 [[!-FitNesse-! Documentation][.FitNesse]]
-!3 [[!-FitNesse-! Template Library][.TemplateLibrary]]
+
+Beside of documenting only the !-Fit-Connect-! library I'm also trying to give an example how I like to use !-FitNesse-! and why I'm using so. Therefore on top of the [[!-Fit-Connect-! documentation][.FitNesseConnect]], I extended this website with more generic topics like: 
+!4 Table of content
+ * [[!-Fit-Connect-!][.FitNesseConnect]] - ''Documentation and Tests''
+ * [[Test Automation Strategy][.TestAutomationStrategy]] - ''Explains how [[FitNesse][http://fitnesse.org/]] fits into the whole testing discipline.'' 
+ * [[Test writer's Guide][.TestWritersGuide]] - ''Explains how to build a consistent suite of tests.''
+ * [[Test developer's Guide][.TestDevelopersGuide]] - ''Explains how to implement more SUT (Software Under Test) specific test based on !-Fit-Connect-!.''
+ * [[Continuous Integration Guide][.CiGuide]] - ''Explains how facilitate manuel or automatic execution of the tests.''
+ * [[!-FitNesse-! Documentation][.FitNesse]] - ''Explain how to use [[FitNesse][http://fitnesse.org/]] itself.''
+ * [[Source Code][https://github.com/ZsZs/FitNesseConnect]] - ''Feel free to fork the source code.''
+ * [[Issues][https://github.com/ZsZs/FitNesseConnect/issues]] - ''Please give feedback whenever you find issues.''
+
+... and here is how you can know more about me.
+[[Zsolt Zsuffa in !-LinkedIn-!][https://www.linkedin.com/in/zsoltzsuffa/]] or in [[Xing][https://www.xing.com/profile/Zsolt_Zsuffa]]
+ 

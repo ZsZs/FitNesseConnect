@@ -1,0 +1,25 @@
+!2 Test Scope and Mocking Strategy
+The scope of test fundamentally determines the expenses of development and maintenance. As a matter of principle, the smaller is the scope of a test the quicker is to develop or change it. Not only the test is easier to implement, but the environment, in which the test runs is easier to configure. This is one reason behind the “Test Pyramid”.
+!img -w 800 http://files/TestAutomationStrategy/ScopeOfTest.jpg
+Its obvious that it’s easier to test one object in the domain logic then test a complete application with database and user interface. On the other hand, to facilitate unit tests, the so called Depends on Components (see the figure below) has to be replaced by test doubles.
+!img -w 800 http://files/TestAutomationStrategy/TestDoubles.jpg
+It’s important to be strict about the scope of the different automated tests defined in Test Quadrant as the scope of a test largely determines the test environment.
+!4 Q1: Unit and Component Tests
+'''Scope''': Unit tests should test only a reasonably small chunk of code, like a class or a package of classes.
+'''Mocking''': All depends on components (DOC) has to be replaced by a test doubles. Obviously database and web service providers or even the service clients within the tested component has to be replaced by test double.
+'''Test data''': As unit tests exercises only a simple functionality, test data or in this case better to say, the status of the DOCs is defined along the mocking.
+'''Responsible''': Unit tests are written by developer, preferable with test first approach.
+!4 Q2: Integrated functional tests
+'''Scope''': Integrated, functional application tests scope is a completely integrated application, though it is not required, recommended that the whole landscape of applications should be accessible. 
+'''Mocking''': The depends on services or databases has to be replaced by test doubles.
+'''Test data''': With automated tests it's very important to ensure that the test data for a given test can be created fast and also quickly deleted. Every test should leave the application after the test run in the same state as it was before otherwise, the tests starts to be dependent on each other.
+'''Responsible''': Integrated tests are specified and implemented by the tester. If the integrated test is regarded as an acceptance test too than the test has to be proved by the product owner too.
+!4 Q3: System Tests
+'''Scope''': For system tests the whole application landscape has to be integrated. The test environment, its configuration has to be as close to the production environment as possible.
+'''Mocking''': By system test no mocking is required, or only in exceptional cases, where using a real implementation can cause, financial or other type of damage.
+'''Test data''': It is recommended to migrate data from the production system. If needed the data has to be anonymised.
+'''Responsible''': An independent test team should be responsible specify and execute the system test. Furthermore to involve “real users” in test is highly recommended.
+!4 Q4: Performance Tests
+'''Scope''': The scope here varies largely on the goal of the performance test. For example to measure a database performance, its is enough to set-up an environment only with the database in question. If user response time, or the number of parallel user session is the subject of the performance test, it’s best to use the system test environment, where the whole landscape of the applications are integrated.
+'''Mocking''': Depending on the goal of the test, mocked services can be usefull.
+'''Responsible''': Depending on the subject of the test, developers, tester and independent system tester are responsible for the performance tests.

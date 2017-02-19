@@ -1,0 +1,8 @@
+!2 !c Test Automation Strategy
+ * [[Testing Quadrants][^TestingQuadrant]]
+ * [[Test Pyramid][^TestPyramid]]
+ * [[Economy of Test Automation][^EconomyOfTestAutomation]]
+ * [[Acceptance Test Driven Development][^AcceptanceTestDrivenDevelopment]] 
+ * [[Test Scope][^TestScope]]
+ 
+ 
