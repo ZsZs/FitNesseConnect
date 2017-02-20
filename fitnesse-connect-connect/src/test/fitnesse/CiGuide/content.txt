@@ -1,1 +1,9 @@
 !2 !c Continuous Integration Guide
+!3 Deployment Architecture
+In a typical development project !-FitNesse-! is used and running differently in different stage of continuous integration. The deployment architecture of !-FitNesse-! is as following picture depicts.
+!***> FitNesse deployment architecture
+!img -w 800 http://files/CI-Guide/FitNesse-DeploymentArchitecture.jpg
+**!
+!4 Development Environment
+!4 Build Environment
+!4 !-FitNesse-! Server

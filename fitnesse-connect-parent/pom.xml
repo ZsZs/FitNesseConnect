@@ -31,9 +31,9 @@
 
     <fitnesse.host>9123</fitnesse.host>
     <fitnesse.maven.plugin.version>1.6.4-RELEASE</fitnesse.maven.plugin.version>
-    <guava.version>20.0</guava.version>
+    <guava.version>21.0</guava.version>
     <java.version>1.8</java.version>
-    <jacoco.maven.plugin.version>0.7.7.201606060606</jacoco.maven.plugin.version>
+    <jacoco.maven.plugin.version>0.7.8</jacoco.maven.plugin.version>
     <local.maven.repository>c:/Users/zsolt/.m2/repository</local.maven.repository>
     <maven.plugin.javadoc.version>2.10.4</maven.plugin.javadoc.version>
     <maven.plugin.nexus.version>1.6.7</maven.plugin.nexus.version>
@@ -142,7 +142,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.6.0</version>
+          <version>3.6.1</version>
           <configuration>
             <source>1.8</source>
             <target>1.8</target>
