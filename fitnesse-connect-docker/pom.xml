@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.8</version>
   </parent>
   <artifactId>fitnesse-connect-docker</artifactId>
   <name>FitNesseConnect - Docker</name>
@@ -52,8 +52,7 @@
                 <assembly>
                   <basedir>${container.volume}</basedir>
                   <mode>dir</mode>
-                  <inline xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
-                    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+                  <inline xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
                     <id>fit-connect-content</id>
                     <fileSets>
                       <fileSet>
@@ -135,8 +134,7 @@
                 <assembly>
                   <basedir>/</basedir>
                   <mode>dir</mode>
-                  <inline xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
-                    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+                  <inline xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
                     <id>sample-pom</id>
                     <fileSets>
                       <fileSet>
@@ -147,11 +145,11 @@
                         <outputDirectory>/usr/share/maven/conf</outputDirectory>
                       </fileSet>
                       <!-- 
+                       -->
                       <fileSet>
                         <directory>${local.maven.repository}/com/processpuzzle/fitnesse</directory>
                         <outputDirectory>/maven/repository/com/processpuzzle/fitnesse</outputDirectory>
                       </fileSet>
-                       -->
                       <fileSet>
                         <directory>${project.basedir}/docker</directory>
                         <includes>
