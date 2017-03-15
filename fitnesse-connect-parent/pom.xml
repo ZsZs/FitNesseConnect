@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.1.RELEASE</version>
+    <version>1.5.2.RELEASE</version>
     <relativePath />
   </parent>
 
@@ -33,10 +33,10 @@
     <fitnesse.maven.plugin.version>1.6.4-RELEASE</fitnesse.maven.plugin.version>
     <guava.version>21.0</guava.version>
     <java.version>1.8</java.version>
-    <jacoco.maven.plugin.version>0.7.8</jacoco.maven.plugin.version>
+    <jacoco.maven.plugin.version>0.7.9</jacoco.maven.plugin.version>
     <local.maven.repository>c:/Users/zsolt/.m2/repository</local.maven.repository>
     <maven.plugin.javadoc.version>2.10.4</maven.plugin.javadoc.version>
-    <maven.plugin.nexus.version>1.6.7</maven.plugin.nexus.version>
+    <maven.plugin.nexus.version>1.6.8</maven.plugin.nexus.version>
     <maven.plugin.source.version>3.0.1</maven.plugin.source.version>
     <node.version>v7.2.1</node.version>
     <npm.version>4.1.2</npm.version>
@@ -213,6 +213,7 @@
                 <goal>prepare-agent-integration</goal>
               </goals>
               <configuration>
+                <propertyName>argLine</propertyName>
                 <destFile>${project.build.directory}/coverage-reports/jacoco-it.exec</destFile>
               </configuration>
             </execution>

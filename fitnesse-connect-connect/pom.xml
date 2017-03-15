@@ -15,6 +15,7 @@
 
   <properties>
     <!-- <fitnesse.suite>FitNesseConnect</fitnesse.suite> -->
+    <argLine>-XX:MaxPermSize=512m </argLine>
     <my.lib>${com.processpuzzle.fitnesse:fitnesse-connect-testbed-backend:jar}</my.lib>
   </properties>
 
