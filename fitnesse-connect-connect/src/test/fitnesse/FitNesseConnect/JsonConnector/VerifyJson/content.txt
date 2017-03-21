@@ -1,0 +1,6 @@
+!2 Verify JSON object - Fixture documentation and tests
+!4 Purpose
+This fixture facilitates to verify the structure and values of a given JSON object. It comes in two variants:
+ * [[compare with sample verification][^CompareWithSampleVerification]] - compares the given object with a sample of expected values
+ * [[property value specification][^CompareWithSpecVerification]] - compares the given object's properties agains a specification
+ 

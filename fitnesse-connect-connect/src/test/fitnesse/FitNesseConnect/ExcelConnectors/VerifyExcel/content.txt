@@ -1,6 +1,6 @@
 !2 Verify Excel content - Fixture documentation and tests
 !4 Purpose
-This fixture facilitates to verify the content of an Excel sheet. It has many variants:
+This fixture facilitates to verify the content of an Excel sheet. It has two variants:
  * [[compare table verification][^CompareTableVerification]] - compares the content of the provided !-FitNesse-! table with the subject Excel sheet
  * [[cell specification verification][^CellSpecificationVerification]] - compares cell specifications with the cell contents in the subject Excel sheet
  

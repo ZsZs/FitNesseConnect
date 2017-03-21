@@ -1,0 +1,4 @@
+!2 JSON Connector
+The JSON Connector has the following fixtures:
+ * [[verify JSON][^VerifyJson]] - verifies the actual JSON object with a sample or a specification
+ 

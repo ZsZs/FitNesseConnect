@@ -4,4 +4,4 @@ The Excel Connector has the following fixtures:
  * [[delete Excel][^DeleteExcel]] - deletes the given file Excel
  * [[Excel exist][^ExcelExist]] - verifies if a given Excel file exists
  * [[update Excel][^UpdateExcel]] - updates the given Excel file with the specified content
- * [[verify Excel][^VerifyExcel]] - compares the actual Excel content with the expected content
+ * [[verify Excel][^VerifyExcel]] - compares the actual Excel content with the expected content or a given specification

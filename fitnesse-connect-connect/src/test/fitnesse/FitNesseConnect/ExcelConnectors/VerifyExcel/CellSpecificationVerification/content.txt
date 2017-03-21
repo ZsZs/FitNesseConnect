@@ -1,6 +1,11 @@
 !2 Excel cell specification - Fixture documentation and tests
 !4 Purpose
 The fixture allows you to specify the expected properties of certain cells in the Excel sheet.
+!4 Usage
+Create a table with '''specify excel content''' fixture name and resource URL.
+Specify the expectations for each column in the Excel sheet.
+!4 Example
+The following test table verifies the content of the [[!-SampleTwo.xlsx-! file][]] agains a specification.
 |specify excel content|file:./target/fitnesse/fitnesseroot/files/sample/SampleTwo.xlsx:Sheet_1|
 | column | data type | is mandatory| is value mandatory | verify column? | description |
 | String Column | String | yes | yes | pass | this column contains text and its mandatory |

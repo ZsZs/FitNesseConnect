@@ -8,6 +8,7 @@
  * [['''File System Connector'''][^FileConnectors]] - facilitates to verify, manipulate or create - as test data - files
  * [['''RDBMS Connector'''][^RdbmsConnector]] - allows to verify and manipulate relational databases
  * [['''REST Connector'''][^RestConnector]] - helps to invoke and verify rest services
+ * [['''JSON Connector'''][^JsonConnector]] - verifies JSON objects against a sample or specification
  * [['''SOAP Connector'''][^SoapConnector]] - helps to invoke and verify SOAP services
 
 !*> '''Variables Defined'''

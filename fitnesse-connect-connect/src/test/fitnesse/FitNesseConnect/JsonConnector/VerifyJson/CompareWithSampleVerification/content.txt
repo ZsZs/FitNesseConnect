@@ -1,0 +1,6 @@
+!2 Compare with sample JSON - Fixture documentation and tests
+!4 Purpose
+Sometimes the most intuitive way to verify a JSON object is just to compare with the expected sample object. This comparison method is usefull when the object's property values are limited, only a restricted range of object values are acceptable. Furthermore these values should be deterministic.
+On the other hand with a broader value range, the [[specification based comparison][<VerifyJson.CompareWithSpecVerification]] is more convenient.
+
+

@@ -1,0 +1,31 @@
+!2 JSON specification compliance - Fixture documentation and tests
+!4 Purpose
+The ''Verify Json Properties'' fixture allows you to specify expectations agains each property of a JSON object and than verify a concret object's compliance.
+!4 Usage
+ * create a table with '''verify json properties''' fixture and the concreet object as a parameter.
+ * create a new row with the following columns:
+  * property: a !-JsonPath-! selector to identify a given property
+  * data type: data type of the property, possible values are: String, Number, Date, Boolean
+  * is mandatory: boolean condition, specifies if the property is mandatory
+  * not null: boolean condition, specifies if the value can't be null or empty
+  * description: textual description of the property
+ * define new rows for each property to be verified
+!4 Example
+The following table verifies the properties of:
+!define JsonToVerify ({{{
+	text: 'Hello World',
+    numeric: 2017,
+    date: '2017/03/21',
+    boolean: yes,
+    optional: 'optional'
+}}})
+
+!|verify json properties|${JsonToVerify}|
+|property|data type|is mandatory|not null|verify property?|description|
+|text| String | yes | yes | pass | a textual property |
+|numeric| Number | yes | yes | pass | a number property |
+|date| Date | yes | yes | pass | a date property |
+|boolean| Boolean | yes | yes | pass | a boolean property |
+|optional| String | no | yes | pass | an optional property |
+|missing| String | no | yes | pass | a missing property |
+
