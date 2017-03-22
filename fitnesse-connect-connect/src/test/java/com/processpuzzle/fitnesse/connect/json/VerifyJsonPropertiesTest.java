@@ -30,14 +30,40 @@ public class VerifyJsonPropertiesTest {
       assertThat( verifyJson.verifyProperty(), equalTo( "failed: property not defined" ) );
    }
 
-   /*
-    * @Test public void verifyColumn_whenDataTypeMatches_returnsPass(){ verifyJson.setProperty( "String Column" ); verifyJson.setDataType( "String" );
-    * assertThat( verifyJson.verifyProperty(), equalTo( "pass" )); verifyJson.setColumn( "Integer Column" ); verifyJson.setDataType( "Integer" ); assertThat(
-    * verifyJson.verifyProperty(), equalTo( "pass" )); verifyJson.setColumn( "Date Column" ); verifyJson.setDataType( "Date" ); assertThat(
-    * verifyJson.verifyProperty(), equalTo( "pass" )); }
-    * @Test public void verifyColumn_whenColumnIsMandatory_returnsPass(){ verifyJson.setColumn( "Optional Column" ); verifyJson.setDataType( "String" );
-    * verifyJson.setIsMandatory( "no" ); verifyJson.setIsValueMandatory( "yes" ); assertThat( verifyJson.verifyProperty(), equalTo( "pass" )); }
-    * @Test public void verifyColumn_whenColumnValueIsMandatory_returnsPass(){ verifyJson.setColumn( "Optional Value Column" ); verifyJson.setDataType( "String"
-    * ); verifyJson.setIsMandatory( "yes" ); verifyJson.setIsValueMandatory( "no" ); assertThat( verifyJson.verifyColumn(), equalTo( "pass" )); }
-    */
+   @Test public void verifyColumn_whenDataTypeMatches_returnsPass(){ 
+      verifyJson.setProperty( "$['text']" ); 
+      verifyJson.setDataType( "String" );
+      assertThat( verifyJson.verifyProperty(), equalTo( "pass" )); 
+        
+      verifyJson.setProperty( "$['numeric']" ); 
+      verifyJson.setDataType( "Integer" ); 
+      assertThat( verifyJson.verifyProperty(), equalTo( "pass" )); 
+        
+      verifyJson.setProperty( "$['date']" ); 
+      verifyJson.setDataType( "Date" ); 
+      assertThat( verifyJson.verifyProperty(), equalTo( "pass" )); 
+  }
+
+   @Test public void verifyColumn_whenPropertyIsNotDate_returnsFailed(){ 
+      verifyJson.setProperty( "$['text']" ); 
+      verifyJson.setDataType( "Date" ); 
+      assertThat( verifyJson.verifyProperty(), equalTo( "failed: property type is not a Date" )); 
+  }
+
+
+  @Test public void verifyColumn_whenPropertyIsMandatory_returnsPass(){ 
+     verifyJson.setProperty( "$['optional']" ); 
+     verifyJson.setDataType( "String" );
+     verifyJson.setIsMandatory( "no" ); 
+     verifyJson.setNotNull( "yes" ); 
+     assertThat( verifyJson.verifyProperty(), equalTo( "pass" )); 
+  }
+  
+  @Test public void verifyColumn_whenProperyIsNotNull_returnsPass(){ 
+     verifyJson.setProperty( "optional" ); 
+     verifyJson.setDataType( "String" ); 
+     verifyJson.setIsMandatory( "yes" ); 
+     verifyJson.setNotNull( "no" ); 
+     assertThat( verifyJson.verifyProperty(), equalTo( "pass" )); 
+  }
 }
