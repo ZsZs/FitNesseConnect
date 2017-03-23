@@ -1,15 +1,23 @@
 package com.processpuzzle.fitnesse.connect.json;
 
+import java.io.StringReader;
+import java.util.List;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonReader;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Lists;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 
 public class VerifyJsonProperties {
    private static final Logger log = LoggerFactory.getLogger( VerifyJsonProperties.class );
    private static final String PASS_TOKEN = "pass";
-   private final String jsonObject;
+   private String currentObject;
+   private final String sourceObject;
    @SuppressWarnings( "unused" ) private String propertyDescription;
    private Boolean propertyMandatory;
    private String propertySelector;
@@ -19,23 +27,16 @@ public class VerifyJsonProperties {
    private String returnMessage = "pass";
 
    // constructors
-   public VerifyJsonProperties( String jsonObject ) {
-      this.jsonObject = jsonObject;
-      System.out.println( jsonObject );
+   public VerifyJsonProperties( String sourceObject ) {
+      this.sourceObject = sourceObject;
    }
 
    // public accessors and mutators
    public String verifyProperty() {
-      determineCurrentProperty();
-      verifyPropertyName();
-
-      if( this.propertyValue != null ){
-         if( this.propertyType != null )
-            verifyPropertyType();
-         if( this.propertyMandatory != null )
-            verifyMandatoryProperty();
-         if( this.propertyValueNotNull != null )
-            verifyPropertyValueNotNull();
+      for( String currentObject : this.parseSourceToArray() ) {
+         this.currentObject = currentObject;
+         determineCurrentProperty();
+         verifySingleObjectProperty();
       }
 
       return this.returnMessage;
@@ -67,10 +68,22 @@ public class VerifyJsonProperties {
 
    private void determineCurrentProperty() {
       try{
-         this.propertyValue = JsonPath.parse( jsonObject ).read( this.propertySelector ).toString();
+         this.propertyValue = JsonPath.parse( this.currentObject ).read( this.propertySelector ).toString();
       }catch( PathNotFoundException e ){
          log.info( "Selecting property: " + this.propertySelector + " failed." );
       }
+   }
+   
+   private List<String> parseSourceToArray(){
+      List<String> sourceArray = Lists.newArrayList();
+      JsonReader jsonReader = Json.createReader( new StringReader( this.sourceObject  ));
+      JsonArray jsonArray = jsonReader.readArray();
+      jsonReader.close();
+      for(  javax.json.JsonValue jsonValue : jsonArray ) {
+         sourceArray.add( jsonValue.toString() );
+      }
+      
+      return sourceArray;
    }
 
    private void verifyPropertyName() {
@@ -119,4 +132,17 @@ public class VerifyJsonProperties {
 
       combineReturnMessage( result );
    }
+
+   private void verifySingleObjectProperty(){
+      verifyPropertyName();
+
+      if( this.propertyValue != null ){
+         if( this.propertyType != null )
+            verifyPropertyType();
+         if( this.propertyMandatory != null )
+            verifyMandatoryProperty();
+         if( this.propertyValueNotNull != null )
+            verifyPropertyValueNotNull();
+      }
+   }   
 }

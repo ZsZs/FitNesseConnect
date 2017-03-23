@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-public class VerifyJsonPropertiesTest {
+public class VerifyJsonPropertiesOfSimpleObjectTest {
    private static final String JSON_OBJECT = "{ 'text': 'Hello World', 'numeric': '2017', 'date': '2017.03.21', 'boolean': 'yes', 'optional': 'optional' }";
    private VerifyJsonProperties verifyJson;
 
