@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.0.9</version>
   </parent>
   <artifactId>fitnesse-connect-testbed-ui</artifactId>
   <packaging>pom</packaging>

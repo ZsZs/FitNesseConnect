@@ -3,7 +3,7 @@
 
   <groupId>com.processpuzzle.fitnesse</groupId>
   <artifactId>fitnesse-connect-parent</artifactId>
-  <version>1.0.9-SNAPSHOT</version>
+  <version>1.0.9</version>
   <packaging>pom</packaging>
   <name>FitNesseConnect - Parent</name>
   <description>Maven parent of FitNesseConnect modules.</description>
@@ -76,7 +76,7 @@
     <url>https://github.com/ZsZs/FitNesseConnect</url>
     <connection>scm:git:git://github.com/ZsZs/FitNesseConnect.git</connection>
     <developerConnection>scm:git:ssh//git@github.com/ZsZs/FitNesseConnect.git</developerConnection>
-    <tag>fitnesse-connect-1.0.8</tag>
+    <tag>fitnesse-connect-1.0.9</tag>
   </scm>
   
   <issueManagement>
