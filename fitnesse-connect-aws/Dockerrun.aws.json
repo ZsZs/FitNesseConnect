@@ -61,7 +61,7 @@
 	
 	{
       "name": "fitnesse-app",
-      "image": "zsuffazs/fit-connect-server:1.0.8-SNAPSHOT",
+      "image": "zsuffazs/fit-connect-server:latest",
       "essential": true,
       "memory": 512,
       "portMappings": [{
@@ -79,7 +79,7 @@
     
     {
 	  "name": "fitnesse-content",
-	  "image": "zsuffazs/fit-connect-content:1.0.8-SNAPSHOT",
+	  "image": "zsuffazs/fit-connect-content:latest",
 	  "essential": false,
 	  "memory": 128
     }]
