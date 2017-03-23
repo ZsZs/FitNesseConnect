@@ -1,5 +1,6 @@
 package com.processpuzzle.fitnesse.connect.json;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -24,7 +25,7 @@ public class VerifyJsonPropertiesOfArrayTest {
       verifyJson.setProperty( "$['No property']" );
       verifyJson.setIsMandatory( "yes" );
       verifyJson.setDataType( "String" );
-      assertThat( verifyJson.verifyProperty(), equalTo( "failed: property not defined" ) );
+      assertThat( verifyJson.verifyProperty(), containsString( "failed: property not defined" ) );
    }
 
    @Test public void verifyColumn_whenDataTypeMatches_returnsPass() {

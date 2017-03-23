@@ -8,6 +8,7 @@ import javax.json.JsonReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.thymeleaf.util.StringUtils;
 
 import com.google.common.collect.Lists;
 import com.jayway.jsonpath.JsonPath;
@@ -76,11 +77,17 @@ public class VerifyJsonProperties {
    
    private List<String> parseSourceToArray(){
       List<String> sourceArray = Lists.newArrayList();
-      JsonReader jsonReader = Json.createReader( new StringReader( this.sourceObject  ));
-      JsonArray jsonArray = jsonReader.readArray();
-      jsonReader.close();
-      for(  javax.json.JsonValue jsonValue : jsonArray ) {
-         sourceArray.add( jsonValue.toString() );
+      JsonReader jsonReader = Json.createReader( new StringReader( StringUtils.replace( this.sourceObject, "'", "\""  )));
+      JsonArray jsonArray = null;
+      try{
+         jsonArray = jsonReader.readArray();
+         for(  javax.json.JsonValue jsonValue : jsonArray ) {
+            sourceArray.add( jsonValue.toString() );
+         }
+      }catch( IllegalStateException e ){
+         sourceArray.add( this.sourceObject );
+      }finally{
+         jsonReader.close();
       }
       
       return sourceArray;

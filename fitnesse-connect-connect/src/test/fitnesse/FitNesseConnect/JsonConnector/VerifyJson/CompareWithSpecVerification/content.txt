@@ -31,5 +31,4 @@ The following table verifies the properties of:
 |property|data type|is mandatory|not null|verify property?|description|
 |$['text']| String | yes | yes | pass | a textual property |
 |$['numeric']| Integer | yes | yes | pass | a number property |
-|$['date']| Date | yes | yes | pass | a date property |
 

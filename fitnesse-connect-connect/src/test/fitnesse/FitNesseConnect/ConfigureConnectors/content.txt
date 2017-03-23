@@ -4,7 +4,7 @@
 !define Protocol {http}
 !define Host {localhost}
 !define Port {9124}
-!define ContextPath {}
+!define ContextPath {api}
 !define TestServerUrl (${Protocol}://${Host}:${Port})
 !5 Data Source Configuration:
 !define DataDriverClassName {org.h2.Driver}
