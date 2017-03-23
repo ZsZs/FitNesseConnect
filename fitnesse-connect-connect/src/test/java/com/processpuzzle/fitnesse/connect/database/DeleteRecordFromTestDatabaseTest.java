@@ -39,7 +39,6 @@ public class DeleteRecordFromTestDatabaseTest {
    }
 
    // protected, private test helper methods
-   @SuppressWarnings( "unchecked" )
    private void createRecords() {
       List<List<String>> table;
       InsertRecordIntoDatabase insertRecord = new InsertRecordIntoDatabase( "connector", "account" );

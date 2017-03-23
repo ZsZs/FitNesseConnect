@@ -48,7 +48,6 @@ public class VerifyExcelContentTest {
       expectedTable.get( 1 ).set( 1, "something" );
    }
    
-   @SuppressWarnings( "unchecked" )
    private void produceProperExpectedTable() {
       List<String> row1 = Lists.newArrayList( "Column A", "Column B" );
       List<String> row2 = Lists.newArrayList( "2_A", "2_B" );

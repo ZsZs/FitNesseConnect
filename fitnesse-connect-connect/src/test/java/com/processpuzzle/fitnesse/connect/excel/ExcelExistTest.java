@@ -20,7 +20,6 @@ public class ExcelExistTest {
    private ExcelExist directoryHasFile;
    private List<List<String>> table;
 
-   @SuppressWarnings( "unchecked" )
    @Before public void beforeEachTest(){
       directoryHasFile = new ExcelExist( RELATIVE_DIRECTORY_PATH );
       

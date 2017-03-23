@@ -1,7 +1,7 @@
 package com.processpuzzle.fitnesse.connect.json;
 
 public enum PropertyDataTypes {
-   STRING( "String" ), NUMBER( "Number" ), INTEGER( "Integer" ), LONG( "Long" ), DATE( "Date" ), BOOLEAN( "Boolean" );
+   STRING( "String" ), FLOAT( "Float" ), INTEGER( "Integer" ), LONG( "Long" ), DATE( "Date" ), BOOLEAN( "Boolean" );
    
    private PropertyDataTypes( final String cannonicalName ){
       this.cannonicalName = cannonicalName;

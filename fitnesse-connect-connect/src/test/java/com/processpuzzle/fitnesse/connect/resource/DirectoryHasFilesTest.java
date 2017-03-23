@@ -20,7 +20,6 @@ public class DirectoryHasFilesTest {
    private DirectoryHasFiles directoryHasFile;
    private List<List<String>> table;
 
-   @SuppressWarnings( "unchecked" )
    @Before public void beforeEachTest(){
       directoryHasFile = new DirectoryHasFiles( RELATIVE_DIRECTORY_PATH );
       

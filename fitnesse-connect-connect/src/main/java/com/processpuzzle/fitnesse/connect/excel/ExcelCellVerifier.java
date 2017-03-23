@@ -7,7 +7,7 @@ import java.util.Date;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 
-public class ExcelCellVerifier {
+public class ExcelCellVerifier{
    private final Cell cell;
 
    // constructors

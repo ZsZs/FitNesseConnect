@@ -34,7 +34,7 @@ public class InsertRecordIntoTestDatabaseTest {
    private List<List<String>> table;
    private List<List<List<String>>> actualRecords;
 
-   @SuppressWarnings( "unchecked" ) @Before public void beforeEachTest() {
+   @Before public void beforeEachTest() {
       insertRecord = new InsertRecordIntoDatabase( "connector", "account" );
 
       List<String> headerRow = Lists.newArrayList( "Generated:id", "account_name", "password" );
