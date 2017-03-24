@@ -26,6 +26,6 @@ after_success:
 deploy:
   skip_cleanup: true
   provider: script
-  script: mvn -f fitnesse-connect-docker/pom.xml deploy --settings travis-maven-settings.xml -DskipTests=true -B -Pdocker-deploy
+  script: mvn -f fitnesse-connect-docker/pom.xml deploy -P docker-deploy --settings travis-maven-settings.xml -DskipTests=true -B
   on:
     branch: development
