@@ -15,8 +15,6 @@ cache:
   - $HOME/.m2
   – $HOME/.sonar/cache
 
-#install: true
-
 script:
   # other script steps might be done before running the actual SonarQube analysis
   - sonar-scanner
