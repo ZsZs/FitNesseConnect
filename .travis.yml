@@ -6,11 +6,20 @@ jdk: oraclejdk8
 services:
   - docker
 
-install: true
+addons:
+  sonarqube:
+    organization: "processpuzzle"
+
 cache:
   directories:
   - $HOME/.m2
 
+#install: true
+
+script:
+  # other script steps might be done before running the actual SonarQube analysis
+  - sonar-scanner
+  
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - mvn deploy --settings travis-maven-settings.xml -DskipTests=true -B
