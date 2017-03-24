@@ -41,7 +41,7 @@
             <configuration>
               <watchInterval>500</watchInterval>
               <logDate>default</logDate>
-              <verbose>true</verbose>
+              <verbose>false</verbose>
               <autoPull>always</autoPull>
               <watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
               <images>
