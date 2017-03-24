@@ -16,6 +16,7 @@ after_success:
   - mvn deploy --settings travis-maven-settings.xml -DskipTests=true -B
 
 deploy:
+  skip_cleanup: true
   provider: script
   script: mvn deploy --settings travis-maven-settings.xml -DskipTests=true -B -Pdocker-deploy
   on:
