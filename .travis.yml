@@ -14,3 +14,9 @@ cache:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - mvn deploy --settings travis-maven-settings.xml -DskipTests=true -B
+
+deploy:
+  provider: script
+  script: mvn deploy --settings travis-maven-settings.xml -DskipTests=true -B -Pdocker-deploy
+  on:
+    branch: 1.0.10
