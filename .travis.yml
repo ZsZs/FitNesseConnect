@@ -13,6 +13,7 @@ addons:
 cache:
   directories:
   - $HOME/.m2
+  – $HOME/.sonar/cache
 
 #install: true
 
@@ -27,6 +28,6 @@ after_success:
 deploy:
   skip_cleanup: true
   provider: script
-  script: mvn deploy --settings travis-maven-settings.xml -DskipTests=true -B -Pdocker-deploy
+  script: mvn -f fitnesse-connect-docker/pom.xml deploy --settings travis-maven-settings.xml -DskipTests=true -B -Pdocker-deploy
   on:
     branch: development
