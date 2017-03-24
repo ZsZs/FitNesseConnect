@@ -29,7 +29,7 @@
 
   <profiles>
     <profile>
-      <id>docker-build</id>
+      <id>docker-build-deploy</id>
       <build>
         <plugins>
           <plugin>
@@ -69,7 +69,7 @@
                             <includes>
                               <include>pom.xml</include>
                             </includes>
-                            <outputDirectory>.</outputDirectory>
+                            <outputDirectory>./</outputDirectory>
                           </fileSet>
                           <fileSet>
                             <directory>${project.basedir}/../fitnesse-connect-aws</directory>
@@ -272,9 +272,9 @@
             <executions>
               <execution>
                 <id>deploy</id>
-                <phase>pre-integration-test</phase>
+                <phase>deploy</phase>
                 <goals>
-                  <goal>build</goal>
+                  <goal>push</goal>
                 </goals>
               </execution>
             </executions>
