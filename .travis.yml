@@ -4,5 +4,7 @@ install: true
 cache:
   directories:
   - $HOME/.m2
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - mvn deploy --settings travis-maven-settings.xml -DskipTests=true -B
