@@ -4,3 +4,5 @@
 [![Dependency Status](https://www.versioneye.com/user/projects/5837d0804ef164003ff45449/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5837d0804ef164003ff45449)
 
 Provides File, Service, Database connectors for Slim tests.
+
+For more information please visit the [FitConnect website](http://fit-connect.processpuzzle.com/).
