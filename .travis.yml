@@ -18,6 +18,8 @@ cache:
   - $HOME/.m2
   - $HOME/.sonar/cache
 
+before_script: echo $AWS_ACCESS_KEY_ID
+
 script:
   # other script steps might be done before running the actual SonarQube analysis
   - sonar-scanner
@@ -28,6 +30,19 @@ deploy:
     script: mvn deploy -Pdocker-build-deploy -Passembly-aws-bundle -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: development
+      
+  - provider: elasticbeanstalk
+    skip_cleanup: true
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_PASSWORD
+    bucket_name: fit-connect
+    zip_file: fitnesse-connect-aws/target/fitnesse-connect-aws-1.0.10.zip
+    app: FitConnect
+    env: stage-env
+    region: eu-central-1
+    on:
+      branch: codedeploy
+      
   - provider: script
     skip_cleanup: true
     script: mvn deploy -Pdocker-build-deploy -Passembly-aws-bundle -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
