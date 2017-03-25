@@ -36,7 +36,7 @@ deploy:
       
   - provider: elasticbeanstalk
     skip_cleanup: true
-    access_key_id: $AWS_ACCESS_KEY_ID
+    access_key_id: AKIAJ627NIHHUG5XKQEQ
     secret_access_key: $AWS_PASSWORD
     bucket_name: fit-connect
     zip_file: fitnesse-connect-aws/target/fitnesse-connect-aws-1.0.10.zip
