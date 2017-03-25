@@ -41,7 +41,7 @@ deploy:
     env: stage-env
     region: eu-central-1
     on:
-      branch: codedeploy
+      branch: development
       
   - provider: script
     skip_cleanup: true
