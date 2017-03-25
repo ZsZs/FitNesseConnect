@@ -25,12 +25,12 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Pdeploy-to-aws -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    script: mvn deploy -Pdocker-build-deploy -Passembly-aws-bundle -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: development
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy, -Pdeploy-to-aws -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    script: mvn deploy -Pdocker-build-deploy -Passembly-aws-bundle -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: master
   
