@@ -12,6 +12,9 @@ services:
 addons:
   sonarqube:
     organization: "processpuzzle"
+    branches :
+    - development
+    - master
 
 cache:
   directories:
