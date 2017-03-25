@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.1.RELEASE</version>
+    <version>1.5.2.RELEASE</version>
     <relativePath />
   </parent>
 
@@ -22,9 +22,9 @@
     <java.version>1.8</java.version>
     <fitnesse.host>9123</fitnesse.host>
     <fitnesse.maven.plugin.version>1.6.4-RELEASE</fitnesse.maven.plugin.version>
-    <guava.version>20.0</guava.version>
+    <guava.version>21.0</guava.version>
     <skip.integration.test>false</skip.integration.test>
-    <jacoco.maven.plugin.version>0.7.7.201606060606</jacoco.maven.plugin.version>
+    <jacoco.maven.plugin.version>0.7.9</jacoco.maven.plugin.version>
     <maven.plugin.javadoc.version>2.10.4</maven.plugin.javadoc.version>
     <maven.plugin.nexus.version>1.6.7</maven.plugin.nexus.version>
     <maven.plugin.source.version>3.0.1</maven.plugin.source.version>
