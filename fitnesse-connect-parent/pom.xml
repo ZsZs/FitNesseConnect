@@ -78,7 +78,7 @@
     <developerConnection>scm:git:ssh//git@github.com/ZsZs/FitNesseConnect.git</developerConnection>
     <tag>fitnesse-connect-1.0.9</tag>
   </scm>
-  
+
   <issueManagement>
     <url>https://github.com/ZsZs/FitNesseConnect/issues</url>
     <system>GitHub Issues</system>
@@ -132,12 +132,12 @@
           <pushChanges>true</pushChanges>
         </configuration>
         <dependencies>
-        <dependency>
-          <groupId>org.apache.maven.scm</groupId>
-          <artifactId>maven-scm-provider-gitexe</artifactId>
-          <version>1.9.5</version>
-        </dependency>
-       </dependencies>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-provider-gitexe</artifactId>
+            <version>1.9.5</version>
+          </dependency>
+        </dependencies>
       </plugin>
 
       <plugin>
@@ -263,6 +263,7 @@
             <maxErrorsToConsole>100</maxErrorsToConsole>
           </configuration>
         </plugin>
+
       </plugins>
     </pluginManagement>
   </build>

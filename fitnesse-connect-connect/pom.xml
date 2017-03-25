@@ -17,6 +17,7 @@
     <!-- <fitnesse.suite>FitNesseConnect</fitnesse.suite> -->
     <argLine></argLine>
     <my.lib>${com.processpuzzle.fitnesse:fitnesse-connect-testbed-backend:jar}</my.lib>
+    <sonar.language>java</sonar.language>
   </properties>
 
   <dependencies>
