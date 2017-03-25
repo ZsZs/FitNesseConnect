@@ -56,7 +56,7 @@
             <version>1.5.0</version>
             <configuration>
               <applicationName>FitConnect</applicationName>
-              <environmentRef>dev-env</environmentRef>
+              <environmentRef>stage-env</environmentRef>
               <cnamePrefix>fit-connect-dev</cnamePrefix>
               <s3Bucket>fit-connect</s3Bucket>
               <solutionStack>64bit Amazon Linux 2016.09 v2.5.0 running Multi-container Docker 1.12.6 (Generic)</solutionStack>
@@ -70,9 +70,8 @@
                 <goals>
                   <goal>upload-source-bundle</goal>
                   <goal>create-application-version</goal>
-                  <!-- 
-              <goal>update-environment</goal>
-              <goal>wait-for-environment</goal>  -->
+                  <goal>update-environment</goal>
+                  <!-- <goal>wait-for-environment</goal> -->
                 </goals>
               </execution>
             </executions>
