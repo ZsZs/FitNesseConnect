@@ -2,6 +2,7 @@ sudo: required
 
 language: java
 jdk: oraclejdk8
+install: true
 
 env:
 - local.maven.repository=$HOME/.m2
@@ -24,8 +25,7 @@ cache:
 before_script: echo $AWS_ACCESS_KEY_ID
 
 script:
-  - mvn clean install
-  - sonar-scanner
+  - mvn clean install sonar:sonar
 
 deploy:
   - provider: script
@@ -55,3 +55,6 @@ deploy:
   
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email: false
