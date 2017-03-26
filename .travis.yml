@@ -24,9 +24,6 @@ cache:
 
 before_script: echo $AWS_ACCESS_KEY_ID
 
-script:
-  - mvn clean install sonar:sonar
-
 deploy:
   - provider: script
     skip_cleanup: true
