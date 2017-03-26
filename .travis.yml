@@ -30,14 +30,15 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Passembly-aws-bundle -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    script: mvn deploy -Pdocker-build-deploy -Pdeploy-to-aws -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: development
       
   - provider: elasticbeanstalk
     skip_cleanup: true
     access_key_id: AKIAJ627NIHHUG5XKQEQ
-    secret_access_key: $AWS_PASSWORD
+    secret_access_key:
+      secure: $AWS_PASSWORD
     bucket_name: fit-connect
     zip_file: fitnesse-connect-aws/target/fitnesse-connect-aws-1.0.10.zip
     app: FitConnect
@@ -48,7 +49,7 @@ deploy:
       
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Passembly-aws-bundle -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    script: mvn deploy -Pdocker-build-deploy -Pdeploy-to-aws -DskipTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: master
   
