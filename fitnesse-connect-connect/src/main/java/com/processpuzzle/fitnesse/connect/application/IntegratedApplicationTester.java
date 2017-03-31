@@ -3,8 +3,8 @@ package com.processpuzzle.fitnesse.connect.application;
 import java.util.Map;
 
 import org.springframework.beans.BeansException;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -50,12 +50,12 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
    }
    
    public static void main( String[] args ) {
-      applicationContext = SpringApplication.run( IntegratedApplicationTester.class, args );
+      instantiateApplicationContext( args );
       if( soleInstance == null ) soleInstance = applicationContext.getBean( IntegratedApplicationTester.class );
    }
 
    public void initialize( String activeProfile ) {
-      applicationContext = SpringApplication.run( IntegratedApplicationTester.class, new String[]{ "--spring.profiles.active=" + activeProfile } );
+      instantiateApplicationContext( new String[]{ "--spring.profiles.active=" + activeProfile } );
       if( soleInstance == null ) soleInstance = applicationContext.getBean( IntegratedApplicationTester.class );
    }
 
@@ -75,4 +75,9 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
    public void setPort( String port ){ currentConfiguration.setPort( port ); }
    public void setProtocol( String protocol ){ currentConfiguration.setProtocol( protocol ); }
    // @formatter:on
+   
+   // protected, private helper methods
+   private static void instantiateApplicationContext( String[] args ) {
+      applicationContext = new SpringApplicationBuilder( IntegratedApplicationTester.class ).web( false ).run( args );
+   }
 }
