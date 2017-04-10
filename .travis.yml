@@ -13,6 +13,8 @@ services:
 addons:
   sonarqube:
     organization: "processpuzzle"
+    token:
+      secure: $SONAR_TOKEN
     branches :
     - development
     - master
@@ -24,10 +26,13 @@ cache:
 
 before_script: echo $AWS_ACCESS_KEY_ID
 
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+  
 deploy:
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Passembly-aws-bundle -Dmaven.test.skip=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: development
       
@@ -46,7 +51,7 @@ deploy:
       
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Pdeploy-to-aws -Dmaven.test.skip=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    script: mvn deploy -Pdocker-build-deploy-Dmaven.test.skip=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: master
   
