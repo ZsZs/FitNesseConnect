@@ -32,7 +32,7 @@ script:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Dmaven.test.skip=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    script: mvn clean deploy -P docker-build-deploy -Dmaven.test.skip=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: development
       
