@@ -88,6 +88,39 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>com.processpuzzle.fitnesse</groupId>
+        <artifactId>fitnesse-connect-aws</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.processpuzzle.fitnesse</groupId>
+        <artifactId>fitnesse-connect-connect</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.processpuzzle.fitnesse</groupId>
+        <artifactId>fitnesse-connect-docker</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.processpuzzle.fitnesse</groupId>
+        <artifactId>fitnesse-connect-testbed-backend</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.processpuzzle.fitnesse</groupId>
+        <artifactId>fitnesse-connect-testbed-ui</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+      </dependency>
+      
+      <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>

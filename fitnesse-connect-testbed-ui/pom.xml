@@ -2,8 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.processpuzzle.fitnesse</groupId>
-    <artifactId>fitnesse-connect</artifactId>
+    <artifactId>fitnesse-connect-parent</artifactId>
     <version>1.0.11-SNAPSHOT</version>
+    <relativePath>../fitnesse-connect-parent</relativePath>
   </parent>
   <artifactId>fitnesse-connect-testbed-ui</artifactId>
   <packaging>pom</packaging>

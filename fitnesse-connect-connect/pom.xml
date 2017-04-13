@@ -24,10 +24,10 @@
   </properties>
 
   <dependencies>
+    <!-- modul dependencies -->
     <dependency>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-testbed-backend</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <!-- spring boot -->

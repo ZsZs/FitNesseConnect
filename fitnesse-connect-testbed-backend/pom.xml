@@ -16,10 +16,9 @@
    <dependencies>
       <!-- project internal dependencies -->
       <dependency>
-   	     <groupId>com.processpuzzle.fitnesse</groupId>
-         <artifactId>fitnesse-connect-testbed-ui</artifactId>
-         <version>${project.version}</version>
-         <type>pom</type>
+        <groupId>com.processpuzzle.fitnesse</groupId>
+        <artifactId>fitnesse-connect-testbed-ui</artifactId>
+        <type>pom</type>
       </dependency>
       
       <!-- module dependencies -->
