@@ -153,7 +153,16 @@
         <plugin>
           <groupId>com.versioneye</groupId>
           <artifactId>versioneye-maven-plugin</artifactId>
-          <version>3.11.1</version>
+          <version>3.11.2</version>
+          <configuration>
+            <apiKey>${VERSION_EYE_API_KEY}</apiKey>
+            <projectId>5837d0804ef164003ff45449</projectId>
+            <name>FitConnect</name>
+            <organisation>processpuzzle</organisation>
+            <team>Owners</team>
+            <ignoreDependencyManagement>true</ignoreDependencyManagement>
+            <transitiveDependencies>false</transitiveDependencies>
+          </configuration>
         </plugin>
 
         <plugin>
