@@ -27,7 +27,7 @@ cache:
 before_script: echo $AWS_ACCESS_KEY_ID
 
 script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+  - mvn clean install org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
   
 deploy:
   - provider: script
