@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect</artifactId>
-    <version>1.0.10</version>
+    <version>1.0.11-SNAPSHOT</version>
   </parent>
   <artifactId>fitnesse-connect-docker</artifactId>
   <name>FitNesseConnect - Docker</name>
@@ -137,6 +137,16 @@
                 </assembly>
                 <cmd>/bin/sh</cmd>
               </build>
+              <run>
+                <volumes>
+                  <bind>
+                    <volume>${container.volume}</volume>
+                  </bind>
+                </volumes>
+                <log>
+                  <enabled>true</enabled>
+                </log>
+              </run>              
             </image>
 
             <image>
@@ -172,15 +182,17 @@
                       </fileSet>
                       <fileSet>
                         <directory>${project.build.directory}/mavenRepository</directory>
-                        <outputDirectory>/maven/repository</outputDirectory>
+                        <outputDirectory>${repository.volume}</outputDirectory>
                       </fileSet>
-                      <fileSet>
+<!-- 
+                       <fileSet>
                         <directory>${project.basedir}/docker</directory>
                         <includes>
                           <include>pom.xml</include>
                         </includes>
                         <outputDirectory>${container.volume}</outputDirectory>
                       </fileSet>
+ -->
                     </fileSets>
                   </inline>
                 </assembly>
@@ -238,6 +250,12 @@
                 <phase>pre-integration-test</phase>
                 <goals>
                   <goal>build</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>build-test</id>
+                <phase>integration-test</phase>
+                <goals>
                   <goal>start</goal>
                 </goals>
               </execution>
