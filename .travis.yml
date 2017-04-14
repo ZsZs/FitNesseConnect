@@ -19,6 +19,10 @@ addons:
     - development
     - master
 
+before_install:
+  - if [ ! -z "$GPG_SECRET_KEYS" ]; then echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import; fi
+  - if [ ! -z "$GPG_OWNERTRUST" ]; then echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust; fi
+
 cache:
   directories:
   - $HOME/.m2
@@ -34,26 +38,14 @@ deploy:
     skip_cleanup: true
     script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
-      branch: development
+      branch: master
       
-#  - provider: elasticbeanstalk
-#    skip_cleanup: true
-#    access_key_id: AKIAJ627NIHHUG5XKQEQ
-#    secret_access_key:
-#      secure: $AWS_PASSWORD
-#    bucket_name: fit-connect
-#    zip_file: fitnesse-connect-aws/target/fitnesse-connect-aws-1.0.10.zip
-#    app: FitConnect
-#    env: stage-env
-#    region: eu-central-1
-#    on:
-#      branch: development
-
   - provider: script
     skip_cleanup: true
     script: mvn deploy -Pdocker-build-deploy -Prelease-sign-artifacts -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: master
+      tags: true
   
 after_success:
   - bash <(curl -s https://codecov.io/bash)
