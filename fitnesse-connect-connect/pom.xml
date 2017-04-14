@@ -126,7 +126,6 @@
             <artifactItem>
               <groupId>com.processpuzzle.fitnesse</groupId>
               <artifactId>fitnesse-connect-testbed-backend</artifactId>
-              <version>${project.version}</version>
               <type>jar</type>
               <overWrite>false</overWrite>
               <outputDirectory>${project.build.directory}</outputDirectory>
