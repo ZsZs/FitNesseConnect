@@ -9,17 +9,16 @@
    <parent>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-parent</artifactId>
-      <version>1.0.10-SNAPSHOT</version>
+      <version>1.0.11</version>
       <relativePath>../fitnesse-connect-parent</relativePath>
    </parent>
 
    <dependencies>
       <!-- project internal dependencies -->
       <dependency>
-   	     <groupId>com.processpuzzle.fitnesse</groupId>
-         <artifactId>fitnesse-connect-testbed-ui</artifactId>
-         <version>${project.version}</version>
-         <type>pom</type>
+        <groupId>com.processpuzzle.fitnesse</groupId>
+        <artifactId>fitnesse-connect-testbed-ui</artifactId>
+        <type>pom</type>
       </dependency>
       
       <!-- module dependencies -->

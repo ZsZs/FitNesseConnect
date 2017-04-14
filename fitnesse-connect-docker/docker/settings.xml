@@ -13,20 +13,20 @@
   <servers>
     <server>
       <id>sonatype-nexus-snapshots</id>
-      <username>zsolt.zsuffa@gmail.com</username>
-      <password>36Zsuffa</password>
+      <username>${env.SONATYPE_USERNAME}</username>
+      <password>${env.SONATYPE_PASSWORD}</password>
     </server>
 
     <server>
       <id>sonatype-nexus-staging</id>
-      <username>zsolt.zsuffa@gmail.com</username>
-      <password>36Zsuffa</password>
+      <username>${env.SONATYPE_USERNAME}</username>
+      <password>${env.SONATYPE_PASSWORD}</password>
     </server>
 
     <server>
       <id>docker.io</id>
-      <username>zsuffazs</username>
-      <password>36Zsuffa</password>
+      <username>${env.DOCKER_USERNAME}</username>
+      <password>${env.DOCKER_PASSWORD}</password>
       <configuration>
         <email>zsolt.zsuffa@gmail.com</email>
       </configuration>

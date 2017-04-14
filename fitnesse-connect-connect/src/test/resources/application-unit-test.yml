@@ -1,6 +1,6 @@
 logging:
   level:
-    org.springframework.web: INFO
+    org.springframework: INFO
 
 server:
   port: -1

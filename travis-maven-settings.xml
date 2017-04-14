@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  
+  <pluginGroups>
+    <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+  </pluginGroups>
 
   <servers>
     <server>
@@ -25,7 +29,7 @@
 
     <server>
       <id>aws.amazon.com</id>
-      <username>${env.AWS_USERNAME}</username>
+      <username>AKIAJ627NIHHUG5XKQEQ</username>
       <password>${env.AWS_PASSWORD}</password>
     </server>
   </servers>
@@ -71,5 +75,15 @@
       </pluginRepositories>
 
     </profile>
+
+    <profile>
+      <id>sonar</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <sonar.host.url>https:/sonarqube.com</sonar.host.url>
+      </properties>
+    </profile>    
   </profiles>
 </settings>

@@ -2,8 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.processpuzzle.fitnesse</groupId>
-    <artifactId>fitnesse-connect</artifactId>
-    <version>1.0.10-SNAPSHOT</version>
+    <artifactId>fitnesse-connect-parent</artifactId>
+    <version>1.0.11</version>
+    <relativePath>../fitnesse-connect-parent</relativePath>
   </parent>
   <artifactId>fitnesse-connect-docker</artifactId>
   <name>FitNesseConnect - Docker</name>
@@ -15,205 +16,247 @@
   </properties>
 
   <dependencies>
+    <!-- modul dependencies -->
     <dependency>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-connect</artifactId>
-      <version>${project.version}</version>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <addParentPoms>true</addParentPoms>
+              <copyPom>true</copyPom>
+              <outputDirectory>${project.build.directory}/mavenRepository</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>false</overWriteSnapshots>
+              <overWriteIfNewer>true</overWriteIfNewer>
+              <useRepositoryLayout>true</useRepositoryLayout>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>${docker.maven.plugin.version}</version>
+        <extensions>true</extensions>
+        <!-- enables using 'docker' packaging above -->
+        <configuration>
+          <serverId>docker.io</serverId>
+          <registryUrl>https://hub.docker.com/</registryUrl>
+          <watchInterval>500</watchInterval>
+          <logDate>default</logDate>
+          <verbose>false</verbose>
+          <autoPull>always</autoPull>
+          <watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
+          <images>
+            <image>
+              <alias>fit-connect-content</alias>
+              <name>zsuffazs/fit-connect-content:latest</name>
+              <build>
+                <from>${content.image.from.name}</from>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+                <maintainer>zsolt.zsuffa@gmail.com</maintainer>
+                <volumes>
+                  <volume>${container.volume}</volume>
+                </volumes>
+                <workdir>${container.volume}</workdir>
+                <assembly>
+                  <basedir>${container.volume}</basedir>
+                  <mode>dir</mode>
+                  <inline xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+                    <id>fit-connect-content</id>
+                    <fileSets>
+                      <fileSet>
+                        <directory>${project.basedir}/../</directory>
+                        <includes>
+                          <include>pom.xml</include>
+                        </includes>
+                        <outputDirectory>./</outputDirectory>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.basedir}/../fitnesse-connect-aws</directory>
+                        <outputDirectory>fitnesse-connect-aws</outputDirectory>
+                        <excludes>
+                          <exclude>target/**</exclude>
+                        </excludes>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.basedir}/../fitnesse-connect-connect</directory>
+                        <outputDirectory>fitnesse-connect-connect</outputDirectory>
+                        <excludes>
+                          <exclude>target/**</exclude>
+                        </excludes>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.basedir}/../fitnesse-connect-docker</directory>
+                        <outputDirectory>fitnesse-connect-docker</outputDirectory>
+                        <excludes>
+                          <exclude>target/**</exclude>
+                        </excludes>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.basedir}/../fitnesse-connect-parent</directory>
+                        <outputDirectory>fitnesse-connect-parent</outputDirectory>
+                        <excludes>
+                          <exclude>target/**</exclude>
+                        </excludes>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.basedir}/../fitnesse-connect-testbed-backend</directory>
+                        <outputDirectory>fitnesse-connect-testbed-backend</outputDirectory>
+                        <excludes>
+                          <exclude>target/**</exclude>
+                        </excludes>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.basedir}/../fitnesse-connect-ui</directory>
+                        <outputDirectory>fitnesse-connect-ui</outputDirectory>
+                        <excludes>
+                          <exclude>dist/**</exclude>
+                          <exclude>node_modules/**</exclude>
+                          <exclude>target/**</exclude>
+                        </excludes>
+                      </fileSet>
+                    </fileSets>
+                  </inline>
+                </assembly>
+                <cmd>/bin/sh</cmd>
+              </build>
+              <run>
+                <volumes>
+                  <bind>
+                    <volume>${container.volume}</volume>
+                  </bind>
+                </volumes>
+                <log>
+                  <enabled>true</enabled>
+                </log>
+              </run>              
+            </image>
+
+            <image>
+              <alias>fit-connect-server</alias>
+              <name>zsuffazs/fit-connect-server:latest</name>
+              <build>
+                <from>${server.image.from.name}</from>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+                <maintainer>zsolt.zsuffa@gmail.com</maintainer>
+                <env>
+                  <JAVA_HOME>/usr/lib/jvm/java-8-openjdk-amd64/jre</JAVA_HOME>
+                  <MAVEN_HOME>/usr/share/maven</MAVEN_HOME>
+                </env>
+                <volumes>
+                  <volume>${container.volume}</volume>
+                  <volume>${repository.volume}</volume>
+                </volumes>
+                <workdir>${container.volume}</workdir>
+                <assembly>
+                  <basedir>/</basedir>
+                  <mode>dir</mode>
+                  <inline xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+                    <id>sample-pom</id>
+                    <fileSets>
+                      <fileSet>
+                        <directory>${project.basedir}/docker</directory>
+                        <includes>
+                          <include>settings.xml</include>
+                        </includes>
+                        <outputDirectory>/usr/share/maven/conf</outputDirectory>
+                      </fileSet>
+                      <fileSet>
+                        <directory>${project.build.directory}/mavenRepository</directory>
+                        <outputDirectory>${repository.volume}</outputDirectory>
+                      </fileSet>
+<!-- 
+                       <fileSet>
+                        <directory>${project.basedir}/docker</directory>
+                        <includes>
+                          <include>pom.xml</include>
+                        </includes>
+                        <outputDirectory>${container.volume}</outputDirectory>
+                      </fileSet>
+ -->
+                    </fileSets>
+                  </inline>
+                </assembly>
+                <ports>
+                  <port>9123</port>
+                  <port>9124</port>
+                </ports>
+                <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true</cmd>
+              </build>
+              <run>
+                <volumes>
+                  <bind>
+                    <volume>${repository.volume}</volume>
+                  </bind>
+                  <from>
+                    <image>fit-connect-content</image>
+                  </from>
+                </volumes>
+                <ports>
+                  <port>9123:9123</port>
+                  <port>9124:9124</port>
+                </ports>
+                <log>
+                  <enabled>true</enabled>
+                </log>
+                <wait>
+                  <http>
+                    <url>http://localhost:9123</url>
+                    <method>GET</method>
+                    <status>200..399</status>
+                  </http>
+                  <time>600000</time>
+                </wait>
+                <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true</cmd>
+              </run>
+            </image>
+          </images>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
   <profiles>
     <profile>
-      <id>docker-build</id>
+      <id>docker-build-deploy</id>
       <build>
         <plugins>
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
             <version>${docker.maven.plugin.version}</version>
-            <extensions>true</extensions>
-            <!-- enables using 'docker' packaging above -->
-            <configuration>
-              <watchInterval>500</watchInterval>
-              <logDate>default</logDate>
-              <verbose>true</verbose>
-              <autoPull>always</autoPull>
-              <watchPostGoal>org.apache.maven.plugins:maven-help-plugin:help</watchPostGoal>
-              <images>
-                <image>
-                  <alias>fit-connect-content</alias>
-                  <name>zsuffazs/fit-connect-content:latest</name>
-                  <build>
-                    <from>${content.image.from.name}</from>
-                    <tags>
-                      <tag>${project.version}</tag>
-                    </tags>
-                    <maintainer>zsolt.zsuffa@gmail.com</maintainer>
-                    <volumes>
-                      <volume>${container.volume}</volume>
-                    </volumes>
-                    <workdir>${container.volume}</workdir>
-                    <assembly>
-                      <basedir>${container.volume}</basedir>
-                      <mode>dir</mode>
-                      <inline xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-                        <id>fit-connect-content</id>
-                        <fileSets>
-                          <fileSet>
-                            <directory>${project.basedir}/../</directory>
-                            <includes>
-                              <include>pom.xml</include>
-                            </includes>
-                            <outputDirectory>.</outputDirectory>
-                          </fileSet>
-                          <fileSet>
-                            <directory>${project.basedir}/../fitnesse-connect-aws</directory>
-                            <outputDirectory>fitnesse-connect-aws</outputDirectory>
-                            <excludes>
-                              <exclude>target/**</exclude>
-                            </excludes>
-                          </fileSet>
-                          <fileSet>
-                            <directory>${project.basedir}/../fitnesse-connect-connect</directory>
-                            <outputDirectory>fitnesse-connect-connect</outputDirectory>
-                            <excludes>
-                              <exclude>target/**</exclude>
-                            </excludes>
-                          </fileSet>
-                          <fileSet>
-                            <directory>${project.basedir}/../fitnesse-connect-docker</directory>
-                            <outputDirectory>fitnesse-connect-docker</outputDirectory>
-                            <excludes>
-                              <exclude>target/**</exclude>
-                            </excludes>
-                          </fileSet>
-                          <fileSet>
-                            <directory>${project.basedir}/../fitnesse-connect-parent</directory>
-                            <outputDirectory>fitnesse-connect-parent</outputDirectory>
-                            <excludes>
-                              <exclude>target/**</exclude>
-                            </excludes>
-                          </fileSet>
-                          <fileSet>
-                            <directory>${project.basedir}/../fitnesse-connect-testbed-backend</directory>
-                            <outputDirectory>fitnesse-connect-testbed-backend</outputDirectory>
-                            <excludes>
-                              <exclude>target/**</exclude>
-                            </excludes>
-                          </fileSet>
-                          <fileSet>
-                            <directory>${project.basedir}/../fitnesse-connect-ui</directory>
-                            <outputDirectory>fitnesse-connect-ui</outputDirectory>
-                            <excludes>
-                              <exclude>dist/**</exclude>
-                              <exclude>node_modules/**</exclude>
-                              <exclude>target/**</exclude>
-                            </excludes>
-                          </fileSet>
-                        </fileSets>
-                      </inline>
-                    </assembly>
-                    <cmd>/bin/sh</cmd>
-                  </build>
-                </image>
-
-                <image>
-                  <alias>fit-connect-server</alias>
-                  <name>zsuffazs/fit-connect-server:latest</name>
-                  <build>
-                    <from>${server.image.from.name}</from>
-                    <tags>
-                      <tag>${project.version}</tag>
-                    </tags>
-                    <maintainer>zsolt.zsuffa@gmail.com</maintainer>
-                    <env>
-                      <JAVA_HOME>/usr/lib/jvm/java-8-openjdk-amd64/jre</JAVA_HOME>
-                      <MAVEN_HOME>/usr/share/maven</MAVEN_HOME>
-                    </env>
-                    <volumes>
-                      <volume>${container.volume}</volume>
-                      <volume>${repository.volume}</volume>
-                    </volumes>
-                    <workdir>${container.volume}</workdir>
-                    <assembly>
-                      <basedir>/</basedir>
-                      <mode>dir</mode>
-                      <inline xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-                        <id>sample-pom</id>
-                        <fileSets>
-                          <fileSet>
-                            <directory>${project.basedir}/docker</directory>
-                            <includes>
-                              <include>settings.xml</include>
-                            </includes>
-                            <outputDirectory>/usr/share/maven/conf</outputDirectory>
-                          </fileSet>
-                          <!-- 
-                       -->
-                          <fileSet>
-                            <directory>${local.maven.repository}/com/processpuzzle/fitnesse</directory>
-                            <outputDirectory>/maven/repository/com/processpuzzle/fitnesse</outputDirectory>
-                          </fileSet>
-                          <fileSet>
-                            <directory>${project.basedir}/docker</directory>
-                            <includes>
-                              <include>pom.xml</include>
-                            </includes>
-                            <outputDirectory>${container.volume}</outputDirectory>
-                          </fileSet>
-                        </fileSets>
-                      </inline>
-                    </assembly>
-                    <runCmds>
-                      <runCmd>mvn clean install -Dmaven.test.skip=true</runCmd>
-                    </runCmds>
-                    <ports>
-                      <port>9123</port>
-                      <port>9124</port>
-                    </ports>
-                    <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true</cmd>
-                  </build>
-                  <run>
-                    <volumes>
-                      <bind>
-                        <volume>${repository.volume}</volume>
-                      </bind>
-                      <from>
-                        <image>fit-connect-content</image>
-                      </from>
-                    </volumes>
-                    <ports>
-                      <port>9123:9123</port>
-                      <port>9124:9124</port>
-                    </ports>
-                    <log>
-                      <enabled>true</enabled>
-                    </log>
-                    <wait>
-                      <http>
-                        <url>http://localhost:9123</url>
-                        <method>GET</method>
-                        <status>200..399</status>
-                      </http>
-                      <time>600000</time>
-                    </wait>
-                    <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true</cmd>
-                  </run>
-                </image>
-
-              </images>
-            </configuration>
             <executions>
               <execution>
                 <id>build-start</id>
                 <phase>pre-integration-test</phase>
                 <goals>
                   <goal>build</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>build-test</id>
+                <phase>integration-test</phase>
+                <goals>
                   <goal>start</goal>
                 </goals>
               </execution>
@@ -272,9 +315,9 @@
             <executions>
               <execution>
                 <id>deploy</id>
-                <phase>pre-integration-test</phase>
+                <phase>deploy</phase>
                 <goals>
-                  <goal>build</goal>
+                  <goal>push</goal>
                 </goals>
               </execution>
             </executions>

@@ -9,21 +9,25 @@
   <parent>
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect-parent</artifactId>
-    <version>1.0.10-SNAPSHOT</version>
+    <version>1.0.11</version>
     <relativePath>../fitnesse-connect-parent</relativePath>
   </parent>
 
   <properties>
     <!-- <fitnesse.suite>FitNesseConnect</fitnesse.suite> -->
-    <argLine>-XX:MaxPermSize=512m </argLine>
+    <argLine />
     <my.lib>${com.processpuzzle.fitnesse:fitnesse-connect-testbed-backend:jar}</my.lib>
+
+    <sonar.language>java</sonar.language>
+    <sonar.jacoco.reportPaths>${project.build.directory}/coverage-reports/jacoco-ut.exec</sonar.jacoco.reportPaths>
+    <sonar.junit.reportsPath>${project.build.directory}/surefire-reports</sonar.junit.reportsPath>
   </properties>
 
   <dependencies>
+    <!-- modul dependencies -->
     <dependency>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-testbed-backend</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <!-- spring boot -->
@@ -143,25 +147,6 @@
       </plugin>
 
       <plugin>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <configuration>
-          <includes>
-            <include>**/*.java</include>
-          </includes>
-          <skipTests>${skip.integration.test}</skipTests>
-          <groups>com.processpuzzle.fitnesse.connect.configuration.GlueCodeIntegrationTest</groups>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
@@ -213,43 +198,6 @@
                   <directory>src/test/fitnesse/files</directory>
                 </resource>
               </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>start-test-server</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target name="start-test-server">
-                <java fork="true" spawn="true" jar="${project.build.directory}/fitnesse-connect-testbed-backend.jar">
-                  <arg line="--spring.profiles.active=local" />
-                </java>
-              </target>
-            </configuration>
-          </execution>
-          <execution>
-            <id>stop-test-server</id>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target name="stop-test-server">
-                <exec executable="curl" dir="${project.build.directory}" spawn="false">
-                  <arg value="-X" />
-                  <arg value="POST" />
-                  <arg value="http://localhost:9124/shutdown" />
-                </exec>
-              </target>
             </configuration>
           </execution>
         </executions>
@@ -375,6 +323,74 @@
         </plugins>
       </build>
     </profile>
+    
+    <profile>
+       <id>integration-tests</id>
+       <activation>
+          <property>
+               <name>!skipIntegrationTests</name>
+          </property>
+        </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <configuration>
+              <includes>
+                <include>**/*.java</include>
+              </includes>
+              <skipTests>${skip.integration.test}</skipTests>
+              <groups>com.processpuzzle.fitnesse.connect.configuration.GlueCodeIntegrationTest</groups>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>start-test-server</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target name="start-test-server">
+                    <java fork="true" spawn="true" jar="${project.build.directory}/fitnesse-connect-testbed-backend.jar">
+                      <arg line="--spring.profiles.active=local" />
+                    </java>
+                  </target>
+                </configuration>
+              </execution>
+              <execution>
+                <id>stop-test-server</id>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target name="stop-test-server">
+                    <exec executable="curl" dir="${project.build.directory}" spawn="false">
+                      <arg value="-X" />
+                      <arg value="POST" />
+                      <arg value="http://localhost:9124/shutdown" />
+                    </exec>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+   </profile>
   </profiles>
 
 </project>

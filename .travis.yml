@@ -2,21 +2,61 @@ sudo: required
 
 language: java
 jdk: oraclejdk8
+install: true
+
+env:
+- local.maven.repository=$HOME/.m2
 
 services:
   - docker
 
-install: true
+addons:
+  sonarqube:
+    organization: "processpuzzle"
+    token:
+      secure: $SONAR_TOKEN
+    branches :
+    - development
+    - master
+
 cache:
   directories:
   - $HOME/.m2
+  - $HOME/.sonar/cache
 
+before_script: echo $AWS_ACCESS_KEY_ID
+
+script:
+  - mvn clean install org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
+  
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    on:
+      branch: development
+      
+#  - provider: elasticbeanstalk
+#    skip_cleanup: true
+#    access_key_id: AKIAJ627NIHHUG5XKQEQ
+#    secret_access_key:
+#      secure: $AWS_PASSWORD
+#    bucket_name: fit-connect
+#    zip_file: fitnesse-connect-aws/target/fitnesse-connect-aws-1.0.10.zip
+#    app: FitConnect
+#    env: stage-env
+#    region: eu-central-1
+#    on:
+#      branch: development
+
+  - provider: script
+    skip_cleanup: true
+    script: mvn deploy -Pdocker-build-deploy -Prelease-sign-artifacts -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    on:
+      branch: master
+  
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - mvn deploy --settings travis-maven-settings.xml -DskipTests=true -B
 
-deploy:
-  provider: script
-  script: mvn deploy --settings travis-maven-settings.xml -DskipTests=true -B -Pdocker-deploy
-  on:
-    branch: 1.0.10
+notifications:
+  email: false
