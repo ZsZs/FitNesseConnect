@@ -44,7 +44,7 @@ script:
   
 before_deploy:
   - chmod +x ./cd/before-deploy.sh 
-  - ./cd/before-deploy.sh
+  - bash ./cd/before-deploy.sh
 
 deploy:
   - provider: script
