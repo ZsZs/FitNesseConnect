@@ -44,8 +44,8 @@ script:
   
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - chmod +x ./cd/before-deploy.sh 
-  - ./cd/before-deploy.sh
+  - chmod +x cd/before-deploy.sh 
+  - cd/before-deploy.sh
   
 before_deploy:
 
