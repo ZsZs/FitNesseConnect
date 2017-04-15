@@ -42,11 +42,9 @@ before_script: echo $AWS_ACCESS_KEY_ID
 script:
   - mvn clean install org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
   
+before_deploy: ./cd/before-deploy.sh
+
 deploy:
-  - provider: script
-    skip_cleanup: true
-    script: ./cd/before-deploy.sh
-    
   - provider: script
     skip_cleanup: true
     script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
