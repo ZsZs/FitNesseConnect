@@ -42,9 +42,12 @@ before_script: echo $AWS_ACCESS_KEY_ID
 script:
   - mvn clean install org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
   
-before_deploy:
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
   - chmod +x ./cd/before-deploy.sh 
-  - bash ./cd/before-deploy.sh
+  - ./cd/before-deploy.sh
+  
+before_deploy:
 
 deploy:
   - provider: script
@@ -59,9 +62,6 @@ deploy:
     on:
       branch: master
       tags: true
-  
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email: false
