@@ -21,8 +21,8 @@ addons:
     - development
     - master
 before_install:
-- openssl aes-256-cbc -K $encrypted_8a18e2dcf8ad_key -iv $encrypted_8a18e2dcf8ad_iv -in codesigning.asc.enc -out codesigning.asc -d
-- gpg --fast-import codesigning.asc
+  - openssl aes-256-cbc -K $encrypted_a8a500ff1127_key -iv $encrypted_a8a500ff1127_iv -in codesigning.asc.enc -out codesigning.asc -d
+  - gpg --fast-import codesigning.asc
 cache:
   directories:
   - "$HOME/.m2"
