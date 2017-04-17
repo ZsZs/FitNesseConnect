@@ -21,8 +21,6 @@ addons:
     - development
     - master
 before_install:
-  - openssl aes-256-cbc -K $encrypted_a8a500ff1127_key -iv $encrypted_a8a500ff1127_iv -in codesigning.asc.enc -out codesigning.asc -d
-  - gpg --fast-import codesigning.asc
 cache:
   directories:
   - "$HOME/.m2"
@@ -32,9 +30,9 @@ script:
 - mvn clean install org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-- chmod +x cd/before-deploy.sh
-- bash cd/before-deploy.sh
 before_deploy: 
+  - openssl aes-256-cbc -K $encrypted_a8a500ff1127_key -iv $encrypted_a8a500ff1127_iv -in codesigning.asc.enc -out codesigning.asc -d
+  - gpg --fast-import codesigning.asc
 deploy:
 - provider: script
   skip_cleanup: true
