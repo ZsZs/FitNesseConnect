@@ -1,8 +1,26 @@
 !2 REST Scenario - Fixture documenation and tests
+!4 Purpose
+REST Scenario fixture allows multiple invokes and reusing response data. It helps to mimic a use case realization interaction.
+!4 Usage
+ * create a script table with '''rest scenario''' fixture and pass the ''configuration name'' and ''resource uri''
+ * invoke one of the followgin actions
+  * ''get resource'': retrieves the specified resource
+  * ''post resource'':
+  * ''put resource'':
+  * ''delete resource'':
+  * ''patch resource'':
+ * evaluate the response with the following methods
+  * check response status: compares the last action's response with the given expected status value
+  * show response body: displays the response
+!define ConfigurationName (fitnesse-connector)
+!define ResourceUri (cars)
 
-|script: rest scenario | fitnesse-connector | cars |
+|script: rest scenario | ${ConfigurationName} | ${ResourceUri} |
 |get resource||
 |check|response status|200|
 |show|response body|
+|get resource|invalidId|
+|check|response status|404|
+
 
 ''Please note that you can take a look into the test services by following this [[link][${TestServerUrl}]].''

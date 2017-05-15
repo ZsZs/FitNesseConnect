@@ -1,0 +1,1 @@
+!2 REST Scenario - Happy path scenario
