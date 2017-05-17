@@ -3,7 +3,9 @@ package com.processpuzzle.fitnesse.connect.application;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -12,6 +14,7 @@ import com.processpuzzle.fitnesse.connect.database.DatabaseConnector;
 import com.processpuzzle.fitnesse.connect.rest.RestClient;
 import com.processpuzzle.fitnesse.connect.rest.SslRestClient;
 
+@ConfigurationProperties()
 public class ApplicationConfiguration {
    protected String contextRoot;
    protected String host;
@@ -19,6 +22,8 @@ public class ApplicationConfiguration {
    protected String port;
    protected String protocol = "http";
    @NestedConfigurationProperty protected DataSourceConfiguration dataSourceConfiguration;
+   @Autowired private RestClient restClient;
+   @Autowired private SslRestClient sslRestClient;
 
    // public accessors and mutators
    public String buildHostUrl() {
@@ -52,13 +57,11 @@ public class ApplicationConfiguration {
    }
    
    public RestClient createRestClient( final String resourceURI ) {
-      RestClient restClient = RestClient.create( fullResourceUrl( resourceURI ));
       return restClient;
    }
    
    public SslRestClient createSslRestClient( final String resourceURI, final String certificateName ) throws Exception {
-      SslRestClient restClient = SslRestClient.create( fullResourceUrl( resourceURI ), certificateName );
-      return restClient;
+      return sslRestClient;
    }
    
    

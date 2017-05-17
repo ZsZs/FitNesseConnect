@@ -9,28 +9,29 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.TrustStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+@Component
 public class SslRestClient extends RestClient {
-   private final String certificateName;
+   private String certificateName;
 
    // constructors
-   public static SslRestClient create( String resourceURI, final String certificateName ) throws Exception {
-      SslRestClient restClient = new SslRestClient( resourceURI, certificateName );
-
-      return restClient;
-   }
-
-   protected SslRestClient( final String resourceURI, final String certificateName ) throws Exception {
-      super( resourceURI );
-      this.certificateName = certificateName;
-
+   protected SslRestClient( ) throws Exception {
+      super();
       restTemplate.setRequestFactory( new HttpComponentsClientHttpRequestFactory( HttpClients.custom().setSSLSocketFactory( socketFactory() ).build() ) );
    }
 
    // public accessors and mutators
 
+   // properties
+   // @formatter:off
+   public String getCertificateName() { return this.certificateName; }
+   public void setCertificateName( String certificateName ) { this.certificateName = certificateName; }
+   // @formatter:on
    // protected, private helper methods
    private SSLConnectionSocketFactory socketFactory() throws Exception {
       char[] password = "testclient3".toCharArray();
