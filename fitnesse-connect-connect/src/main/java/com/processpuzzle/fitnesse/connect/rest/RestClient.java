@@ -7,39 +7,37 @@ import java.nio.charset.Charset;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Component
 public class RestClient {
    private static final Logger logger = LoggerFactory.getLogger( RestClient.class );
    private SimpleClientHttpRequestFactory clientHttpRequestFactory;
-   @Autowired protected RestTemplate restTemplate;
+   protected RestTemplate restTemplate;
 
    // constructors
-   protected RestClient(){
-      configureProxy();
+   public static RestClient create() {
+      RestClient restClient = new RestClient();
+
+      return restClient;
+   }
+
+   protected RestClient() {
+      configureProxy();      
+      createRestTemplate();
    }
 
    // public accessors and mutators
    public <T> ResponseEntity<T> getResource( String resourcePath, Class<T> resourceClass, String sessionId ) {
       HttpHeaders headers = createHeaderWithSessionId( sessionId );
-
       HttpEntity<T> request = new HttpEntity<T>( null, headers );
-
-      ResponseEntity<T> response = restTemplate.exchange( resourcePath, HttpMethod.GET, request, resourceClass );
-      
+      ResponseEntity<T> response = restTemplate.exchange( resourcePath, HttpMethod.GET, request, resourceClass );      
       return response;
    }
 
@@ -85,6 +83,7 @@ public class RestClient {
 
    // properties
    // @formatter:off
+   public RestTemplate getRestTemplate() { return restTemplate; }
    // @formatter:on
 
    // protected, private helper methods
@@ -92,11 +91,6 @@ public class RestClient {
       clientHttpRequestFactory = new SimpleClientHttpRequestFactory();
       Proxy proxy = new Proxy( Proxy.Type.HTTP, new InetSocketAddress( "proxyfarm-fth.inac.siemens.net", 84 ) );
       clientHttpRequestFactory.setProxy( proxy );
-   }
-   
-   private ClientHttpRequestFactory createClientHttpRequestFactory() {
-      HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-      return clientHttpRequestFactory;
    }
 
    private HttpHeaders createHeaderWithSessionId( String sessionId ) {
@@ -106,10 +100,8 @@ public class RestClient {
       return headers;
    }
    
-   @Bean public RestTemplate getRestTemplate() {
-      RestTemplate restTemplate = new RestTemplate( createClientHttpRequestFactory() );
+   protected void createRestTemplate() {
+      restTemplate = new RestTemplate();
       restTemplate.getMessageConverters().add( 0, new StringHttpMessageConverter( Charset.forName( "UTF-8" ) ) );
-
-      return  restTemplate; 
    }
 }

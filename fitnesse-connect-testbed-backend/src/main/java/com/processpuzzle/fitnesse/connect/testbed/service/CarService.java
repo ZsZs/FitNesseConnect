@@ -24,9 +24,9 @@ public class CarService {
       this.carRepository = carRepository;
    }
 
-   @PostMapping( produces = MediaType.APPLICATION_JSON_VALUE ) public Car add( @RequestBody Car newCar ){
-      return carRepository.save(  newCar );
-   }   
+   @PostMapping( produces = MediaType.APPLICATION_JSON_VALUE ) public Car add( @RequestBody Car newCar ) {
+      return carRepository.save( newCar );
+   }
 
    @DeleteMapping( path = "/{id}" ) void delete( @PathVariable Long id ) {
       this.carRepository.delete( id );
@@ -37,14 +37,18 @@ public class CarService {
    }
 
    @GetMapping( path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE ) Car findById( @PathVariable Long id ) {
-      return this.carRepository.findById( id );
+      Car foundCar = this.carRepository.findById( id );
+      if( foundCar == null ){
+         throw new CarNotFoundException( id );
+      }
+      return foundCar;
    }
 
    @GetMapping( path = "/make/{make}", produces = MediaType.APPLICATION_JSON_VALUE ) Iterable<Car> findByMake( @PathVariable String make ) {
       return carRepository.findByMakeIgnoringCase( make );
    }
 
-   @PutMapping( path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE ) public Car update( @PathVariable Long id, @RequestBody Car car ){
+   @PutMapping( path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE ) public Car update( @PathVariable Long id, @RequestBody Car car ) {
       return carRepository.save( car );
-   }   
+   }
 }

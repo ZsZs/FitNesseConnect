@@ -19,8 +19,23 @@ REST Scenario fixture allows multiple invokes and reusing response data. It help
 |get resource||
 |check|response status|200|
 |show|response body|
-|get resource|invalidId|
+|$allCarsJson=|response body|
+|get resource;|invalidId|''this id is not a valid car id''|
+|check|response status|400|
+|show|response body|
+|get resource;|100|''car with this id doesn't exists''|
 |check|response status|404|
+|show|response body|
+
+!|verify json properties|$allCarsJson|
+|property|data type|is mandatory|not null|verify property?|description|
+|$['id']| Integer | yes | yes | pass | car identifier |
+|$['color']| String | no | no | pass | color of the car |
+|$['description']| String | no | no | pass | a textual property |
+|$['make']| String | yes | yes | pass | manufacturer of the car |
+|$['model']| String | yes | yes | pass | model of the car |
+|$['imageUrl']| String | no | no | pass | image of the car |
+|$['year']| Integer | no | no | pass | production year |
 
 
 ''Please note that you can take a look into the test services by following this [[link][${TestServerUrl}]].''

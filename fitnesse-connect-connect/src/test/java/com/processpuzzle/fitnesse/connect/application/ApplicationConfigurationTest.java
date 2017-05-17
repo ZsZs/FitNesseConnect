@@ -49,6 +49,6 @@ public class ApplicationConfigurationTest {
    }
    
    @Test public void createRestClient_configuresServerSpecificHost(){
-      assertThat( applicationConfiguration.createRestClient( "user" ), notNullValue() );
+      assertThat( applicationConfiguration.createRestClient(), notNullValue() );
    }
 }
