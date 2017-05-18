@@ -1,0 +1,24 @@
+!2 Delete REST Resource - Fixture documentation and tests
+!4 Purpose
+With the ''!-DeleteRestResource-!'' your can send a HTTP Delete message to a server, which is used mostly to delete some resources.
+!4 Usage
+ * create a script table with '''delete rest resource''' fixture and pass the  ''configuration name'' and ''resource url'' as parameter.
+ * add request headers
+ * invoke ''execute'' by adding a row
+ * analyse the response with:
+  * ''check / show response status'' : compares the actual response status with the expected
+  * ''check / show response headers'' : displays the response headers
+  * ''check / show response body'' : displays the response
+  * ''$variableName='' : saves one of the aboves in a variable
+!define ConfigurationName (fitnesse-connector)
+!define ResourceUri (cars/2)
+
+|script: delete rest resource | ${ConfigurationName} | ${ResourceUri} |
+|add request header;|some_header|with_value|
+|execute|
+|check|response status|200|
+|show|response time|
+|check|response header|Content-Type|[application/json;charset=UTF-8]|
+|show|response headers|
+|show|response body|
+|$deleteResponse=|response body|

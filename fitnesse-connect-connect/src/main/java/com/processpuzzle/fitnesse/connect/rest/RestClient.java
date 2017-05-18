@@ -34,8 +34,30 @@ public class RestClient {
    }
 
    // public accessors and mutators
+   public ResponseEntity<String> deleteResource( String resourceURI ) throws RestClientException {
+      return deleteResource( resourceURI, null );
+   }
+
+   public ResponseEntity<String> deleteResource( String resourcePath, String sessionId ) throws RestClientException {
+      return deleteResource( resourcePath, null, sessionId );
+   }
+   
+   public ResponseEntity<String> deleteResource( String resourcePath, HttpHeaders requestHeaders, String sessionId ) {
+      logger.info( "Deleting: " + resourcePath );
+
+      HttpHeaders headers = createHeaderWithSessionId( requestHeaders, sessionId );
+      HttpEntity<String> request = new HttpEntity<String>( "dummy request", headers );
+      ResponseEntity<String> response = null;
+      response = restTemplate.exchange( resourcePath, HttpMethod.DELETE, request, String.class );
+      
+      return response;
+   }
    public <T> ResponseEntity<T> getResource( String resourcePath, Class<T> resourceClass, String sessionId ) {
-      HttpHeaders headers = createHeaderWithSessionId( sessionId );
+      return getResource( resourcePath, null, resourceClass, sessionId );
+   }
+   
+   public <T> ResponseEntity<T> getResource( String resourcePath, HttpHeaders requestHeaders, Class<T> resourceClass, String sessionId ) {
+      HttpHeaders headers = createHeaderWithSessionId( requestHeaders, sessionId );
       HttpEntity<T> request = new HttpEntity<T>( null, headers );
       ResponseEntity<T> response = restTemplate.exchange( resourcePath, HttpMethod.GET, request, resourceClass );      
       return response;
@@ -53,9 +75,13 @@ public class RestClient {
    }
 
    public <T> ResponseEntity<T> postResource( String resourcePath, T resourceObject, Class<T> resourceClass, String sessionId ) throws RestClientException {
+      return postResource( resourcePath, null, resourceObject, resourceClass, sessionId );
+   }
+   
+   public <T> ResponseEntity<T> postResource( String resourcePath, HttpHeaders requestHeaders, T resourceObject, Class<T> resourceClass, String sessionId ) throws RestClientException {
       logger.info( "Posting: " + resourceObject.toString() );
 
-      HttpHeaders headers = createHeaderWithSessionId( sessionId );
+      HttpHeaders headers = createHeaderWithSessionId( requestHeaders, sessionId );
       HttpEntity<T> request = new HttpEntity<T>( resourceObject, headers );
       ResponseEntity<T> response = null;
       try{
@@ -93,8 +119,12 @@ public class RestClient {
       clientHttpRequestFactory.setProxy( proxy );
    }
 
-   private HttpHeaders createHeaderWithSessionId( String sessionId ) {
-      HttpHeaders headers = new HttpHeaders();
+   private HttpHeaders createHeaderWithSessionId( HttpHeaders requestHeaders, String sessionId ) {
+      HttpHeaders headers;
+      
+      if( requestHeaders == null ) headers = new HttpHeaders();
+      else headers = requestHeaders;
+      
       headers.setContentType( MediaType.APPLICATION_JSON );
       headers.set( "Cookie", sessionId );
       return headers;

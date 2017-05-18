@@ -1,5 +1,6 @@
 package com.processpuzzle.fitnesse.connect.rest;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -7,6 +8,7 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
+import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,8 +33,8 @@ public class GetRestResourceTest extends RestConnectorTest<GetRestResource>{
       
       getRestResource = restConnector;
       
-      this.server.expect( requestTo( RESOURCE_URL ) ).andRespond( withSuccess( jsonMapper.writeValueAsString( testObjectOne ), MediaType.APPLICATION_JSON ) );
-
+      this.server.expect( requestTo( RESOURCE_URL ) ).andRespond( withSuccess( jsonMapper.writeValueAsString( testObjects ), MediaType.APPLICATION_JSON ) );
+      
       getRestResource.execute();
    }
 
@@ -53,15 +55,21 @@ public class GetRestResourceTest extends RestConnectorTest<GetRestResource>{
    }
 
    @Test public void responseBody_returnsBodyAsText() throws JsonProcessingException {
-      assertThat( getRestResource.responseBody(), equalTo( jsonMapper.writeValueAsString( testObjectOne ) ) );
+      assertThat( getRestResource.responseBody(), equalTo( jsonMapper.writeValueAsString( testObjects ) ) );
    }
 
    @Test public void responseTime_measuresResponseTimeInMillis() throws JsonProcessingException {
       assertThat( getRestResource.responseTime(), notNullValue() );
    }
+   
+   @Test public void addRequestHeader_buildsHeadersToSend(){
+      getRestResource.addRequestHeader( "test_header_key", "test_header_value" );
+      assertThat( getRestResource.requestHeaders.containsKey( "test_header_key" ), is( true ) );
+      assertThat( getRestResource.requestHeaders.get( "test_header_key" ), equalTo( Lists.newArrayList( "test_header_value" )));
+   }
 
    // protected, private test helper methods
    @Override protected void instantiateRestConnector() {
-      restConnector = new GetRestResource( "connector", "/api/cars/id" );
+      restConnector = new GetRestResource( "connector", "/api/cars" );
    }
 }

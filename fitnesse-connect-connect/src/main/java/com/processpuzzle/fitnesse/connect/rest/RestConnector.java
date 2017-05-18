@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -18,12 +19,13 @@ public abstract class RestConnector {
    private static final Logger logger = LoggerFactory.getLogger( RestConnector.class );
    protected ApplicationConfiguration configuration;
    protected final String host;
+   protected ResponseEntity<String> lastResponse;
+   protected HttpHeaders requestHeaders = new HttpHeaders();
    protected String resourcePath;
    protected RestClient restClient;
    protected List<SessionResults<?>> sessionResults = Lists.newArrayList();
    protected long sessionEnded;
    protected long sessionStarted;
-   protected ResponseEntity<String> lastResponse;
 
    protected RestConnector( ApplicationConfiguration configuration, String resourcePath ) {
       this.configuration = configuration;
@@ -33,18 +35,36 @@ public abstract class RestConnector {
    }
 
    // public accessors and mutators
-   public void getResource( String resourceUri ) {
+   public void addRequestHeader( String headerName, String headerValue ) {
+      this.requestHeaders.add( headerName, headerValue );
+   }
+
+   public void deleteResource() {
+      deleteResource( null );
+   }
+
+   public void deleteResource( String resourceUri ) {
       String resourceURL = compileResourceUrl( resourceUri );
       try{
-         lastResponse = restClient.getResource( resourceURL, String.class, null );
+         lastResponse = restClient.deleteResource( resourceURL, requestHeaders, null );
       }catch( HttpClientErrorException e ){
          logger.debug( "Retrieving the resource: " + resourceURL + " resulted in exception." );
          lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
       }
    }
-
-   public void getResource( String resourceUri, String notUsedComment ) {
-      getResource( resourceUri );
+   
+   public void getResource() {
+      getResource( null );
+   }
+   
+   public void getResource( String resourceUri ) {
+      String resourceURL = compileResourceUrl( resourceUri );
+      try{
+         lastResponse = restClient.getResource( resourceURL, requestHeaders, String.class, null );
+      }catch( HttpClientErrorException e ){
+         logger.debug( "Retrieving the resource: " + resourceURL + " resulted in exception." );
+         lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
+      }
    }
 
    public String responseBody() {
