@@ -17,13 +17,13 @@ public class SslRestClient extends RestClient {
 
    // constructors
    public static SslRestClient create( String resourceURI, final String certificateName ) throws Exception {
-      SslRestClient restClient = new SslRestClient( resourceURI, certificateName );
+      SslRestClient restClient = new SslRestClient( certificateName );
 
       return restClient;
    }
 
-   protected SslRestClient( final String resourceURI, final String certificateName ) throws Exception {
-      super( resourceURI );
+   protected SslRestClient( final String certificateName ) throws Exception {
+      super();
       this.certificateName = certificateName;
 
       restTemplate.setRequestFactory( new HttpComponentsClientHttpRequestFactory( HttpClients.custom().setSSLSocketFactory( socketFactory() ).build() ) );

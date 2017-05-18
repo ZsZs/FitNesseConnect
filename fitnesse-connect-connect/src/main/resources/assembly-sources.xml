@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+  <id>source</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <baseDirectory>/</baseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>${project.basedir}/../</directory>
+      <outputDirectory>/fit-connect</outputDirectory>
+      <includes>
+        <include>pom.xml</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet>
+      <directory>${project.basedir}/../fitnesse-connect-aws</directory>
+      <outputDirectory>/fit-connect/fitnesse-connect-aws</outputDirectory>
+      <includes>
+        <include>pom.xml</include>
+        <include>fitnesse*/**</include>
+        <include>proxy*/**</include>
+        <include>src*/**</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet>
+      <directory>${project.basedir}/../fitnesse-connect-connect</directory>
+      <outputDirectory>/fit-connect/fitnesse-connect-connect</outputDirectory>
+      <includes>
+        <include>pom.xml</include>
+        <include>src*/**</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet>
+      <directory>${project.basedir}/../fitnesse-connect-docker</directory>
+      <outputDirectory>/fit-connect/fitnesse-connect-docker</outputDirectory>
+      <includes>
+        <include>pom.xml</include>
+        <include>docker*/**</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet>
+      <directory>${project.basedir}/../fitnesse-connect-parent</directory>
+      <outputDirectory>/fit-connect/fitnesse-connect-parent</outputDirectory>
+      <includes>
+        <include>pom.xml</include>
+        <include>src*/**</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet>
+      <directory>${project.basedir}/../fitnesse-connect-testbed-backend</directory>
+      <outputDirectory>/fit-connect/fitnesse-connect-testbed-backend</outputDirectory>
+      <includes>
+        <include>pom.xml</include>
+        <include>src*/**</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet>
+      <directory>${project.basedir}/../fitnesse-connect-testbed-ui</directory>
+      <outputDirectory>/fit-connect/fitnesse-connect-testbed-ui</outputDirectory>
+      <includes>
+        <include>pom.xml</include>
+        <include>e2e*/**</include>
+        <include>src*/**</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>

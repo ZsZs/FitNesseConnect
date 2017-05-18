@@ -51,8 +51,8 @@ public class ApplicationConfiguration {
       return new JdbcTemplate( dataSource );
    }
    
-   public RestClient createRestClient( final String resourceURI ) {
-      RestClient restClient = RestClient.create( fullResourceUrl( resourceURI ));
+   public RestClient createRestClient() {
+      RestClient restClient = RestClient.create();
       return restClient;
    }
    
