@@ -25,6 +25,12 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
    // constructors
    public IntegratedApplicationTester(){}
    
+   @SuppressWarnings( "static-access" )
+   public IntegratedApplicationTester( ApplicationContext applicationContext ) {
+      this.applicationContext = applicationContext;
+      this.soleInstance = this;
+   }
+
    public static IntegratedApplicationTester getInstance() { 
       if( applicationContext == null ){
          String[] args = {};
