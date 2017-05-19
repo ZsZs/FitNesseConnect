@@ -38,7 +38,6 @@ script:
   - mvn clean install org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
   
 before_deploy:
-  - gpg --fast-import codesigning.asc
 
 deploy:
   - provider: script
