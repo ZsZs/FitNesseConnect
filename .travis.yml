@@ -1,9 +1,7 @@
 sudo: required
-
 language: java
 jdk: oraclejdk8
 install: true
-
 env:
   global:
     - secure: "the base64 string from when you encrypted SONATYPE_USERNAME"
@@ -11,27 +9,28 @@ env:
     - secure: "the base64 string from when you encrypted GPG_KEY_NAME"
     - secure: "the base64 string from when you encrypted GPG_PASSPHRASE"
   local:
-    maven:
-      repository=$HOME/.m2
+    maven: repository=$HOME/.m2
 
 services:
-  - docker
+- docker
 
 addons:
   sonarqube:
-    organization: "processpuzzle"
+    organization: processpuzzle
     token:
-      secure: $SONAR_TOKEN
-    branches :
+      secure: "$SONAR_TOKEN"
+    branches:
     - development
     - master
 
 before_install:
+- openssl aes-256-cbc -K $encrypted_a8a500ff1127_key -iv $encrypted_a8a500ff1127_iv -in codesigning.asc.enc -out codesigning.asc -d
+- gpg --fast-import codesigning.asc
 
 cache:
   directories:
-  - $HOME/.m2
-  - $HOME/.sonar/cache
+  - "$HOME/.m2"
+  - "$HOME/.sonar/cache"
 
 before_script: echo $AWS_ACCESS_KEY_ID
 
@@ -55,8 +54,5 @@ deploy:
       branch: master
       tags: true
   
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
 notifications:
   email: false
