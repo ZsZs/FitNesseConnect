@@ -8,19 +8,11 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.internal.util.reflection.Whitebox;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-@RunWith( SpringRunner.class )
-@SpringBootTest( classes = { RestClient.class } )
-@org.springframework.boot.test.autoconfigure.web.client.RestClientTest( RestClient.class )
-@ActiveProfiles( "unit-test" )
 public class RestScenarioTest extends RestConnectorTest<RestScenario> {
    private RestScenario restScenario;
 
