@@ -4,6 +4,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -13,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.google.common.collect.Lists;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.PathNotFoundException;
 import com.processpuzzle.fitnesse.connect.application.ApplicationConfiguration;
 
 public abstract class RestConnector {
@@ -20,6 +25,7 @@ public abstract class RestConnector {
    protected ApplicationConfiguration configuration;
    protected final String host;
    protected ResponseEntity<String> lastResponse;
+   protected String requestBody;
    protected HttpHeaders requestHeaders = new HttpHeaders();
    protected String resourcePath;
    protected RestClient restClient;
@@ -36,7 +42,8 @@ public abstract class RestConnector {
 
    // public accessors and mutators
    public void addRequestHeader( String headerName, String headerValue ) {
-      this.requestHeaders.add( headerName, headerValue );
+      logger.debug( "Adding request header: " + headerName + ", " + headerValue );
+      this.requestHeaders.put( headerName, convertToList( headerValue ) );
    }
 
    public void deleteResource() {
@@ -45,6 +52,7 @@ public abstract class RestConnector {
 
    public void deleteResource( String resourceUri ) {
       String resourceURL = compileResourceUrl( resourceUri );
+      logger.debug( "DELETE resource: " + resourceURL );
       try{
          lastResponse = restClient.deleteResource( resourceURL, requestHeaders, null );
       }catch( HttpClientErrorException e ){
@@ -52,17 +60,63 @@ public abstract class RestConnector {
          lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
       }
    }
-   
+
    public void getResource() {
       getResource( null );
    }
-   
+
    public void getResource( String resourceUri ) {
       String resourceURL = compileResourceUrl( resourceUri );
+      logger.debug( "GET resource: " + resourceURL );
       try{
          lastResponse = restClient.getResource( resourceURL, requestHeaders, String.class, null );
       }catch( HttpClientErrorException e ){
          logger.debug( "Retrieving the resource: " + resourceURL + " resulted in exception." );
+         lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
+      }
+   }
+
+   public void patchResource() {
+      patchResource( null, requestBody );
+   }
+
+   public void patchResource( String resourceUri, String resourceObject ) {
+      String resourceURL = compileResourceUrl( resourceUri );
+      logger.debug( "PATCH resource: " + resourceURL );
+      try{
+         lastResponse = restClient.patchResource( resourceURL, resourceObject );
+      }catch( HttpClientErrorException e ){
+         logger.debug( "Patching resource: " + resourceURL + " resulted in exception." );
+         lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
+      }
+   }
+
+   public void postResource() {
+      postResource( null, requestBody );
+   }
+
+   public void postResource( String resourceUri, String resourceObject ) {
+      String resourceURL = compileResourceUrl( resourceUri );
+      logger.debug( "POST resource: " + resourceObject + " to: " + resourceURL );
+      try{
+         lastResponse = restClient.postResource( resourceURL, resourceObject );
+      }catch( HttpClientErrorException e ){
+         logger.debug( "Posting resource: " + resourceURL + " resulted in exception." );
+         lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
+      }
+   }
+
+   public void putResource() {
+      putResource( null, requestBody );
+   }
+
+   public void putResource( String resourceUri, String resourceObject ) {
+      String resourceURL = compileResourceUrl( resourceUri );
+      logger.debug( "PUT resource: " + resourceObject + " to: " + resourceURL );
+      try{
+         lastResponse = restClient.putResource( resourceURL, resourceObject );
+      }catch( HttpClientErrorException e ){
+         logger.debug( "Putting resource: " + resourceURL + " resulted in exception." );
          lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
       }
    }
@@ -75,18 +129,35 @@ public abstract class RestConnector {
       return responseBody();
    }
 
-   public String responseHeader( String headerKey ) {
-      for( Map.Entry<String, List<String>> headerEntry : lastResponse.getHeaders().entrySet() ){
-         if( headerEntry.getKey().equals( headerKey )) return headerEntry.getValue().toString(); 
+   public Object responseBodyProperty( String jsonPath ) {
+      Object propertyValue = null;
+      String jsonString = this.responseBody();
+      try{
+         DocumentContext jsonContext = JsonPath.parse( jsonString );
+         propertyValue = jsonContext.read( jsonPath );
+      }catch( PathNotFoundException e ){
+         propertyValue = e.getLocalizedMessage();
+         logger.debug( "Selecting property: " + jsonPath + " failed.", e );
       }
       
+      return propertyValue;
+   }
+
+   public String responseHeader( String headerKey ) {
+      logger.trace( "Searching response header by key: " + headerKey );
+      for( Map.Entry<String, List<String>> headerEntry : lastResponse.getHeaders().entrySet() ){
+         if( headerEntry.getKey().equals( headerKey ) )
+            return headerEntry.getValue().toString();
+      }
+
+      logger.trace( "Key not found in response headers" );
       return "";
    }
 
    public String responseHeaders() {
       String headersText = "";
       for( Map.Entry<String, List<String>> headerEntry : lastResponse.getHeaders().entrySet() ){
-         headersText += headerEntry.toString() + "\n"; 
+         headersText += headerEntry.toString() + "\n";
       }
       return headersText;
    }
@@ -129,6 +200,11 @@ public abstract class RestConnector {
       return null;
    }
 
+   public void setRequestBody( String requestBody ) {
+      logger.debug( "Define request body as: " + requestBody );
+      this.requestBody = stripPreTags( requestBody );
+   }
+
    // @formatter:off
    public RestClient getRestClient() { return restClient; }
    // @formatter:on
@@ -145,9 +221,15 @@ public abstract class RestConnector {
             resourceUrl += "/" + StringUtils.stripStart( resourceURI, "/" );
          }
       }catch( URISyntaxException e ){
-         logger.error( "Couldn't compile full URL from host: " + this.host + " and resource path: " + this.resourcePath  + " and resource uri: " + resourceURI );;
+         logger.error(
+               "Couldn't compile full URL from host: " + this.host + " and resource path: " + this.resourcePath + " and resource uri: " + resourceURI );;
       }
       return resourceUrl;
+   }
+
+   protected List<String> convertToList( String value ) {
+      Stream<String> elements = Stream.of( value.split( ";" ));
+      return elements.map( String::trim ).collect( Collectors.toList() );
    }
 
    protected void instantiateRestClient() {
@@ -156,5 +238,11 @@ public abstract class RestConnector {
 
    protected void instantiateSslRestClient( final String resourceURI, final String certificateName ) throws Exception {
       restClient = configuration.createSslRestClient( resourceURI, certificateName );
+   }
+   
+   private String stripPreTags( String requestBody ) {
+      String strippedBody = StringUtils.remove( requestBody, "<pre>" );
+      strippedBody = StringUtils.remove( strippedBody, "</pre>" );
+      return strippedBody;
    }
 }

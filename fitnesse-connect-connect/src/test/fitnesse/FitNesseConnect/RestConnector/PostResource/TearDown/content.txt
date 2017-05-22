@@ -1,2 +1,4 @@
+!***> delete the new record
 |Script: delete record from database|!-fitnesse-connector-! | delete from !-CAR-! where id = '$newCarId'; |
 |delete|
+**!

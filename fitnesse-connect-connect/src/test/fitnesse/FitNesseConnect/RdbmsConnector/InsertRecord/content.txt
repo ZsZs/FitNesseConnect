@@ -1,7 +1,7 @@
 !2 Insert Record Into Database - Fixture documentation and tests
 |Table: insert record into database| !-fitnesse-connector-! |!-CAR-!|
-| ID | MAKE | MODEL | YEAR | COLOR |
-| 4 | 'BMW' | '318' | 1999 | 'blue'|
+| Generated:ID | MAKE | MODEL | YEAR | COLOR |
+| $newCarId= | 'Mazda' | 'MX-5' | 2011 | 'blue'|
 
 ''Please note that you can take a look into the test database by following this [[link][${DatabaseUrl}]].''
 

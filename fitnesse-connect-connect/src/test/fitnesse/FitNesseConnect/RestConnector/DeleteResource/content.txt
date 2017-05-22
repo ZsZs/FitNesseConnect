@@ -10,15 +10,24 @@ With the ''!-DeleteRestResource-!'' your can send a HTTP Delete message to a ser
   * ''check / show response headers'' : displays the response headers
   * ''check / show response body'' : displays the response
   * ''$variableName='' : saves one of the aboves in a variable
+!***> create car to delete
+Insert Record Into Database - Fixture documentation and tests
+|Table: insert record into database| !-fitnesse-connector-! |!-CAR-!|
+| Generated:ID | MAKE | MODEL | YEAR | COLOR |
+| $newCarId= | 'Mazda' | 'MX-5' | 2011 | 'blue'|
+***!
 !define ConfigurationName (fitnesse-connector)
-!define ResourceUri (cars/2)
-
+!define ResourceUri (cars/$newCarId)
 |script: delete rest resource | ${ConfigurationName} | ${ResourceUri} |
 |add request header;|some_header|with_value|
 |execute|
 |check|response status|200|
 |show|response time|
-|check|response header|Content-Type|[application/json;charset=UTF-8]|
 |show|response headers|
 |show|response body|
 |$deleteResponse=|response body|
+
+!***> verify the car was deleted from the database
+|Query: database has record| !-fitnesse-connector-! | SELECT * FROM car WHERE id = '$newCarId';|
+| ID | MAKE |MODEL | YEAR | COLOR |
+***!

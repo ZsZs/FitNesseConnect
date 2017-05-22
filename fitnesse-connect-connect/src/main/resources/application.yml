@@ -4,6 +4,7 @@ logging:
     org.springframework: INFO
     org.springframework.beans: INFO
     org.springframework.security: INFO
+    com.processpuzzle.fitnesse.connect: DEBUG
 
 spring:
   datasource:
