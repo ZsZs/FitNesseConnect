@@ -71,6 +71,6 @@ public class CarService {
       logger.info( "Updating car: " + id );
       Car carToUpdate = carRepository.findById( id );
       carToUpdate.update( car );
-      return carToUpdate;
+      return carRepository.save( carToUpdate );
    }
 }
