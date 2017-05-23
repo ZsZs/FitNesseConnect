@@ -18,50 +18,55 @@ import org.springframework.http.MediaType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class GetRestResourceTest extends RestConnectorTest<GetRestResource>{
-   private GetRestResource getRestResource;
+   private GetRestResource getResource;
    
    @Before public void beforeEachTests() throws JsonProcessingException {
       super.beforeEachTests();
       
-      getRestResource = restConnector;
+      getResource = restConnector;
       
       this.server.expect( requestTo( RESOURCE_URL ) ).andRespond( withSuccess( jsonMapper.writeValueAsString( testObjects ), MediaType.APPLICATION_JSON ) );
       
-      getRestResource.execute();
+      getResource.execute();
    }
 
    @Test public void execute_retrievesResource() throws JsonProcessingException {
-      assertThat( Whitebox.getInternalState( getRestResource, "lastResponse" ), notNullValue());
+      assertThat( Whitebox.getInternalState( getResource, "lastResponse" ), notNullValue());
    }
 
    @Test public void responseStatus_returnsStatusCode() throws JsonProcessingException {
-      assertThat( getRestResource.responseStatus(), equalTo( HttpStatus.OK.value() ) );
+      assertThat( getResource.responseStatus(), equalTo( HttpStatus.OK.value() ) );
    }
 
    @Test public void responseHeader_returnsSpecificHeader() throws JsonProcessingException {
-      assertThat( getRestResource.responseHeader( "Content-Type" ), containsString( "[application/json]" ) );
+      assertThat( getResource.responseHeader( "Content-Type" ), containsString( "[application/json]" ) );
    }
 
    @Test public void responseHeaders_returnsAllHeadersAsText() throws JsonProcessingException {
-      assertThat( getRestResource.responseHeaders(), containsString( "Content-Type=[application/json]" ) );
+      assertThat( getResource.responseHeaders(), containsString( "Content-Type=[application/json]" ) );
    }
 
    @Test public void responseBody_returnsBodyAsText() throws JsonProcessingException {
-      assertThat( getRestResource.responseBody(), equalTo( jsonMapper.writeValueAsString( testObjects ) ) );
+      assertThat( getResource.responseBody(), equalTo( jsonMapper.writeValueAsString( testObjects ) ) );
+   }
+
+   @Test public void responseBodyProperty_selectsPropertyFromResponse() {
+      assertThat( getResource.responseBodyProperty( "$.[0].['textValue']" ).toString(), containsString( testObjectOne.getTextValue() ));
+      assertThat( getResource.responseBodyProperty( "$.[0].['numberValue']" ), equalTo( testObjectOne.getNumberValue() ));
    }
 
    @Test public void responseTime_measuresResponseTimeInMillis() throws JsonProcessingException {
-      assertThat( getRestResource.responseTime(), notNullValue() );
+      assertThat( getResource.responseTime(), notNullValue() );
    }
    
    @Test public void addRequestHeader_buildsHeadersToSend(){
-      getRestResource.addRequestHeader( "test_header_key", "test_header_value" );
-      assertThat( getRestResource.requestHeaders.containsKey( "test_header_key" ), is( true ) );
-      assertThat( getRestResource.requestHeaders.get( "test_header_key" ), equalTo( Lists.newArrayList( "test_header_value" )));
+      getResource.addRequestHeader( "test_header_key", "test_header_value" );
+      assertThat( getResource.requestHeaders.containsKey( "test_header_key" ), is( true ) );
+      assertThat( getResource.requestHeaders.get( "test_header_key" ), equalTo( Lists.newArrayList( "test_header_value" )));
    }
 
    // protected, private test helper methods
    @Override protected void instantiateRestConnector() {
-      restConnector = new GetRestResource( "connector", "/api/cars" );
+      restConnector = new GetRestResource( CONFIGURATION_NAME, RESOURCE_PATH );
    }
 }

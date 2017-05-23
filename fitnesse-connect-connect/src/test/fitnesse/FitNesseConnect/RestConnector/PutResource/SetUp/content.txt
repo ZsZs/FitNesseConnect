@@ -1,0 +1,6 @@
+create car to update
+
+|Table: insert record into database| !-fitnesse-connector-! |!-CAR-!|
+| Generated:ID | MAKE | MODEL | YEAR | COLOR |
+| $newCarId= | 'Mazda' | 'MX-5' | 2011 | 'blue'|
+

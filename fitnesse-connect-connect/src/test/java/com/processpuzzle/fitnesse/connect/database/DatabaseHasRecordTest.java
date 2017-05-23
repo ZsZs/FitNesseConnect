@@ -1,6 +1,6 @@
 package com.processpuzzle.fitnesse.connect.database;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -34,7 +34,7 @@ public class DatabaseHasRecordTest {
    }
    
    @Test public void query_returnsRecordsAsListOfString() {
-      assertThat( databaseHasRecord.query().size(), equalTo( 4 ));
+      assertThat( databaseHasRecord.query().size(), greaterThanOrEqualTo( 4 ));
    }
    
 }

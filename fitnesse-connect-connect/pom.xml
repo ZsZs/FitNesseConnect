@@ -9,12 +9,12 @@
   <parent>
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect-parent</artifactId>
-    <version>1.0.13</version>
     <relativePath>../fitnesse-connect-parent</relativePath>
+    <version>1.1.1</version>
   </parent>
 
   <properties>
-    <!-- <fitnesse.suite>FitNesseConnect</fitnesse.suite> -->
+    <fitnesse.suite>FitNesseConnect</fitnesse.suite>
     <argLine />
     <my.lib>${com.processpuzzle.fitnesse:fitnesse-connect-testbed-backend:jar}</my.lib>
 

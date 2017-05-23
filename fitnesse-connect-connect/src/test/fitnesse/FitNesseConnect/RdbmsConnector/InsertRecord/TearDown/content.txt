@@ -1,2 +1,2 @@
-|Script: delete record from database|!-fitnesse-connector-! | delete from !-CAR-! where id = '4'; |
+|Script: delete record from database|!-fitnesse-connector-! | delete from !-CAR-! where id = '$newCarId'; |
 |delete|

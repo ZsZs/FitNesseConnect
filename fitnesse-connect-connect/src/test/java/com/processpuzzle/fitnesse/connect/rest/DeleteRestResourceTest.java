@@ -31,6 +31,6 @@ public class DeleteRestResourceTest extends RestConnectorTest<DeleteRestResource
    
    // protected, private test helper methods
    @Override protected void instantiateRestConnector() {
-      restConnector = new DeleteRestResource( "connector", "/api/cars/1" );
+      restConnector = new DeleteRestResource( CONFIGURATION_NAME, RESOURCE_PATH + "/1" );
    }
 }

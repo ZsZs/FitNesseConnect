@@ -6,13 +6,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.common.collect.Lists;
 import com.processpuzzle.fitnesse.connect.application.ApplicationConfiguration;
 import com.processpuzzle.fitnesse.connect.application.IntegratedApplicationTester;
 
-public class DatabaseHasRecord extends DatabaseFixture{
+public class DatabaseHasRecord extends DatabaseFixture<SelectStatementBuilder> {
+   private static Logger logger = LoggerFactory.getLogger( DatabaseHasRecord.class );
    private CellValueMapper cellValueMapper = new CellValueMapper();
    private List<String> columnNames = Lists.newArrayList();
    private String query;
@@ -21,11 +24,11 @@ public class DatabaseHasRecord extends DatabaseFixture{
    public DatabaseHasRecord( String configurationName, String queryString ) {
       this( IntegratedApplicationTester.getInstance().getConfiguration( configurationName ), queryString );
    }
-   
+
    protected DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String queryString ) {
       this( serviceConfiguration, null, queryString );
    }
-   
+
    protected DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String databaseName, String queryString ) {
       super( serviceConfiguration, databaseName );
       this.query = queryString;
@@ -40,7 +43,7 @@ public class DatabaseHasRecord extends DatabaseFixture{
          List<List<String>> row = Lists.newArrayList();
          for( Entry<String, Object> mapEntry : map.entrySet() ){
             String value = cellValueMapper.map( mapEntry.getValue() );
-            row.add( asList( mapEntry.getKey(), value ));
+            row.add( asList( mapEntry.getKey(), value ) );
          }
          rowList.add( row );
       }
@@ -49,8 +52,12 @@ public class DatabaseHasRecord extends DatabaseFixture{
 
    public void table( List<List<String>> table ) {
       for( List<String> row : table ){
-         for( String cell : row ){
-            columnNames.add( cell );
+         try{
+            for( String cell : row ){
+               columnNames.add( cell );
+            }
+         }catch( ClassCastException e ){
+            logger.error( "Row cell value is not a String. See: " + row.toString() );
          }
       }
    }

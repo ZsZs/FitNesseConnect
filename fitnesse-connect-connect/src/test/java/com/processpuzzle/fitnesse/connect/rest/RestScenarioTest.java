@@ -14,7 +14,7 @@ import org.springframework.http.MediaType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class RestScenarioTest extends RestConnectorTest<RestScenario> {
-   private RestScenario restScenario;
+   private RestConnector restScenario;
 
    @Before public void beforeEachTests() throws JsonProcessingException {
       super.beforeEachTests();

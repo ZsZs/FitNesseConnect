@@ -1,0 +1,3 @@
+|Table: update database table| !-fitnesse-connector-! | !-CAR-! | id = '2' |
+| MAKE | MODEL | YEAR | COLOR |
+| 'BMW' | 'Z4' | 2015 | 'orange'|

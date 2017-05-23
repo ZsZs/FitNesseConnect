@@ -1,6 +1,6 @@
 !2 Post REST Resource - Fixture documentation and tests
 !4 Purpose
-''!-PostRestResource-'' enables to send a HTTP Post message to a server, which is mostly used to create a new resource.
+''!-PostRestResource-!'' enables to send a HTTP Post message to a server, which is mostly used to create a new resource.
 !4 Usage
  * create a script table with '''post rest resource''' fixture and pass the  ''configuration name'' and ''resource url'' as parameter.
  * add request headers
@@ -24,12 +24,20 @@
 }}})
 
 |script: post rest resource | ${ConfigurationName} | ${ResourceUri} |
-|add request header;|some_header|with_value|
-|add request body | ${RequestBody} |
+|add request header;|Content-Type|application/json;charset=UTF-8|
+|set request body | ${RequestBody} |
 |execute|
-|check|response status|200|
+|check|response status|201|
 |show|response time|
-|check|response header|Content-Type|[application/json;charset=UTF-8]|
+|check|response header|Content-Type|[application/json;charset=utf-8]|
+|check|response body property|$['make']|Mercedes-Benz|
 |show|response headers|
 |show|response body|
 |$allCarsJson=|response body|
+|$newCarId=|response body property|$['id']|
+
+!***> verify the new car in the database
+|Query: database has record| !-fitnesse-connector-! | SELECT * FROM car WHERE id = $newCarId;|
+| ID | MAKE |MODEL | YEAR | COLOR |
+| $newCarId | Mercedes-Benz | CLS | 2016 | silber |
+***!

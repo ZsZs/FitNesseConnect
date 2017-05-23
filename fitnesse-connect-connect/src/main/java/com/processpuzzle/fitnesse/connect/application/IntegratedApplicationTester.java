@@ -61,7 +61,7 @@ public class IntegratedApplicationTester implements ApplicationContextAware{
    }
 
    public void initialize( String activeProfile ) {
-      instantiateApplicationContext( new String[]{ "--spring.profiles.active=" + activeProfile } );
+      if( applicationContext == null ) instantiateApplicationContext( new String[]{ "--spring.profiles.active=" + activeProfile } );
       if( soleInstance == null ) soleInstance = applicationContext.getBean( IntegratedApplicationTester.class );
    }
 
