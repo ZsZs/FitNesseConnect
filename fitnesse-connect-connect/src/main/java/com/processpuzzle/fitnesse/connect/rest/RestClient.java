@@ -139,7 +139,7 @@ public class RestClient {
    }
 
    public <T> ResponseEntity<T> putResource( String resourcePath, HttpHeaders requestHeaders, T resourceObject, Class<T> resourceClass, String sessionId ) {
-      logger.info( "Posting: " + resourceObject.toString() );
+      logger.info( "Putting: " + resourceObject.toString() );
 
       HttpHeaders headers = createHeaderWithSessionId( requestHeaders, sessionId );
       HttpEntity<T> request = new HttpEntity<T>( resourceObject, headers );

@@ -1,4 +1,8 @@
 !2 Update Database Record - Fixture documentation and tests
 
+|Table: update database table| !-fitnesse-connector-! | !-CAR-! | id = '2' |
+| MAKE | MODEL | YEAR | COLOR |
+| 'Mazda' | 'MX-5' | 2011 | 'blue'|
+
 
 ''Please note that you can take a look into the test database by following this [[link][${DatabaseUrl}]].''

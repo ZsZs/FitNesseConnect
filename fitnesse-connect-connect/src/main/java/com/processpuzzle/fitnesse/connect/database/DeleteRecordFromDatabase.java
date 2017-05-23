@@ -3,7 +3,7 @@ package com.processpuzzle.fitnesse.connect.database;
 import com.processpuzzle.fitnesse.connect.application.ApplicationConfiguration;
 import com.processpuzzle.fitnesse.connect.application.IntegratedApplicationTester;
 
-public class DeleteRecordFromDatabase extends DatabaseFixture {
+public class DeleteRecordFromDatabase extends DatabaseFixture<DeleteStatementBuilder> {
    protected final String sqlStatement;
    
    // constructors

@@ -2,10 +2,11 @@ package com.processpuzzle.fitnesse.connect.database;
 
 import com.processpuzzle.fitnesse.connect.application.ApplicationConfiguration;
 
-public abstract class DatabaseFixture {
+public abstract class DatabaseFixture<B extends SqlStatementBuilder> {
    protected ApplicationConfiguration applicationConfiguration;
    protected DatabaseConnector databaseClient;
    protected String databaseName;
+   protected B sqlBuilder;
    
    // constructors
    

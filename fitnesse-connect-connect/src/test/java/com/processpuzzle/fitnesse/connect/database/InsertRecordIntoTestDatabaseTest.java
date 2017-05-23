@@ -26,13 +26,13 @@ import com.processpuzzle.fitnesse.connect.application.IntegratedApplicationTeste
 @EnableAutoConfiguration
 @ActiveProfiles( "unit-test" )
 public class InsertRecordIntoTestDatabaseTest {
+   private List<List<List<String>>> actualRecords;
    private DatabaseHasRecord databaseHasRecord;
    private DeleteRecordFromDatabase deleteRecord;
    private Integer highestId;
    private InsertRecordIntoDatabase insertRecord;
    private int originalNumberOfRecords;
    private List<List<String>> table;
-   private List<List<List<String>>> actualRecords;
 
    @Before public void beforeEachTest() {
       insertRecord = new InsertRecordIntoDatabase( "connector", "account" );

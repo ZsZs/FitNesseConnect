@@ -1,5 +1,7 @@
 package com.processpuzzle.fitnesse.connect.testbed.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.http.HttpHeaders;
@@ -11,8 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.processpuzzle.fitnesse.connect.testbed.application.RestApiController;
@@ -23,6 +26,7 @@ import com.processpuzzle.fitnesse.connect.testbed.integration.CarRepository;
 @RestApiController( "cars" )
 @ExposesResourceFor( Car.class )
 public class CarService {
+   private static final Logger logger = LoggerFactory.getLogger( CarService.class );
    private final CarRepository carRepository;
 
    @Autowired public CarService( CarRepository carRepository ) {
@@ -30,6 +34,7 @@ public class CarService {
    }
 
    @PostMapping( value = "", produces = { MediaType.APPLICATION_JSON_VALUE } ) public ResponseEntity<Car> add( @RequestBody Car newCar ) {
+      logger.info( "Adding new car to repository." );
       HttpHeaders headers = new HttpHeaders();
       headers.add( "Content-Type", "application/json; charset=utf-8" );
       return new ResponseEntity<Car>(carRepository.save( newCar ), headers, HttpStatus.CREATED );
@@ -62,7 +67,10 @@ public class CarService {
       return carRepository.findByMakeIgnoringCase( make );
    }
 
-   @PutMapping( path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE ) public Car update( @PathVariable Long id, @RequestBody Car car ) {
-      return carRepository.save( car );
+   @RequestMapping( path = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE ) public Car update( @PathVariable Long id, @RequestBody Car car ) {
+      logger.info( "Updating car: " + id );
+      Car carToUpdate = carRepository.findById( id );
+      carToUpdate.update( car );
+      return carToUpdate;
    }
 }

@@ -12,7 +12,7 @@ import com.google.common.collect.Lists;
 import com.processpuzzle.fitnesse.connect.application.ApplicationConfiguration;
 import com.processpuzzle.fitnesse.connect.application.IntegratedApplicationTester;
 
-public class DatabaseHasRecord extends DatabaseFixture{
+public class DatabaseHasRecord extends DatabaseFixture<SelectStatementBuilder> {
    private CellValueMapper cellValueMapper = new CellValueMapper();
    private List<String> columnNames = Lists.newArrayList();
    private String query;
@@ -21,11 +21,11 @@ public class DatabaseHasRecord extends DatabaseFixture{
    public DatabaseHasRecord( String configurationName, String queryString ) {
       this( IntegratedApplicationTester.getInstance().getConfiguration( configurationName ), queryString );
    }
-   
+
    protected DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String queryString ) {
       this( serviceConfiguration, null, queryString );
    }
-   
+
    protected DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String databaseName, String queryString ) {
       super( serviceConfiguration, databaseName );
       this.query = queryString;
@@ -40,7 +40,7 @@ public class DatabaseHasRecord extends DatabaseFixture{
          List<List<String>> row = Lists.newArrayList();
          for( Entry<String, Object> mapEntry : map.entrySet() ){
             String value = cellValueMapper.map( mapEntry.getValue() );
-            row.add( asList( mapEntry.getKey(), value ));
+            row.add( asList( mapEntry.getKey(), value ) );
          }
          rowList.add( row );
       }

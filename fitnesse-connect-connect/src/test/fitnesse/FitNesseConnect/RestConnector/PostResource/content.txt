@@ -27,7 +27,7 @@
 |add request header;|Content-Type|application/json;charset=UTF-8|
 |set request body | ${RequestBody} |
 |execute|
-|check|response status|200|
+|check|response status|201|
 |show|response time|
 |check|response header|Content-Type|[application/json;charset=utf-8]|
 |check|response body property|$['make']|Mercedes-Benz|

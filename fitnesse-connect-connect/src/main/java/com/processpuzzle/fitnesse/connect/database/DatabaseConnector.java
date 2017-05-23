@@ -26,6 +26,10 @@ public class DatabaseConnector {
    public List<Map<String, Object>> query( String sql ) {
       return jdbc.queryForList( sql );
    }
+   
+   public void update( String updateSql ){
+      jdbc.update( updateSql );
+   }
 
    // properties
    // @formatter:off
