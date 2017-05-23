@@ -1,0 +1,4 @@
+Reset the changed color.
+|Table: update database table| !-fitnesse-connector-! | !-CAR-! | id = 0 |
+| COLOR |
+| 'red'|

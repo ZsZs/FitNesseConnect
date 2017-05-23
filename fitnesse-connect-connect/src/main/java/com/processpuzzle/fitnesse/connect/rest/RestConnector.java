@@ -76,6 +76,21 @@ public abstract class RestConnector {
       }
    }
 
+   public boolean maximumResponseTime( int maximumResponseTime ) {
+      return responseTime() <= maximumResponseTime;
+   }
+
+   public int numberOfLoggedInUsersIs() {
+      int numberOfLoggedInUsers = 0;
+      for( SessionResults<?> sessionResult : sessionResults ){
+         if( sessionResult.getSessionId() != null && !sessionResult.getSessionId().isEmpty() ){
+            numberOfLoggedInUsers++;
+         }
+      }
+   
+      return numberOfLoggedInUsers;
+   }
+
    public void patchResource() {
       patchResource( null, requestBody );
    }

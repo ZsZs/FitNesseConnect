@@ -12,18 +12,8 @@ public class RestScenario extends RestConnector {
       super( IntegratedApplicationTester.getInstance().getConfiguration( configurationName ), resourcePath );
    }
    
-   public boolean maximumResponseTime( int maximumResponseTime ) {
-      return responseTime() <= maximumResponseTime;
-   }
-
-   public int numberOfLoggedInUsersIs() {
-      int numberOfLoggedInUsers = 0;
-      for( SessionResults<?> sessionResult : sessionResults ){
-         if( sessionResult.getSessionId() != null && !sessionResult.getSessionId().isEmpty() ){
-            numberOfLoggedInUsers++;
-         }
-      }
-
-      return numberOfLoggedInUsers;
+   // public accessors and mutators
+   public void getResource(  String resourceUri, String notUsedComment ) {
+      getResource( resourceUri );
    }
 }
