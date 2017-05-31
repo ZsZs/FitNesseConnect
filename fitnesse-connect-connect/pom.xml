@@ -315,6 +315,7 @@
                   <goal>set-up</goal>
                   <goal>run-tests</goal>
                   <goal>tear-down</goal>
+                  <goal>verify</goal>
                 </goals>
               </execution>
             </executions>
