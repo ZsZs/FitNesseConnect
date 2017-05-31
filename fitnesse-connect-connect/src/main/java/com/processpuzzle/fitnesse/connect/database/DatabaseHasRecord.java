@@ -2,6 +2,8 @@ package com.processpuzzle.fitnesse.connect.database;
 
 import static java.util.Arrays.asList;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -82,6 +84,10 @@ public class DatabaseHasRecord extends DatabaseFixture<SelectStatementBuilder> {
          }
          else if( cellValue instanceof Double ){
             returnValue = Double.toString( (Double) cellValue );
+         }
+         else if( cellValue instanceof Timestamp ){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            returnValue = dateFormat.format( (Timestamp) cellValue );
          }
          else {
             returnValue = (String) cellValue;
