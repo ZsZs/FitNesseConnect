@@ -54,7 +54,7 @@ public class CarService {
       return this.carRepository.findAll();
    }
 
-   @GetMapping( path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE ) Car findById( @PathVariable Long id ) {
+   @GetMapping( path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE ) Car findById( @PathVariable Long id ) throws CarNotFoundException {
       Car foundCar = this.carRepository.findById( id );
       if( foundCar == null ){
          throw new CarNotFoundException( id );

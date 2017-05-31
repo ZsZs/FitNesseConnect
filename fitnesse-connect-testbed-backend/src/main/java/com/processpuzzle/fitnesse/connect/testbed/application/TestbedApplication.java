@@ -22,7 +22,7 @@ import com.processpuzzle.fitnesse.connect.testbed.file.StorageProperties;
 @ComponentScan( basePackages = { "com.processpuzzle.fitnesse.connect.testbed.file", "com.processpuzzle.fitnesse.connect.testbed.service" } )
 @EntityScan( basePackages = "com.processpuzzle.fitnesse.connect.testbed.domain" )
 @EnableJpaRepositories( basePackages = "com.processpuzzle.fitnesse.connect.testbed.integration" )
-@EnableConfigurationProperties( StorageProperties.class )
+@EnableConfigurationProperties( value = {StorageProperties.class, TestbedApplicationProperties.class} )
 public class TestbedApplication {
    private static Server dbServer;
    private static Logger logger = LoggerFactory.getLogger( TestbedApplication.class );

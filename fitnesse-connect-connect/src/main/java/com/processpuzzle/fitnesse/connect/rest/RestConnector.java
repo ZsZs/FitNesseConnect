@@ -71,7 +71,7 @@ public abstract class RestConnector {
       try{
          lastResponse = restClient.getResource( resourceURL, requestHeaders, String.class, null );
       }catch( HttpClientErrorException e ){
-         logger.debug( "Retrieving the resource: " + resourceURL + " resulted in exception." );
+         logger.debug( "Retrieving the resource: " + resourceURL + " resulted in HttpClientErrorException: " + e.getMessage() );
          lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
       }
    }
@@ -87,7 +87,7 @@ public abstract class RestConnector {
             numberOfLoggedInUsers++;
          }
       }
-   
+
       return numberOfLoggedInUsers;
    }
 
@@ -154,7 +154,7 @@ public abstract class RestConnector {
          propertyValue = e.getLocalizedMessage();
          logger.debug( "Selecting property: " + jsonPath + " failed.", e );
       }
-      
+
       return propertyValue;
    }
 
@@ -236,14 +236,14 @@ public abstract class RestConnector {
             resourceUrl += "/" + StringUtils.stripStart( resourceURI, "/" );
          }
       }catch( URISyntaxException e ){
-         logger.error(
-               "Couldn't compile full URL from host: " + this.host + " and resource path: " + this.resourcePath + " and resource uri: " + resourceURI );;
+         logger.error( "Couldn't compile full URL from host: " + this.host + " and resource path: " + this.resourcePath + " and resource uri: " + resourceURI );
+         ;
       }
       return resourceUrl;
    }
 
    protected List<String> convertToList( String value ) {
-      Stream<String> elements = Stream.of( value.split( ";" ));
+      Stream<String> elements = Stream.of( value.split( ";" ) );
       return elements.map( String::trim ).collect( Collectors.toList() );
    }
 
@@ -254,7 +254,7 @@ public abstract class RestConnector {
    protected void instantiateSslRestClient( final String resourceURI, final String certificateName ) throws Exception {
       restClient = configuration.createSslRestClient( resourceURI, certificateName );
    }
-   
+
    private String stripPreTags( String requestBody ) {
       String strippedBody = StringUtils.remove( requestBody, "<pre>" );
       strippedBody = StringUtils.remove( strippedBody, "</pre>" );

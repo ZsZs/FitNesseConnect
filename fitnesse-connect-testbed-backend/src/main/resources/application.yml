@@ -31,3 +31,6 @@ spring:
     hibernate:
       ddl-auto: validate
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+testbed-application:
+  dateTimeFormatter: yyyy-MM-dd HH:mm:ss
