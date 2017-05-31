@@ -1,72 +1,46 @@
 package com.processpuzzle.fitnesse.connect.rest;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.internal.util.reflection.Whitebox;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.processpuzzle.fitnesse.connect.application.IntegratedApplicationTester;
+import com.processpuzzle.fitnesse.connect.configuration.GlueCodeIntegrationTest;
 
-public class GetRestResourceTest extends RestConnectorTest<GetRestResource>{
-   private GetRestResource getResource;
+@Category( GlueCodeIntegrationTest.class )
+@RunWith( SpringRunner.class )
+@SpringBootTest( classes = { IntegratedApplicationTester.class } )
+@ActiveProfiles( "local" )
+public class GetRestResourceTest {
+   protected static final String RESOURCE_PATH = "/api/cars";
+   protected static final String CONFIGURATION_NAME = "connector";
+   @Autowired private IntegratedApplicationTester appTester;
    
-   @Before public void beforeEachTests() throws JsonProcessingException {
-      super.beforeEachTests();
-      
-      getResource = restConnector;
-      
-      this.server.expect( requestTo( RESOURCE_URL ) ).andRespond( withSuccess( jsonMapper.writeValueAsString( testObjects ), MediaType.APPLICATION_JSON ) );
-      
+   @Before public void beforeEachTest(){
+   }
+   
+   @Test public void contextLoads(){
+      assertThat( appTester, notNullValue() );
+   }
+   
+   @Test public void getRestResorce_whenResourceExist_retrievesObject(){
+      GetRestResource getResource = new GetRestResource( CONFIGURATION_NAME, RESOURCE_PATH + "/0" );
       getResource.execute();
-   }
-
-   @Test public void execute_retrievesResource() throws JsonProcessingException {
-      assertThat( Whitebox.getInternalState( getResource, "lastResponse" ), notNullValue());
-   }
-
-   @Test public void responseStatus_returnsStatusCode() throws JsonProcessingException {
-      assertThat( getResource.responseStatus(), equalTo( HttpStatus.OK.value() ) );
-   }
-
-   @Test public void responseHeader_returnsSpecificHeader() throws JsonProcessingException {
-      assertThat( getResource.responseHeader( "Content-Type" ), containsString( "[application/json]" ) );
-   }
-
-   @Test public void responseHeaders_returnsAllHeadersAsText() throws JsonProcessingException {
-      assertThat( getResource.responseHeaders(), containsString( "Content-Type=[application/json]" ) );
-   }
-
-   @Test public void responseBody_returnsBodyAsText() throws JsonProcessingException {
-      assertThat( getResource.responseBody(), equalTo( jsonMapper.writeValueAsString( testObjects ) ) );
-   }
-
-   @Test public void responseBodyProperty_selectsPropertyFromResponse() {
-      assertThat( getResource.responseBodyProperty( "$.[0].['textValue']" ).toString(), containsString( testObjectOne.getTextValue() ));
-      assertThat( getResource.responseBodyProperty( "$.[0].['numberValue']" ), equalTo( testObjectOne.getNumberValue() ));
-   }
-
-   @Test public void responseTime_measuresResponseTimeInMillis() throws JsonProcessingException {
-      assertThat( getResource.responseTime(), notNullValue() );
-   }
+      assertThat( getResource.responseStatus(), equalTo( 200 ));
+   }   
    
-   @Test public void addRequestHeader_buildsHeadersToSend(){
-      getResource.addRequestHeader( "test_header_key", "test_header_value" );
-      assertThat( getResource.requestHeaders.containsKey( "test_header_key" ), is( true ) );
-      assertThat( getResource.requestHeaders.get( "test_header_key" ), equalTo( Lists.newArrayList( "test_header_value" )));
-   }
-
-   // protected, private test helper methods
-   @Override protected void instantiateRestConnector() {
-      restConnector = new GetRestResource( CONFIGURATION_NAME, RESOURCE_PATH );
-   }
+   @Test public void getRestResorce_whenResourceNotExist_returnsErrorObject(){
+      GetRestResource getResource = new GetRestResource( CONFIGURATION_NAME, RESOURCE_PATH + "/999" );
+      getResource.execute();
+      assertThat( getResource.responseStatus(), equalTo( 404 ));
+   }   
 }

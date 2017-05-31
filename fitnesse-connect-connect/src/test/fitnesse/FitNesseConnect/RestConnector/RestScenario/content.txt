@@ -25,6 +25,7 @@ REST Scenario fixture allows multiple invokes and reusing response data. It help
 |show|response body|
 |get resource;|100|''car with this id doesn't exists''|
 |check|response status|404|
+|check|response body property|$['id']|CAR_NOT_FOUND|
 |show|response body|
 
 !|verify json properties|$allCarsJson|
