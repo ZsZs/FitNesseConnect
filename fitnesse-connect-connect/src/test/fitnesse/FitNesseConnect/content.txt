@@ -13,7 +13,7 @@
 
 !*> '''Variables Defined'''
 !define TEST_SYSTEM {slim}
-!define FitNesseFilesRoot {./target/fitnesse/fitnesseroot/files}
+!define FitNesseFilesRoot {fitnesse-connect-connect/target/fitnesse/fitnesseroot/files}
 *!
 !*> '''Classpath'''
 ${maven.classpath}

@@ -6,7 +6,7 @@ Create a table with '''specify excel content''' fixture name and resource URL.
 Specify the expectations for each column in the Excel sheet.
 !4 Example
 The following test table verifies the content of the [[!-SampleTwo.xlsx-! file][]] agains a specification.
-|specify excel content|file:./target/fitnesse/fitnesseroot/files/sample/SampleTwo.xlsx:Sheet_1|
+|specify excel content|file:${FitNesseFilesRoot}/sample/SampleTwo.xlsx:Sheet_1|
 | column | data type | is mandatory| is value mandatory | verify column? | description |
 | String Column | String | yes | yes | pass | this column contains text and its mandatory |
 | Integer Column | Integer | yes | yes | pass | this column contains integer and its mandatory |
