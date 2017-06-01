@@ -10,11 +10,11 @@
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect-parent</artifactId>
     <relativePath>../fitnesse-connect-parent</relativePath>
-    <version>1.1.3</version>
+    <version>1.1.4-SNAPSHOT</version>
   </parent>
 
   <properties>
-    <fitnesse.suite>FitNesseConnect</fitnesse.suite>
+    <!-- <fitnesse.suite>FitNesseConnect</fitnesse.suite> -->
     <argLine />
     <my.lib>${com.processpuzzle.fitnesse:fitnesse-connect-testbed-backend:jar}</my.lib>
 
@@ -79,9 +79,9 @@
     </dependency>
 
     <dependency>
-       <groupId>com.jayway.jsonpath</groupId>
-       <artifactId>json-path</artifactId>
-     </dependency>
+      <groupId>com.jayway.jsonpath</groupId>
+      <artifactId>json-path</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.poi</groupId>
@@ -209,23 +209,6 @@
           <properties>
           </properties>
           <maxErrorsToConsole>100</maxErrorsToConsole>
-          <launches>
-            <launch>
-              <suite>CiGuide</suite>
-            </launch>
-            <launch>
-              <suite>FitNesseConnect</suite>
-            </launch>
-            <launch>
-              <suite>TestAutomationStrategy</suite>
-            </launch>
-            <launch>
-              <suite>TestDevelopersGuide</suite>
-            </launch>
-            <launch>
-              <suite>TestWritersGuide</suite>
-            </launch>
-          </launches>
           <useProjectDependencies>
             <scope>compile</scope>
             <scope>runtime</scope>
@@ -251,6 +234,25 @@
           <plugin>
             <groupId>com.processpuzzle.fitnesse</groupId>
             <artifactId>fitnesse-launcher-maven-plugin</artifactId>
+            <configuration>
+              <launches>
+                <launch>
+                  <suite>CiGuide</suite>
+                </launch>
+                <launch>
+                  <suite>FitNesseConnect</suite>
+                </launch>
+                <launch>
+                  <suite>TestAutomationStrategy</suite>
+                </launch>
+                <launch>
+                  <suite>TestDevelopersGuide</suite>
+                </launch>
+                <launch>
+                  <suite>TestWritersGuide</suite>
+                </launch>
+              </launches>
+            </configuration>
             <executions>
               <execution>
                 <goals>
@@ -273,6 +275,25 @@
           <plugin>
             <groupId>com.processpuzzle.fitnesse</groupId>
             <artifactId>fitnesse-launcher-maven-plugin</artifactId>
+            <configuration>
+              <launches>
+                <launch>
+                  <suite>CiGuide</suite>
+                </launch>
+                <launch>
+                  <suite>FitNesseConnect</suite>
+                </launch>
+                <launch>
+                  <suite>TestAutomationStrategy</suite>
+                </launch>
+                <launch>
+                  <suite>TestDevelopersGuide</suite>
+                </launch>
+                <launch>
+                  <suite>TestWritersGuide</suite>
+                </launch>
+              </launches>
+            </configuration>
             <executions>
               <execution>
                 <goals>
@@ -297,10 +318,10 @@
             <configuration>
               <launches>
                 <launch>
-                  <suite>${fitnesse.suite}</suite>
+                  <suite>FitNesseConnect</suite>
                 </launch>
               </launches>
-              <!-- <failIfNoTests>false</failIfNoTests> -->
+              <failIfNoTests>false</failIfNoTests>
             </configuration>
             <dependencies>
               <dependency>
@@ -323,14 +344,14 @@
         </plugins>
       </build>
     </profile>
-    
+
     <profile>
-       <id>integration-tests</id>
-       <activation>
-          <property>
-               <name>!skipIntegrationTests</name>
-          </property>
-        </activation>
+      <id>integration-tests</id>
+      <activation>
+        <property>
+          <name>!skipIntegrationTests</name>
+        </property>
+      </activation>
       <build>
         <plugins>
           <plugin>
@@ -390,8 +411,8 @@
           </plugin>
         </plugins>
       </build>
-   </profile>
-   
+    </profile>
+
     <profile>
       <id>assembly-source-bundle</id>
       <build>
@@ -419,7 +440,7 @@
         </plugins>
       </build>
     </profile>
-   
+
   </profiles>
 
 </project>
