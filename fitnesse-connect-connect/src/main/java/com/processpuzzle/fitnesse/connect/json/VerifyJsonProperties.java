@@ -11,12 +11,17 @@ import org.slf4j.LoggerFactory;
 import org.thymeleaf.util.StringUtils;
 
 import com.google.common.collect.Lists;
+import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 
 public class VerifyJsonProperties {
+   public static final String FAILED_PROPERTY_VALUE_NOT_NULL = "failed: property value can't be null";
+   public static final String FAILED_DATA_TYPE_MISMATCH = "failed: data type mismatch";
+   public static final String FAILED_PROPERTY_IS_MANDATORY = "failed: property is mandatory";
+   public static final String PASS_TOKEN = "pass";
    private static final Logger log = LoggerFactory.getLogger( VerifyJsonProperties.class );
-   private static final String PASS_TOKEN = "pass";
+   private static final String PROPERTY_NULL_VALUE = "isNullProperty";
    private String currentObject;
    private final String sourceObject;
    @SuppressWarnings( "unused" ) private String propertyDescription;
@@ -33,6 +38,17 @@ public class VerifyJsonProperties {
    }
 
    // public accessors and mutators
+   public void reset() {
+      this.currentObject = null;
+      this.propertyDescription = null;
+      this.propertyMandatory = null;
+      this.propertyMandatory = null;
+      this.propertySelector = null;
+      this.propertyValue = null;
+      this.propertyValueNotNull = null;
+      this.returnMessage = null;
+   }
+   
    public String verifyProperty() {
       for( String currentObject : this.parseSourceToArray() ) {
          this.currentObject = currentObject;
@@ -69,7 +85,10 @@ public class VerifyJsonProperties {
 
    private void determineCurrentProperty() {
       try{
-         this.propertyValue = JsonPath.parse( this.currentObject ).read( this.propertySelector ).toString();
+         DocumentContext document = JsonPath.parse( this.currentObject );
+         Object property = document.read( this.propertySelector );
+         if( property != null ) this.propertyValue = property.toString();
+         else this.propertyValue = PROPERTY_NULL_VALUE;
       }catch( PathNotFoundException e ){
          log.info( "Selecting property: " + this.propertySelector + " failed." );
       }
@@ -94,12 +113,13 @@ public class VerifyJsonProperties {
    }
 
    private void verifyPropertyName() {
+      log.debug( "Verify property: " + this.propertyValue );
       String result = PASS_TOKEN;
       if( this.propertyMandatory != null && this.propertyMandatory ){
          if( this.propertyValue != null ){
             result = PASS_TOKEN;
          }else{
-            result = "failed: property not defined";
+            result = FAILED_PROPERTY_IS_MANDATORY;
          }
       }
 
@@ -112,7 +132,7 @@ public class VerifyJsonProperties {
       if( this.propertyType != null && this.propertyValue != null ){
          PropertyValueVerifier valueVerifier = new PropertyValueVerifier( this.propertyValue );
          if( !valueVerifier.isTypeOf( this.propertyType ) ){
-            result = "failed: data type mismatch";
+            result = FAILED_DATA_TYPE_MISMATCH;
          }
       }
       combineReturnMessage( result );
@@ -123,7 +143,7 @@ public class VerifyJsonProperties {
       if( (this.propertyMandatory && this.propertyValue != null) || !this.propertyMandatory ){
          result = PASS_TOKEN;
       }else{
-         result = "failed: column is mandatory";
+         result = FAILED_PROPERTY_IS_MANDATORY;
       }
 
       combineReturnMessage( result );
@@ -132,8 +152,8 @@ public class VerifyJsonProperties {
    private void verifyPropertyValueNotNull() {
       String result = PASS_TOKEN;
       if( this.propertyValueNotNull ){
-         if( this.propertyValue == null ){
-            result = "failed: column value is mandatory";
+         if( this.propertyValue == null || this.propertyValue.equals( PROPERTY_NULL_VALUE )){
+            result = FAILED_PROPERTY_VALUE_NOT_NULL;
          }
       }
 

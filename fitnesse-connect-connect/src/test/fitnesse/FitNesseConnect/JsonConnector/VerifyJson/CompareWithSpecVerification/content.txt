@@ -4,15 +4,19 @@ The ''Verify Json Properties'' fixture allows you to specify expectations agains
 !4 Usage
  * create a table with '''verify json properties''' fixture and the concreet object as a parameter.
  * create a new row with the following columns:
-  * property: a !-JsonPath-! selector to identify a given property
-  * data type: data type of the property, possible values are: String, Number, Date, Boolean
-  * is mandatory: boolean condition, specifies if the property is mandatory
-  * not null: boolean condition, specifies if the value can't be null or empty
-  * description: textual description of the property
+  * '''property''': a !-JsonPath-! selector to identify a given property
+  * '''data type''': data type of the property, possible values are: 
+   * '''String''': any text value 
+   * '''Integer'''
+   * '''Date''': date and time value 
+   * '''Boolean'''
+  * '''is mandatory''': boolean condition, specifies if the property is mandatory
+  * '''not null''': boolean condition, specifies if the value can't be null or empty
+  * '''description''': textual description of the property
  * define new rows for each property to be verified
 !4 Example, with simple object
 The following table verifies the properties of:
-!define JsonToVerify ({ 'text': 'Hello World', 'numeric': '2017', 'date': '2017.03.23', 'boolean': 'yes', 'optional': 'optional' })
+!define JsonToVerify ({ 'text': 'Hello World', 'numeric': '2017', 'date': '2017.03.23', 'boolean': 'yes', 'optional': 'some text', 'null value': null, 'extra property': 'not expected' })
 
 !|verify json properties|${JsonToVerify}|
 |property|data type|is mandatory|not null|verify property?|description|
@@ -21,7 +25,9 @@ The following table verifies the properties of:
 |$['date']| Date | yes | yes | pass | a date property |
 |$['boolean']| Boolean | yes | yes | pass | a boolean property |
 |$['optional']| String | no | yes | pass | an optional property |
-|$['missing']| String | no | yes | pass | a missing property |
+|$['null value']| String | yes | no | pass | null value allowed |
+|$['null value']| String | yes | yes | failed: property value can't be null | null value not allowed but is null |
+|$['missing']| String | yes | no | failed: property is mandatory | a missing property |
 
 !4 Example, with array of objects
 The following table verifies the properties of:
