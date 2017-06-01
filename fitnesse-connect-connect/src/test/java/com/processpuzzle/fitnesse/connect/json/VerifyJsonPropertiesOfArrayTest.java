@@ -18,24 +18,24 @@ public class VerifyJsonPropertiesOfArrayTest {
    @Test public void verifyProperty_whenPropertyExist_returnsPass() {
       verifyJson.setProperty( "$['text']" );
       verifyJson.setDataType( "String" );
-      assertThat( verifyJson.verifyProperty(), equalTo( "pass" ) );
+      assertThat( verifyJson.verifyProperty(), equalTo( VerifyJsonProperties.PASS_TOKEN ) );
    }
 
    @Test public void verifyProperty_whenPropertyNotExistAndIsMandatory_returnsFailed() {
       verifyJson.setProperty( "$['No property']" );
       verifyJson.setIsMandatory( "yes" );
       verifyJson.setDataType( "String" );
-      assertThat( verifyJson.verifyProperty(), containsString( "failed: property not defined" ) );
+      assertThat( verifyJson.verifyProperty(), containsString( VerifyJsonProperties.FAILED_PROPERTY_IS_MANDATORY ));
    }
 
    @Test public void verifyColumn_whenDataTypeMatches_returnsPass() {
       verifyJson.setProperty( "$['text']" );
       verifyJson.setDataType( "String" );
-      assertThat( verifyJson.verifyProperty(), equalTo( "pass" ) );
+      assertThat( verifyJson.verifyProperty(), equalTo( VerifyJsonProperties.PASS_TOKEN ) );
 
       verifyJson.setProperty( "$['numeric']" );
       verifyJson.setDataType( "Integer" );
-      assertThat( verifyJson.verifyProperty(), equalTo( "pass" ) );
+      assertThat( verifyJson.verifyProperty(), equalTo( VerifyJsonProperties.PASS_TOKEN ) );
    }
 
 }
