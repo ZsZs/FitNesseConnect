@@ -18,7 +18,8 @@ public abstract class DatabaseFixture<B extends SqlStatementBuilder> {
    
    // protected, private helper methods
    protected void createDatabaseClient() {
-      databaseClient = applicationConfiguration.createDatabaseClient( databaseName );
+      if( applicationConfiguration != null ) databaseClient = applicationConfiguration.createDatabaseClient( databaseName );
+      else throw new UnknownApplicationConfigurationException( );
    }
 
 }
