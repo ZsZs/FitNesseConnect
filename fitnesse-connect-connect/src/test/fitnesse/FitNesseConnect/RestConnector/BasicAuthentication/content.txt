@@ -1,0 +1,16 @@
+!2 Basic Authentication - Fixture documentation and tests
+!4 Purpose
+If the REST resource is secured with Basic Authentication you can specify the credentials before executing any of the [[delete][<RestConnector.DeleteResource]], [[get][<RestConnector.GetResource]], [[patch][<RestConnector.PatchResource]], [[post][<RestConnector.PostResource]], or [[put][<RestConnector.PutResource]] connector.
+!4 Usage
+ * add '''basic authentication;''' row to the script table before the ''execute'' row. The 2nd and 3rd cell of this row contains ''username'' and ''password'' credentials.
+ 
+!define ConfigurationName (fitnesse-connector)
+!define ResourceUri (secure)
+
+|script: get rest resource | ${ConfigurationName} | ${ResourceUri} |
+|basic authentication;|user|password|
+|execute|
+|check|response status|200|
+|check|response header|Content-Type|[application/json;charset=UTF-8]|
+|show|response header|Set-Cookie|
+|show|response headers|

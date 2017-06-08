@@ -402,6 +402,8 @@
                     <exec executable="curl" dir="${project.build.directory}" spawn="false">
                       <arg value="-X" />
                       <arg value="POST" />
+                      <arg value="-u" />
+                      <arg value="user:password" />
                       <arg value="http://localhost:9124/shutdown" />
                     </exec>
                   </target>

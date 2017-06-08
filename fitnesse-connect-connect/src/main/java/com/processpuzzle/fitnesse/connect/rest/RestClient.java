@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -55,6 +54,13 @@ public class RestClient {
       return response;
    }
 
+   public HttpHeaders getHttpHeaders( String resourcePath ) {
+      HttpHeaders httpHeaders = restTemplate.headForHeaders( resourcePath );
+      logger.info( httpHeaders.toString() );
+   
+      return httpHeaders;
+   }
+
    public <T> ResponseEntity<T> getResource( String resourcePath, Class<T> resourceClass, String sessionId ) {
       return getResource( resourcePath, null, resourceClass, sessionId );
    }
@@ -65,13 +71,6 @@ public class RestClient {
       HttpEntity<T> request = new HttpEntity<T>( null, headers );
       ResponseEntity<T> response = restTemplate.exchange( resourcePath, HttpMethod.GET, request, resourceClass );
       return response;
-   }
-
-   public HttpHeaders getHttpHeaders( String resourcePath ) {
-      HttpHeaders httpHeaders = restTemplate.headForHeaders( resourcePath );
-      logger.info( httpHeaders.toString() );
-
-      return httpHeaders;
    }
 
    public ResponseEntity<String> patchResource( String resourceURI, String resourceObject ) {
@@ -113,10 +112,10 @@ public class RestClient {
    }
 
    public <T> ResponseEntity<T> postResource( String resourcePath, HttpHeaders requestHeaders, T resourceObject, Class<T> resourceClass, String sessionId ) {
-      logger.info( "Posting: " + resourceObject.toString() );
-
       HttpHeaders headers = createHeaderWithSessionId( requestHeaders, sessionId );
       HttpEntity<T> request = new HttpEntity<T>( resourceObject, headers );
+      logger.info( "Posting: " + resourceObject.toString() );
+
       ResponseEntity<T> response = restTemplate.exchange( resourcePath, HttpMethod.POST, request, resourceClass );
 
       if( response.getBody() != null ){
@@ -179,8 +178,9 @@ public class RestClient {
       else
          headers = requestHeaders;
 
-      headers.setContentType( MediaType.APPLICATION_JSON );
-      headers.set( "Cookie", sessionId );
+      if( sessionId != null ) headers.set( "Cookie", sessionId );
+      
+      logRequestHeaders( requestHeaders );
       return headers;
    }
 
@@ -192,5 +192,13 @@ public class RestClient {
 
       restTemplate.setRequestFactory(requestFactory);
       restTemplate.getMessageConverters().add( 0, new StringHttpMessageConverter( Charset.forName( "UTF-8" ) ) );
+   }
+
+   private void logRequestHeaders( HttpHeaders requestHeaders ) {
+      if( requestHeaders != null ){
+         requestHeaders.forEach( ( key, value ) -> {
+            logger.info( key + ":" + value.toString() );
+         });
+      }else logger.info( "There is no reuqest header." );
    }
 }

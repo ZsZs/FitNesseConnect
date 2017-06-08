@@ -19,7 +19,7 @@ import com.processpuzzle.fitnesse.connect.testbed.file.StorageProperties;
 
 @SpringBootApplication
 @Import( TestbedApplicationConfiguration.class )
-@ComponentScan( basePackages = { "com.processpuzzle.fitnesse.connect.testbed.file", "com.processpuzzle.fitnesse.connect.testbed.service" } )
+@ComponentScan( basePackages = { "com.processpuzzle.fitnesse.connect.testbed.application", "com.processpuzzle.fitnesse.connect.testbed.file", "com.processpuzzle.fitnesse.connect.testbed.service" } )
 @EntityScan( basePackages = "com.processpuzzle.fitnesse.connect.testbed.domain" )
 @EnableJpaRepositories( basePackages = "com.processpuzzle.fitnesse.connect.testbed.integration" )
 @EnableConfigurationProperties( value = {StorageProperties.class, TestbedApplicationProperties.class} )

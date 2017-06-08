@@ -34,3 +34,6 @@ spring:
 
 testbed-application:
   dateTimeFormatter: yyyy-MM-dd HH:mm:ss
+  users:
+    rest-client: password
+    user: password
