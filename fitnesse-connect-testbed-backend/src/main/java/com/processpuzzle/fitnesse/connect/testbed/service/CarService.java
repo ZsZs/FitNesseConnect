@@ -33,10 +33,10 @@ public class CarService {
       this.carRepository = carRepository;
    }
 
-   @PostMapping( value = "", produces = { MediaType.APPLICATION_JSON_VALUE } ) public ResponseEntity<Car> add( @RequestBody Car newCar ) {
+   @PostMapping( value = "", consumes = { MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE } ) public ResponseEntity<Car> add( @RequestBody Car newCar ) {
       logger.info( "Adding new car to repository." );
       HttpHeaders headers = new HttpHeaders();
-      headers.add( "Content-Type", "application/json; charset=utf-8" );
+      headers.setContentType( MediaType.APPLICATION_JSON_UTF8 );
       return new ResponseEntity<Car>(carRepository.save( newCar ), headers, HttpStatus.CREATED );
    }
 
@@ -44,17 +44,17 @@ public class CarService {
       this.carRepository.delete( id );
    }
 
-   @PatchMapping( path = "/{id}/color", produces = MediaType.APPLICATION_JSON_VALUE ) public Car changeColor( @PathVariable Long id, @RequestParam("color") String color ) {
+   @PatchMapping( path = "/{id}/color", produces = MediaType.APPLICATION_JSON_UTF8_VALUE ) public Car changeColor( @PathVariable Long id, @RequestParam("color") String color ) {
       Car car = carRepository.findById( id );
       car.setColor( color );
       return carRepository.save( car );
    }
 
-   @GetMapping( value = "", produces = MediaType.APPLICATION_JSON_VALUE ) public Iterable<Car> findAll() {
+   @GetMapping( value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE ) public Iterable<Car> findAll() {
       return this.carRepository.findAll();
    }
 
-   @GetMapping( path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE ) Car findById( @PathVariable Long id ) throws CarNotFoundException {
+   @GetMapping( path = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE ) Car findById( @PathVariable Long id ) throws CarNotFoundException {
       Car foundCar = this.carRepository.findById( id );
       if( foundCar == null ){
          throw new CarNotFoundException( id );
@@ -67,7 +67,7 @@ public class CarService {
       return carRepository.findByMakeIgnoringCase( make );
    }
 
-   @RequestMapping( path = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE ) public Car update( @PathVariable Long id, @RequestBody Car car ) {
+   @RequestMapping( path = "/{id}", consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE }, method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE ) public Car update( @PathVariable Long id, @RequestBody Car car ) {
       logger.info( "Updating car: " + id );
       Car carToUpdate = carRepository.findById( id );
       carToUpdate.update( car );

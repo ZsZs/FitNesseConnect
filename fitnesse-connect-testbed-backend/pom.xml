@@ -10,7 +10,7 @@
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect-parent</artifactId>
     <relativePath>../fitnesse-connect-parent</relativePath>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
   </parent>
 
   <dependencies>
@@ -21,7 +21,7 @@
       <type>pom</type>
     </dependency>
 
-    <!-- module dependencies -->
+    <!-- spring boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
@@ -40,6 +40,12 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-hateoas</artifactId>
+    </dependency>
+
+    <!-- security -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
     <dependency>
@@ -74,6 +80,12 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
       <scope>test</scope>
     </dependency>
 

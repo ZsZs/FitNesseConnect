@@ -24,16 +24,16 @@ public class PostRestResourceTest extends RestConnectorTest<PostRestResource> {
       postResource = restConnector;
       
       expectedResponseBody = jsonMapper.writeValueAsString( testObjectOne );
-      
-      // @formatter:off
-      this.server.expect( requestTo( RESOURCE_URL ) )
-                 .andExpect(  method( HttpMethod.POST ))
-                 .andExpect( header( "Content-Type", "application/json" ))
-                 .andRespond( withSuccess( expectedResponseBody, MediaType.APPLICATION_JSON ) );
-      // @formatter:on
    }
 
    @Test public void execute_postsRequestObjectAndStoresResponse(){
+      // @formatter:off
+      this.server.expect( requestTo( RESOURCE_URL ) )
+                 .andExpect(  method( HttpMethod.POST ))
+                 .andExpect( header( "Content-Type", "application/json;charset=UTF-8" ))
+                 .andRespond( withSuccess( expectedResponseBody, MediaType.APPLICATION_JSON_UTF8 ) );
+      // @formatter:on
+      
       postResource.addRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
       postResource.setRequestBody( expectedResponseBody );
       postResource.execute();

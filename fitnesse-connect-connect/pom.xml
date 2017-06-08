@@ -10,7 +10,7 @@
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect-parent</artifactId>
     <relativePath>../fitnesse-connect-parent</relativePath>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
   </parent>
 
   <properties>
@@ -402,6 +402,8 @@
                     <exec executable="curl" dir="${project.build.directory}" spawn="false">
                       <arg value="-X" />
                       <arg value="POST" />
+                      <arg value="-u" />
+                      <arg value="user:password" />
                       <arg value="http://localhost:9124/shutdown" />
                     </exec>
                   </target>

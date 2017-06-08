@@ -2,11 +2,13 @@ package com.processpuzzle.fitnesse.connect.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +44,7 @@ public abstract class RestConnector {
 
    // public accessors and mutators
    public void addRequestHeader( String headerName, String headerValue ) {
-      logger.debug( "Adding request header: " + headerName + ", " + headerValue );
+      logger.debug( "Adding request header: " + headerName + ": " + headerValue );
       this.requestHeaders.put( headerName, convertToList( headerValue ) );
    }
 
@@ -99,7 +101,7 @@ public abstract class RestConnector {
       String resourceURL = compileResourceUrl( resourceUri );
       logger.debug( "PATCH resource: " + resourceURL );
       try{
-         lastResponse = restClient.patchResource( resourceURL, resourceObject );
+         lastResponse = restClient.patchResource( resourceURL, this.requestHeaders, resourceObject, String.class, null );
       }catch( HttpClientErrorException e ){
          logger.debug( "Patching resource: " + resourceURL + " resulted in exception." );
          lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
@@ -114,7 +116,7 @@ public abstract class RestConnector {
       String resourceURL = compileResourceUrl( resourceUri );
       logger.debug( "POST resource: " + resourceObject + " to: " + resourceURL );
       try{
-         lastResponse = restClient.postResource( resourceURL, resourceObject );
+         lastResponse = restClient.postResource( resourceURL, this.requestHeaders, resourceObject, String.class, null );
       }catch( HttpClientErrorException e ){
          logger.debug( "Posting resource: " + resourceURL + " resulted in exception." );
          lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
@@ -129,7 +131,7 @@ public abstract class RestConnector {
       String resourceURL = compileResourceUrl( resourceUri );
       logger.debug( "PUT resource: " + resourceObject + " to: " + resourceURL );
       try{
-         lastResponse = restClient.putResource( resourceURL, resourceObject );
+         lastResponse = restClient.putResource( resourceURL, this.requestHeaders, resourceObject, String.class, null );
       }catch( HttpClientErrorException e ){
          logger.debug( "Putting resource: " + resourceURL + " resulted in exception." );
          lastResponse = new ResponseEntity<String>( e.getResponseBodyAsString(), e.getResponseHeaders(), e.getStatusCode() );
@@ -243,7 +245,7 @@ public abstract class RestConnector {
    }
 
    protected List<String> convertToList( String value ) {
-      Stream<String> elements = Stream.of( value.split( ";" ) );
+      Stream<String> elements = Stream.of( value.split( "," ) );
       return elements.map( String::trim ).collect( Collectors.toList() );
    }
 
@@ -259,5 +261,12 @@ public abstract class RestConnector {
       String strippedBody = StringUtils.remove( requestBody, "<pre>" );
       strippedBody = StringUtils.remove( strippedBody, "</pre>" );
       return strippedBody;
+   }
+
+   public void basicAuthentication( String userName, String password ) {
+      String auth = userName + ":" + password;
+      byte[] encodedAuth = Base64.encodeBase64( auth.getBytes( Charset.forName( "UTF-8" )) );
+      String authHeader = "Basic " + new String( encodedAuth );
+      requestHeaders.set( "Authorization", authHeader );      
    }
 }

@@ -24,12 +24,12 @@
 }}})
 
 |script: post rest resource | ${ConfigurationName} | ${ResourceUri} |
-|add request header;|Content-Type|application/json;charset=UTF-8|
+|add request header;|Content-Type|application/json|
 |set request body | ${RequestBody} |
 |execute|
 |check|response status|201|
 |show|response time|
-|check|response header|Content-Type|[application/json;charset=utf-8]|
+|check|response header|Content-Type|[application/json;charset=UTF-8]|
 |check|response body property|$['make']|Mercedes-Benz|
 |show|response headers|
 |show|response body|
