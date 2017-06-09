@@ -38,7 +38,7 @@ public abstract class RestConnector {
    protected RestConnector( ApplicationConfiguration configuration, String resourcePath ) {
       this.configuration = configuration;
       this.host = configuration.buildHostUrl();
-      this.resourcePath = resourcePath;
+      this.resourcePath = stripPreTags( resourcePath );
       instantiateRestClient();
    }
 
