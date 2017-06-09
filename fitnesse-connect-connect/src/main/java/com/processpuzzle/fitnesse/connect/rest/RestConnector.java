@@ -45,7 +45,14 @@ public abstract class RestConnector {
    // public accessors and mutators
    public void addRequestHeader( String headerName, String headerValue ) {
       logger.debug( "Adding request header: " + headerName + ": " + headerValue );
-      this.requestHeaders.put( headerName, convertToList( headerValue ) );
+      this.requestHeaders.put( headerName, convertToList( stripPreTags( headerValue )));
+   }
+
+   public void basicAuthentication( String userName, String password ) {
+      String auth = userName + ":" + password;
+      byte[] encodedAuth = Base64.encodeBase64( auth.getBytes( Charset.forName( "UTF-8" )) );
+      String authHeader = "Basic " + new String( encodedAuth );
+      requestHeaders.set( "Authorization", authHeader );      
    }
 
    public void deleteResource() {
@@ -261,12 +268,5 @@ public abstract class RestConnector {
       String strippedBody = StringUtils.remove( requestBody, "<pre>" );
       strippedBody = StringUtils.remove( strippedBody, "</pre>" );
       return strippedBody;
-   }
-
-   public void basicAuthentication( String userName, String password ) {
-      String auth = userName + ":" + password;
-      byte[] encodedAuth = Base64.encodeBase64( auth.getBytes( Charset.forName( "UTF-8" )) );
-      String authHeader = "Basic " + new String( encodedAuth );
-      requestHeaders.set( "Authorization", authHeader );      
    }
 }
