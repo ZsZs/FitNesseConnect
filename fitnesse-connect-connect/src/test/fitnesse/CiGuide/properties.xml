@@ -8,4 +8,6 @@
 <Search/>
 <Versions/>
 <WhereUsed/>
+<secure-test/>
+<secure-write/>
 </properties>
