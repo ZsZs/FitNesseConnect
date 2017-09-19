@@ -37,8 +37,8 @@
     <maven.plugin.javadoc.version>2.10.4</maven.plugin.javadoc.version>
     <maven.plugin.nexus.version>1.6.8</maven.plugin.nexus.version>
     <maven.plugin.source.version>3.0.1</maven.plugin.source.version>
-    <node.version>v7.2.1</node.version>
-    <npm.version>4.1.2</npm.version>
+    <node.version>v8.5.0</node.version>
+    <npm.version>5.2.0</npm.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <skip.install>false</skip.install>
