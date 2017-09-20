@@ -15,6 +15,7 @@ import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -31,6 +32,7 @@ import com.processpuzzle.fitnesse.connect.testbed.service.FileUploadService;
 @RunWith( SpringRunner.class )
 @AutoConfigureMockMvc
 @SpringBootTest( classes = { TestbedApplication.class, FileUploadService.class }, webEnvironment = WebEnvironment.MOCK )
+@EnableAutoConfiguration
 public class FileUploadTests {
    @Autowired private MockMvc mvc;
    @MockBean private StorageService storageService;

@@ -11,9 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,7 +23,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.processpuzzle.fitnesse.connect.testbed.domain.Car;
 
 @RunWith( SpringRunner.class )
-@ContextConfiguration( classes = { CarRepository.class } )
+@SpringBootTest( classes = { CarRepository.class } )
+@EnableAutoConfiguration
 @EntityScan( basePackages = "com.processpuzzle.fitnesse.connect.testbed.domain" )
 @DataJpaTest
 @ActiveProfiles( "unit-test" )
