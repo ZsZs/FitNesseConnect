@@ -56,13 +56,13 @@
           </execution>
 
           <execution>
-            <id>npm run-script build-dev</id>
+            <id>npm run-script build-prod</id>
             <phase>compile</phase>
             <goals>
               <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>run-script build-dev</arguments>
+              <arguments>run-script build-prod</arguments>
             </configuration>
           </execution>
         </executions>
