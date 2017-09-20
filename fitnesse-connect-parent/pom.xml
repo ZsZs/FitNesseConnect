@@ -18,7 +18,7 @@
     <apache.poi.version>3.15</apache.poi.version>
     <apache.poi-ooxml.version>3.15</apache.poi-ooxml.version>
     <commons.lang3.version>3.5</commons.lang3.version>
-    <docker.maven.plugin.version>0.20.1</docker.maven.plugin.version>
+    <docker.maven.plugin.version>0.22.1</docker.maven.plugin.version>
 
     <container.volume>/fitnesse</container.volume>
     <repository.volume>/maven/repository</repository.volume>

@@ -1,6 +1,8 @@
 sudo: required
 language: java
 jdk: oraclejdk8
+node_js:
+- 8.5.0
 install: true
 env:
   global:
@@ -9,47 +11,83 @@ env:
   - secure: the base64 string from when you encrypted GPG_KEY_NAME
   - secure: the base64 string from when you encrypted GPG_PASSPHRASE
   local:
-    maven: repository=$HOME/.m2
+    maven:
+    - repository=$HOME/.m2
+    - CXX=g++-4.8
+
 services:
 - docker
+
 addons:
-  sonarqube:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+  chrome: stable
+  sonarcloud:
     organization: processpuzzle
     token:
       secure: "$SONAR_TOKEN"
     branches:
     - development
     - master
+
 before_install:
-- openssl aes-256-cbc -K $encrypted_a8a500ff1127_key -iv $encrypted_a8a500ff1127_iv
-  -in codesigning.asc.enc -out codesigning.asc -d
+- openssl aes-256-cbc -K $encrypted_a8a500ff1127_key -iv $encrypted_a8a500ff1127_iv -in codesigning.asc.enc -out codesigning.asc -d
 - gpg --fast-import codesigning.asc
+- nvm install node
+- nvm use node
+- npm install -g npm@5.2
+- npm --version
+
 cache:
   directories:
   - "$HOME/.m2"
   - "$HOME/.sonar/cache"
-before_script: echo $AWS_ACCESS_KEY_ID
+
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3
+  - npm install -g typescript
+  - npm remove -g angular-cli
+  - npm uninstall -g @angular/cli
+  - npm cache clean --force
+  - npm install -g @angular/cli@latest
+  - npm install -g @angular/compiler-cli
+  - ng --version
+  - npm update --prefix ./processpuzzle-cms-ui
+
 script:
-- mvn clean install org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
-before_deploy: 
+  - mvn clean deploy org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar --settings travis-maven-settings.xml -B
+
 deploy:
   matrix:
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true -DskipIntegrationTests
-      --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml
-      -B
+    script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Prelease-sign-artifacts -Dmaven.test.skip=true
-      -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml
-      -B
+    script: mvn deploy -Pdocker-build-deploy -Prelease-sign-artifacts -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: master
       tags: true
-  secret_access_key:
-    secure: JrzMSduYirpj6PjmknLAhCsuemmD4ec6AR3hL4+/7eI752vbXO/4s9CJkst30bmh0K/jAa+vbPE6WwK3IvnxUcdEXZusJDh+w3H91mG01bfv4dUul9bxeryG7ZJYRv5bcVdGBdsOEgpvGYXlxMt7o7+/zBeUBBpiWaHmKVmLamWEvtqZIljMScX4E/k0PKattdxDcxcUFA5tyX1pXHYMJ78DUlPyYEi6aR1v6nrYnYl4Pws6SpY9u8VdHzCGAjkJoBTnbUJ7soxuZD8jbWGbrnQ9A0c3A6vEyzUBPCPErbEYALUtaEgwmQHT1ZCf3IXn80BOR5H2kVdntatTpEfBOEu0aw83tYq26MKvzKIhgdGzkv+CWlGB/wG79LlpQmY+9rdlkAwKwDQbkxEQRK9HYBbcCXYkOQmQXxluMxa3fp4+6oUX6RiRXDTvfzCkkzsKXH0kvNgrXhrj4zjKw5Avzu9DwdGke/N0nzQ6AZmxi+JgXkv4E2Xh/HeFpoE/MD15u9BvoxCmlhJNqlfZyqFCfbJOgmh3RcYSkIKKXybW1dzqC1C779S+jrAaarLmwfkKR/IDZl77AsCBsUcoo5vJBgDboPaSZK3yoerV1huQuO1UMtfjY9seba/qB02yfnJMpNJTe6ADc5rKfFWBr6s9bChNPPhiZ8n60DHZwqPaA+s=
+  - provider: elasticbeanstalk
+    access_key_id: AKIAJGCDIH623MFPRVEQ
+    secret_access_key:
+      secure: JrzMSduYirpj6PjmknLAhCsuemmD4ec6AR3hL4+/7eI752vbXO/4s9CJkst30bmh0K/jAa+vbPE6WwK3IvnxUcdEXZusJDh+w3H91mG01bfv4dUul9bxeryG7ZJYRv5bcVdGBdsOEgpvGYXlxMt7o7+/zBeUBBpiWaHmKVmLamWEvtqZIljMScX4E/k0PKattdxDcxcUFA5tyX1pXHYMJ78DUlPyYEi6aR1v6nrYnYl4Pws6SpY9u8VdHzCGAjkJoBTnbUJ7soxuZD8jbWGbrnQ9A0c3A6vEyzUBPCPErbEYALUtaEgwmQHT1ZCf3IXn80BOR5H2kVdntatTpEfBOEu0aw83tYq26MKvzKIhgdGzkv+CWlGB/wG79LlpQmY+9rdlkAwKwDQbkxEQRK9HYBbcCXYkOQmQXxluMxa3fp4+6oUX6RiRXDTvfzCkkzsKXH0kvNgrXhrj4zjKw5Avzu9DwdGke/N0nzQ6AZmxi+JgXkv4E2Xh/HeFpoE/MD15u9BvoxCmlhJNqlfZyqFCfbJOgmh3RcYSkIKKXybW1dzqC1C779S+jrAaarLmwfkKR/IDZl77AsCBsUcoo5vJBgDboPaSZK3yoerV1huQuO1UMtfjY9seba/qB02yfnJMpNJTe6ADc5rKfFWBr6s9bChNPPhiZ8n60DHZwqPaA+s=
+    region: eu-central-1
+    app: FitConnect
+    env: stage-env
+    bucket_name: fit-connect
+    zip_file: "./fitnesse-connect-aws/target/fitnesse-connect.zip"
+    upload-dir: fitnesse-connect-aws
+    skip_cleanup: true
+    on:
+      branch: development
+      
 notifications:
-  email: false
+  email: true
