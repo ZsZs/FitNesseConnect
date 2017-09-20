@@ -60,7 +60,7 @@ before_script:
   - npm update --prefix ./fitnesse-connect-testbed-ui
 
 script:
-  - mvn clean deploy org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar --settings travis-maven-settings.xml -B
+  - mvn clean deploy org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar --settings travis-maven-settings.xml -B -Pdocker-build-deploy
 
 deploy:
   - provider: elasticbeanstalk
