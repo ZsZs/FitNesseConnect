@@ -1,7 +1,8 @@
 import {Component, OnInit, Input, OnDestroy} from '@angular/core';
-import {Car} from './car';
-import {Subscription} from 'rxjs';
+import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
+
+import {Car} from './car';
 import {CarService} from './car.service';
 
 @Component({

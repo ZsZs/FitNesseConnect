@@ -6,7 +6,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Car{
-   @Id @GeneratedValue private long id;
+   @Id @GeneratedValue private Long id;
    private String color;
    private String description;
    private String make;
@@ -43,7 +43,7 @@ public class Car{
    // @formatter:off
    public String getColor() { return color; }
    public String getDescription() { return description; }
-   public long getId() { return id; }
+   public Long getId() { return id; }
    public String getImageUrl() { return imageUrl; }
    public String getMake() { return make; }
    public String getModel() { return model; }

@@ -23,18 +23,19 @@
           <installDirectory>target</installDirectory>
         </configuration>
 
+
         <executions>
           <execution>
             <id>install node and npm</id>
+            <phase>process-sources</phase>
             <goals>
               <goal>install-node-and-npm</goal>
             </goals>
-            <phase>validate</phase>
           </execution>
 
           <execution>
             <id>npm update</id>
-            <phase>initialize</phase>
+            <phase>process-source</phase>
             <goals>
               <goal>npm</goal>
             </goals>
@@ -44,20 +45,28 @@
           </execution>
 
           <execution>
-            <id>npm run-script build-prod</id>
+            <id>npm run-script tslint</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>npm</goal>
+            </goals>
+            <configuration>
+              <arguments>run-script lint</arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>npm run-script build-dev</id>
             <phase>compile</phase>
             <goals>
               <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>run-script build-prod</arguments>
+              <arguments>run-script build-dev</arguments>
             </configuration>
           </execution>
         </executions>
       </plugin>
-
-      <!-- <plugin> <artifactId>maven-clean-plugin</artifactId> <executions> <execution> <id>auto-clean</id> <phase>initialize</phase> <goals> <goal>clean</goal> </goals> <configuration> <filesets> <fileset> 
-        <directory>${basedir}/../fitnesse-connect-testbed-backend/src/main/resources/public</directory> </fileset> </filesets> </configuration> </execution> </executions> </plugin> -->
 
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>

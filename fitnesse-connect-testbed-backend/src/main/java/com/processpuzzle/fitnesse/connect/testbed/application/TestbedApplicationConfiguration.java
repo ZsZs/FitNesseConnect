@@ -8,7 +8,6 @@ import javax.xml.transform.Source;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.web.WebMvcRegistrationsAdapter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -37,23 +36,18 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @Configuration
 public class TestbedApplicationConfiguration extends WebMvcConfigurerAdapter {
    private static final String SPRING_HATEOAS_OBJECT_MAPPER = "_halObjectMapper";
-   @Autowired
-   @Qualifier( SPRING_HATEOAS_OBJECT_MAPPER )
-   private ObjectMapper springHateoasObjectMapper;
-   @Autowired
-   private Jackson2ObjectMapperBuilder springBootObjectMapperBuilder;
+   @Autowired @Qualifier( SPRING_HATEOAS_OBJECT_MAPPER ) private ObjectMapper springHateoasObjectMapper;
+   @Autowired private Jackson2ObjectMapperBuilder springBootObjectMapperBuilder;
 
-   @Override
-   public void addViewControllers( ViewControllerRegistry registry ) {
+   @Override public void addViewControllers( ViewControllerRegistry registry ) {
       registry.addViewController( "/" ).setViewName( "home" );
       registry.addViewController( "/home" ).setViewName( "home" );
       registry.addViewController( "/login" ).setViewName( "login" );
       registry.addViewController( "/hello" ).setViewName( "hello" );
       registry.addViewController( "/api/files" ).setViewName( "uploadForm" );
    }
-   
-   @Bean
-   public FilterRegistrationBean corsFilter() {
+
+   @Bean public CorsFilter corsFilter() {
       UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
       CorsConfiguration config = new CorsConfiguration();
       config.setAllowCredentials( true );
@@ -61,13 +55,11 @@ public class TestbedApplicationConfiguration extends WebMvcConfigurerAdapter {
       config.addAllowedHeader( "*" );
       config.addAllowedMethod( "*" );
       source.registerCorsConfiguration( "/**", config );
-      FilterRegistrationBean bean = new FilterRegistrationBean( new CorsFilter( source ) );
-      bean.setOrder( 0 );
+      CorsFilter bean = new CorsFilter( source );
       return bean;
    }
 
-   @Override
-   public void configureMessageConverters( List<HttpMessageConverter<?>> converters ) {
+   @Override public void configureMessageConverters( List<HttpMessageConverter<?>> converters ) {
       StringHttpMessageConverter stringConverter = new StringHttpMessageConverter();
       stringConverter.setWriteAcceptCharset( false );
 
@@ -79,16 +71,13 @@ public class TestbedApplicationConfiguration extends WebMvcConfigurerAdapter {
       converters.add( jackson2Converter() );
    }
 
-   @Bean
-   public MappingJackson2HttpMessageConverter jackson2Converter() {
+   @Bean public MappingJackson2HttpMessageConverter jackson2Converter() {
       MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
       converter.setObjectMapper( objectMapper() );
       return converter;
    }
 
-   @Bean( name = "objectMapper" )
-   @Primary
-   ObjectMapper objectMapper() {
+   @Bean( name = "objectMapper" ) @Primary ObjectMapper objectMapper() {
       springHateoasObjectMapper.configure( SerializationFeature.INDENT_OUTPUT, true );
       this.springBootObjectMapperBuilder.configure( this.springHateoasObjectMapper );
 
@@ -97,16 +86,13 @@ public class TestbedApplicationConfiguration extends WebMvcConfigurerAdapter {
 
    @Configuration
    public class WebConfig {
-      @Bean
-      public WebMvcRegistrationsAdapter webMvcRegistrationsHandlerMapping() {
+      @Bean public WebMvcRegistrationsAdapter webMvcRegistrationsHandlerMapping() {
          return new WebMvcRegistrationsAdapter() {
-            @Override
-            public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
+            @Override public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
                return new RequestMappingHandlerMapping() {
                   private final static String API_BASE_PATH = "api";
 
-                  @Override
-                  protected void registerHandlerMethod( Object handler, Method method, RequestMappingInfo mapping ) {
+                  @Override protected void registerHandlerMethod( Object handler, Method method, RequestMappingInfo mapping ) {
                      Class<?> beanType = method.getDeclaringClass();
                      if( AnnotationUtils.findAnnotation( beanType, RestController.class ) != null ){
                         PatternsRequestCondition apiPattern = new PatternsRequestCondition( API_BASE_PATH ).combine( mapping.getPatternsCondition() );

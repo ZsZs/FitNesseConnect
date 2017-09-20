@@ -1,10 +1,10 @@
-import {Component, EventEmitter, OnInit, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CarService} from './car.service';
-import {Car} from './car';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {error} from 'util';
+
+import {Car} from './car';
+import {CarService} from './car.service';
 
 @Component({
   selector: 'app-car-edit',
