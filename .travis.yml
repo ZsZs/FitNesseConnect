@@ -57,7 +57,7 @@ before_script:
   - npm install -g @angular/cli@latest
   - npm install -g @angular/compiler-cli
   - ng --version
-  - npm update --prefix ./processpuzzle-cms-ui
+  - npm update --prefix ./fitnesse-connect-testbed-ui
 
 script:
   - mvn clean deploy org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar --settings travis-maven-settings.xml -B

@@ -45,7 +45,7 @@
           </execution>
 
           <execution>
-            <id>npm run-script tslint</id>
+            <id>npm run-script lint</id>
             <phase>process-sources</phase>
             <goals>
               <goal>npm</goal>
