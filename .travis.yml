@@ -63,18 +63,6 @@ script:
   - mvn clean deploy org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar --settings travis-maven-settings.xml -B
 
 deploy:
-  matrix:
-  - provider: script
-    skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
-    on:
-      branch: master
-  - provider: script
-    skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Prelease-sign-artifacts -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
-    on:
-      branch: master
-      tags: true
   - provider: elasticbeanstalk
     access_key_id: AKIAJGCDIH623MFPRVEQ
     secret_access_key:
@@ -88,6 +76,17 @@ deploy:
     skip_cleanup: true
     on:
       branch: development
+  - provider: script
+    skip_cleanup: true
+    script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: mvn deploy -Pdocker-build-deploy -Prelease-sign-artifacts -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    on:
+      branch: master
+      tags: true
       
 notifications:
   email: true
