@@ -2,7 +2,6 @@
   "name": "fitnesse-connect-test-ui",
   "version": "1.1.9-SNAPSHOT",
   "license": "MIT",
-  "angular-cli": {},
   "bugs": {
     "url": "https://github.com/ZsZs/FitNesseConnect/issues"
   },
@@ -20,9 +19,8 @@
     "lint-watch": "ng lint --type-check",
     "pree2e": "webdriver-manager update",
     "e2e": "protractor",
-    "build-dev": "ng build --prod --aot --environment=dev",
-    "build-prod": "ng build --prod --aot --environment=prod",
-    "maventest": "ng test"
+    "build-dev": "ng build --dev --aot --environment=dev",
+    "build-prod": "ng build --prod --aot --environment=prod"
   },
   "private": true,
   "dependencies": {
