@@ -25,7 +25,6 @@
     <dependency>
       <groupId>com.processpuzzle.fitnesse</groupId>
       <artifactId>fitnesse-connect-docker</artifactId>
-      <version>${project.version}</version>
       <type>pom</type>
       <scope>compile</scope>
     </dependency>

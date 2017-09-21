@@ -71,8 +71,8 @@ deploy:
     app: FitConnect
     env: stage-env
     bucket_name: fit-connect
+    bucket_path: fitnesse-connect-aws
     zip_file: "./fitnesse-connect-aws/target/fitnesse-connect.zip"
-    upload-dir: fitnesse-connect-aws
     skip_cleanup: true
     on:
       branch: development
