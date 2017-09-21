@@ -11,6 +11,10 @@
   <name>FitNesseConnect - Testbed UI</name>
   <description>Angular User interface for the testbed </description>
 
+  <properties>
+    <DEPLOYMENT_ENVIRONMENT>dev</DEPLOYMENT_ENVIRONMENT>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -56,13 +60,13 @@
           </execution>
 
           <execution>
-            <id>npm run-script build-dev</id>
+            <id>npm run-script build</id>
             <phase>compile</phase>
             <goals>
               <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>run-script build-dev</arguments>
+              <arguments>run-script build-${DEPLOYMENT_ENVIRONMENT}</arguments>
             </configuration>
           </execution>
         </executions>

@@ -40,7 +40,16 @@ before_install:
 - nvm use node
 - npm install -g npm@5.2
 - npm --version
+- if [ ${TRAVIS_BRANCH} == development ]; then
+    DEPLOYMENT_ENVIRONMENT=dev
+  elif [ -n ${TRAVIS_TAG} ]; then
+    DEPLOYMENT_ENVIRONMENT=prod;
+  else
+    DEPLOYMENT_ENVIRONMENT=integ;
+  fi
+  export DEPLOYMENT_ENVIRONMENT
 
+export TEST_MODE
 cache:
   directories:
   - "$HOME/.m2"
@@ -69,13 +78,13 @@ deploy:
       secure: JrzMSduYirpj6PjmknLAhCsuemmD4ec6AR3hL4+/7eI752vbXO/4s9CJkst30bmh0K/jAa+vbPE6WwK3IvnxUcdEXZusJDh+w3H91mG01bfv4dUul9bxeryG7ZJYRv5bcVdGBdsOEgpvGYXlxMt7o7+/zBeUBBpiWaHmKVmLamWEvtqZIljMScX4E/k0PKattdxDcxcUFA5tyX1pXHYMJ78DUlPyYEi6aR1v6nrYnYl4Pws6SpY9u8VdHzCGAjkJoBTnbUJ7soxuZD8jbWGbrnQ9A0c3A6vEyzUBPCPErbEYALUtaEgwmQHT1ZCf3IXn80BOR5H2kVdntatTpEfBOEu0aw83tYq26MKvzKIhgdGzkv+CWlGB/wG79LlpQmY+9rdlkAwKwDQbkxEQRK9HYBbcCXYkOQmQXxluMxa3fp4+6oUX6RiRXDTvfzCkkzsKXH0kvNgrXhrj4zjKw5Avzu9DwdGke/N0nzQ6AZmxi+JgXkv4E2Xh/HeFpoE/MD15u9BvoxCmlhJNqlfZyqFCfbJOgmh3RcYSkIKKXybW1dzqC1C779S+jrAaarLmwfkKR/IDZl77AsCBsUcoo5vJBgDboPaSZK3yoerV1huQuO1UMtfjY9seba/qB02yfnJMpNJTe6ADc5rKfFWBr6s9bChNPPhiZ8n60DHZwqPaA+s=
     region: eu-central-1
     app: FitConnect
-    env: stage-env
+    env: fit-connect-integ-env
     bucket_name: fit-connect
-    bucket_path: fitnesse-connect-aws
+    bucket_path: integ-env
     zip_file: "./fitnesse-connect-aws/target/fitnesse-connect.zip"
     skip_cleanup: true
     on:
-      branch: development
+      branch: master
   - provider: elasticbeanstalk
     access_key_id: AKIAJGCDIH623MFPRVEQ
     secret_access_key:
@@ -84,7 +93,7 @@ deploy:
     app: FitConnect
     env: fit-connect-prod-env
     bucket_name: fit-connect
-    bucket_path: fitnesse-connect-aws
+    bucket_path: prod-env
     zip_file: "./fitnesse-connect-aws/target/fitnesse-connect.zip"
     skip_cleanup: true
     on:
