@@ -76,6 +76,7 @@
   <scm>
     <url>https://github.com/ZsZs/FitNesseConnect</url>
     <connection>https://github.com/ZsZs/FitNesseConnect.git</connection>
+    <tag>fitnesse-connect-1.1.9</tag>
   </scm>
 
   <issueManagement>
