@@ -1,0 +1,44 @@
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.beans: INFO
+    org.springframework.security: INFO
+
+server:
+  port: 9124
+  contextPath: /
+
+security:
+  headers:
+    cache: false
+
+endpoints:
+  shutdown:
+    sensitive: false
+    enabled: true
+
+storage:
+  location: target/upload-dir
+
+spring:
+  datasource:
+    initialize: false
+  http:
+    multipart:
+      max-file-size: 128KB
+      max-request-size: 128KB
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      javax.persistence.schema-generation.scripts.create-target: target/schema.sql
+      javax.persistence.schema-generation.scripts.action: create      
+
+testbed-application:
+  dateTimeFormatter: yyyy-MM-dd HH:mm:ss
+  users:
+    rest-client: password
+    user: password

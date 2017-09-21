@@ -4,24 +4,25 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assume.assumeThat;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.processpuzzle.fitnesse.connect.testbed.domain.Car;
 
 @RunWith( SpringRunner.class )
-@ContextConfiguration( classes = { CarRepository.class } )
+@SpringBootTest( classes = { CarRepository.class } )
+@EnableAutoConfiguration
 @EntityScan( basePackages = "com.processpuzzle.fitnesse.connect.testbed.domain" )
 @DataJpaTest
 @ActiveProfiles( "unit-test" )
@@ -43,7 +44,7 @@ public class CarRepositoryTest {
    }
 
    @Test public void save_whenCarIsNew_adds() {
-      assumeThat( newCar.getId(), nullValue() );
+      assertThat( newCar.getId(), nullValue() );
 
       carRepository.save( newCar );
 
@@ -51,8 +52,8 @@ public class CarRepositoryTest {
    }
 
    @Test public void save_whenCarAlreadyPersisted_updates() {
-      assumeThat( persistedCar.getId(), notNullValue() );
-      assumeThat( carRepository.findAll().size(), equalTo( 1 ));
+      assertThat( persistedCar.getId(), notNullValue() );
+      assertThat( carRepository.findAll().size(), equalTo( 1 ));
 
       persistedCar.update( newCar );
       carRepository.save( persistedCar );

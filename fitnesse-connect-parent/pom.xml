@@ -3,6 +3,7 @@
 
   <groupId>com.processpuzzle.fitnesse</groupId>
   <artifactId>fitnesse-connect-parent</artifactId>
+  <version>1.1.9</version>
   <packaging>pom</packaging>
   <name>FitNesseConnect - Parent</name>
   <description>Maven parent of FitNesseConnect modules.</description>
@@ -10,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.3.RELEASE</version>
+    <version>1.5.7.RELEASE</version>
     <relativePath />
   </parent>
 
@@ -18,7 +19,7 @@
     <apache.poi.version>3.15</apache.poi.version>
     <apache.poi-ooxml.version>3.15</apache.poi-ooxml.version>
     <commons.lang3.version>3.5</commons.lang3.version>
-    <docker.maven.plugin.version>0.20.1</docker.maven.plugin.version>
+    <docker.maven.plugin.version>0.22.1</docker.maven.plugin.version>
 
     <container.volume>/fitnesse</container.volume>
     <repository.volume>/maven/repository</repository.volume>
@@ -37,8 +38,8 @@
     <maven.plugin.javadoc.version>2.10.4</maven.plugin.javadoc.version>
     <maven.plugin.nexus.version>1.6.8</maven.plugin.nexus.version>
     <maven.plugin.source.version>3.0.1</maven.plugin.source.version>
-    <node.version>v7.2.1</node.version>
-    <npm.version>4.1.2</npm.version>
+    <node.version>v8.5.0</node.version>
+    <npm.version>5.2.0</npm.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <skip.install>false</skip.install>
@@ -74,9 +75,8 @@
 
   <scm>
     <url>https://github.com/ZsZs/FitNesseConnect</url>
-    <connection>scm:git:git://github.com/ZsZs/FitNesseConnect.git</connection>
-    <developerConnection>scm:git:git@github.com/ZsZs/FitNesseConnect.git</developerConnection>
-    <tag>fitnesse-connect-1.1.8</tag>
+    <connection>https://github.com/ZsZs/FitNesseConnect.git</connection>
+    <tag>fitnesse-connect-1.1.9</tag>
   </scm>
 
   <issueManagement>
@@ -413,7 +413,4 @@
     </site>
 
   </distributionManagement>
-
-
-  <version>1.1.8</version>
 </project>

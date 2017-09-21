@@ -4,7 +4,7 @@
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect-parent</artifactId>
     <relativePath>../fitnesse-connect-parent</relativePath>
-    <version>1.1.8</version>
+    <version>1.1.9</version>
   </parent>
   <artifactId>fitnesse-connect-docker</artifactId>
   <name>FitNesseConnect - Docker</name>
@@ -55,8 +55,6 @@
         <extensions>true</extensions>
         <!-- enables using 'docker' packaging above -->
         <configuration>
-          <serverId>docker.io</serverId>
-          <registryUrl>https://hub.docker.com/</registryUrl>
           <watchInterval>500</watchInterval>
           <logDate>default</logDate>
           <verbose>false</verbose>
@@ -251,12 +249,6 @@
                 <phase>pre-integration-test</phase>
                 <goals>
                   <goal>build</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>build-test</id>
-                <phase>integration-test</phase>
-                <goals>
                   <goal>start</goal>
                 </goals>
               </execution>

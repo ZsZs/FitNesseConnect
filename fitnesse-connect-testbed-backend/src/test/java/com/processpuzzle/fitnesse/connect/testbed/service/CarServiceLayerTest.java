@@ -18,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -30,6 +31,7 @@ import com.processpuzzle.fitnesse.connect.testbed.integration.CarRepository;
 @RunWith( SpringRunner.class )
 @SpringBootTest( classes = { TestbedApplication.class, RestServiceExceptionHandler.class } )
 @AutoConfigureMockMvc
+@ActiveProfiles( "unit-test" )
 public class CarServiceLayerTest {
    private static final String CAR_INVALID_ID = "NotCarId";
    private static final String RESOURCE_PATH = "/api/cars";

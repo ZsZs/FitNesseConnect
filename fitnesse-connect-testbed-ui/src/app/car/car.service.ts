@@ -1,7 +1,8 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import {Headers, Http, Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Headers, Http, Response } from '@angular/http';
 import 'rxjs/Rx';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+
 import {Car} from './car';
 import { environment } from '../../environments/environment';
 
@@ -20,7 +21,7 @@ export class CarService {
   }
 
   deteleCar( carToRefactor: Car ): Observable<any> {
-    let resourceUrl = this.buildResourceUrl( String( carToRefactor.id ));
+    const resourceUrl = this.buildResourceUrl( String( carToRefactor.id ));
     return this.http.delete( resourceUrl );
   }
 
