@@ -35,7 +35,7 @@ public class DatabaseHasRecord extends DatabaseFixture<SelectStatementBuilder> {
    protected DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String databaseName, String queryString ) {
       super( serviceConfiguration, databaseName );
       this.query = queryString;
-      logger.info( "About to query database: " + databaseName + " with statement: " queryString );
+      logger.info( "About to query database: " + databaseName + " with statement: " + queryString );
    }
 
    // public accessors and mutators
