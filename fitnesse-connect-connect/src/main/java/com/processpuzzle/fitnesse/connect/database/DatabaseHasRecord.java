@@ -2,6 +2,7 @@ package com.processpuzzle.fitnesse.connect.database;
 
 import static java.util.Arrays.asList;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -34,6 +35,7 @@ public class DatabaseHasRecord extends DatabaseFixture<SelectStatementBuilder> {
    protected DatabaseHasRecord( ApplicationConfiguration serviceConfiguration, String databaseName, String queryString ) {
       super( serviceConfiguration, databaseName );
       this.query = queryString;
+      logger.info( "About to query database: " + databaseName + " with statement: " + queryString );
    }
 
    // public accessors and mutators
@@ -84,6 +86,9 @@ public class DatabaseHasRecord extends DatabaseFixture<SelectStatementBuilder> {
          }
          else if( cellValue instanceof Double ){
             returnValue = Double.toString( (Double) cellValue );
+         }
+         else if( cellValue instanceof BigDecimal ){
+            returnValue = ((BigDecimal) cellValue ).toString();
          }
          else if( cellValue instanceof Timestamp ){
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
