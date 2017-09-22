@@ -49,7 +49,6 @@ before_install:
   fi
   export DEPLOYMENT_ENVIRONMENT
 
-export TEST_MODE
 cache:
   directories:
   - "$HOME/.m2"
