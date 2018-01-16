@@ -173,7 +173,7 @@
                     <id>sample-pom</id>
                     <fileSets>
                       <fileSet>
-                        <directory>${project.basedir}/docker</directory>
+                        <directory>${project.basedir}/docker/fit-connect-fitnesse</directory>
                         <includes>
                           <include>settings.xml</include>
                         </includes>

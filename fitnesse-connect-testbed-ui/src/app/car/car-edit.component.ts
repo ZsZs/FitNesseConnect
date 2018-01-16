@@ -41,7 +41,7 @@ export class CarEditComponent implements OnDestroy, OnInit {
                 this.updateForm();
               }
            );
-         }else {
+         } else {
            this.isNew = true;
            this.car = null;
          }
@@ -63,7 +63,7 @@ export class CarEditComponent implements OnDestroy, OnInit {
         data => console.log( data ),
         error => console.log( error )
       );
-    }else {
+    } else {
       this.carService.update( newCar ).subscribe();
     }
 

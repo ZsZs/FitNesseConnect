@@ -18,7 +18,7 @@ export class ShoppingListAddComponent implements OnChanges {
     if ( changes.item.currentValue === null ) {
       this.isAdd = true;
       this.item = { name: null, amount: null };
-    }else {
+    } else {
       this.isAdd = false;
     }
   }
@@ -36,7 +36,7 @@ export class ShoppingListAddComponent implements OnChanges {
   onSubmit( ingredient: Ingredient ) {
     if ( !this.isAdd ) {
       this.shoppingListService.editItem( this.item, ingredient );
-    }else {
+    } else {
       this.item = ingredient;
       this.shoppingListService.addItem( ingredient );
     }
