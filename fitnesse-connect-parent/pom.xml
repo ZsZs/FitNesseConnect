@@ -86,33 +86,33 @@
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
-      
+
       <dependency>
         <groupId>com.processpuzzle.fitnesse</groupId>
         <artifactId>fitnesse-connect-connect</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>com.processpuzzle.fitnesse</groupId>
         <artifactId>fitnesse-connect-docker</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
-      
+
       <dependency>
         <groupId>com.processpuzzle.fitnesse</groupId>
         <artifactId>fitnesse-connect-testbed-backend</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>com.processpuzzle.fitnesse</groupId>
         <artifactId>fitnesse-connect-testbed-ui</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
-      
+
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
@@ -247,6 +247,22 @@
           </configuration>
         </plugin>
 
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>default-site</id>
+              <phase>site</phase>
+              <goals>
+                <goal>site</goal>
+              </goals>
+              <configuration>
+                <skip>true</skip>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
