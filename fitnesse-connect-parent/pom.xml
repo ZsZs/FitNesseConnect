@@ -73,12 +73,6 @@
   <contributors>
   </contributors>
 
-  <scm>
-    <url>https://github.com/ZsZs/FitNesseConnect</url>
-    <connection>https://github.com/ZsZs/FitNesseConnect.git</connection>
-    <tag>fitnesse-connect-1.1.11</tag>
-  </scm>
-
   <issueManagement>
     <url>https://github.com/ZsZs/FitNesseConnect/issues</url>
     <system>GitHub Issues</system>
