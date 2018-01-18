@@ -26,8 +26,8 @@
       "environments": {
         "build": "environments/environment.ts",
         "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts",
-        "rel": "environments/environment.release.ts"
+        "integ": "environments/environment.integ.ts",
+        "prod": "environments/environment.prod.ts"
       }
     }
   ],

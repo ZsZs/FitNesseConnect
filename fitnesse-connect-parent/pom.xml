@@ -3,7 +3,7 @@
 
   <groupId>com.processpuzzle.fitnesse</groupId>
   <artifactId>fitnesse-connect-parent</artifactId>
-  <version>1.1.10</version>
+  <version>1.1.13-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>FitNesseConnect - Parent</name>
   <description>Maven parent of FitNesseConnect modules.</description>
@@ -11,7 +11,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.7.RELEASE</version>
+    <version>1.5.9.RELEASE</version>
     <relativePath />
   </parent>
 
@@ -38,8 +38,8 @@
     <maven.plugin.javadoc.version>2.10.4</maven.plugin.javadoc.version>
     <maven.plugin.nexus.version>1.6.8</maven.plugin.nexus.version>
     <maven.plugin.source.version>3.0.1</maven.plugin.source.version>
-    <node.version>v8.5.0</node.version>
-    <npm.version>5.2.0</npm.version>
+    <node.version>v9.3.0</node.version>
+    <npm.version>5.6.0</npm.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <skip.install>false</skip.install>
@@ -73,12 +73,6 @@
   <contributors>
   </contributors>
 
-  <scm>
-    <url>https://github.com/ZsZs/FitNesseConnect</url>
-    <connection>https://github.com/ZsZs/FitNesseConnect.git</connection>
-    <tag>fitnesse-connect-1.1.10</tag>
-  </scm>
-
   <issueManagement>
     <url>https://github.com/ZsZs/FitNesseConnect/issues</url>
     <system>GitHub Issues</system>
@@ -92,33 +86,33 @@
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
-      
+
       <dependency>
         <groupId>com.processpuzzle.fitnesse</groupId>
         <artifactId>fitnesse-connect-connect</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>com.processpuzzle.fitnesse</groupId>
         <artifactId>fitnesse-connect-docker</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
-      
+
       <dependency>
         <groupId>com.processpuzzle.fitnesse</groupId>
         <artifactId>fitnesse-connect-testbed-backend</artifactId>
         <version>${project.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>com.processpuzzle.fitnesse</groupId>
         <artifactId>fitnesse-connect-testbed-ui</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
       </dependency>
-      
+
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
@@ -253,6 +247,22 @@
           </configuration>
         </plugin>
 
+        <plugin>
+          <artifactId>maven-site-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>default-site</id>
+              <phase>site</phase>
+              <goals>
+                <goal>site</goal>
+              </goals>
+              <configuration>
+                <skip>true</skip>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
@@ -413,4 +423,8 @@
     </site>
 
   </distributionManagement>
+
+  <scm>
+    <tag>fitnesse-connect-1.1.12</tag>
+  </scm>
 </project>

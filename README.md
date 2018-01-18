@@ -4,7 +4,7 @@
 [![Code coverage ratio](https://sonarqube.com/api/badges/measure?key=com.processpuzzle.fitnesse:fitnesse-connect:development&metric=coverage)](https://sonarqube.com/dashboard/index/com.processpuzzle.fitnesse:fitnesse-connect:development) 
 [![Technical debt ratio](https://sonarqube.com/api/badges/measure?key=com.processpuzzle.fitnesse:fitnesse-connect:development&metric=sqale_debt_ratio)](https://sonarqube.com/dashboard/index/com.processpuzzle.fitnesse:fitnesse-connect:development) 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.processpuzzle.fitnesse/fitnesse-connect/badge.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/com.processpuzzle.fitnesse/fitnesse-connect/)
-[![Dependency Status](https://www.versioneye.com/user/projects/5837d0804ef164003ff45449/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5837d0804ef164003ff45449)
+[![Dependency Status](https://www.versioneye.com/user/projects/5837d091e7cea00045b892ea/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5837d091e7cea00045b892ea)
 
 Provides File, Service, Database connectors for Slim tests.
 

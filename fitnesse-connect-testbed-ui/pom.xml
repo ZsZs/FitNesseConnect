@@ -4,19 +4,23 @@
     <groupId>com.processpuzzle.fitnesse</groupId>
     <artifactId>fitnesse-connect-parent</artifactId>
     <relativePath>../fitnesse-connect-parent</relativePath>
-    <version>1.1.10</version>
+    <version>1.1.13-SNAPSHOT</version>
   </parent>
   <artifactId>fitnesse-connect-testbed-ui</artifactId>
   <packaging>pom</packaging>
   <name>FitNesseConnect - Testbed UI</name>
   <description>Angular User interface for the testbed </description>
 
+  <properties>
+    <DEPLOYMENT_ENVIRONMENT>dev</DEPLOYMENT_ENVIRONMENT>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
-        <version>1.5</version>
+        <version>1.6</version>
         <configuration>
           <nodeVersion>${node.version}</nodeVersion>
           <npmVersion>${npm.version}</npmVersion>
@@ -56,13 +60,13 @@
           </execution>
 
           <execution>
-            <id>npm run-script build-dev</id>
+            <id>npm run-script build</id>
             <phase>compile</phase>
             <goals>
               <goal>npm</goal>
             </goals>
             <configuration>
-              <arguments>run-script build-dev</arguments>
+              <arguments>run-script build-${DEPLOYMENT_ENVIRONMENT}</arguments>
             </configuration>
           </execution>
         </executions>

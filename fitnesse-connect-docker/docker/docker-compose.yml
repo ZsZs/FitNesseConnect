@@ -1,0 +1,56 @@
+version: '3'
+
+networks:
+  prodnetwork:
+    driver: bridge
+
+services:
+  fit-connect-proxy:
+    build: ./fit-connect-proxy
+    image: zsuffazs/fit-connect-proxy
+    container_name: fit-connect-proxy
+    restart: always
+    ports:
+      - "8000:80"
+    networks:
+      - prodnetwork
+    depends_on:
+      - fit-connect-testbed
+      - fit-connect-fitnesse
+
+  fit-connect-fitnesse:
+    build: ./fit-connect-fitnesse
+    image: zsuffazs/fit-connect-fitnesse
+    container_name: fit-connect-fitnesse
+    restart: always
+    ports:
+      - "9123"
+    environment:
+      - VIRTUAL_HOST=fit-connect-fitnesse
+    networks:
+      - prodnetwork
+    depends_on:
+      - fit-connect-content
+      
+  fit-connect-content:
+    build: ./fit-connect-content
+    image: zsuffazs/fit-connect-content
+    container_name: fit-connect-content
+    restart: always
+    environment:
+      - VIRTUAL_HOST=fit-connect-content
+    networks:
+      - prodnetwork
+
+  fit-connect-testbed:
+    build: ./fit-connect-testbed
+    image: zsuffazs/fit-connect-testbed
+    container_name: fit-connect-testbed
+    restart: always
+    ports:
+      - "9124"
+    environment:
+      - VIRTUAL_HOST=fit-connect-server
+    networks:
+      - prodnetwork
+ 
