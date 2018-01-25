@@ -254,7 +254,7 @@
                 <ports>
                   <port>9124</port>
                 </ports>
-                <cmd>java -jar ${ui.server.jar} --spring.profiles.active=local</cmd>
+                <cmd>java -jar ${ui.server.jar} --spring.profiles.active=local --storage.location=.</cmd>
               </build>
 
               <run>
@@ -272,7 +272,7 @@
                   </http>
                   <time>30000</time>
                 </wait>
-                <cmd>java -jar ${ui.server.jar} --spring.profiles.active=local</cmd>
+                <cmd>java -jar ${ui.server.jar} --spring.profiles.active=local --storage.location=.</cmd>
               </run>
             </image>
           </images>

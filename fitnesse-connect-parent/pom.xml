@@ -22,6 +22,7 @@
     <docker.maven.plugin.version>0.23.0</docker.maven.plugin.version>
 
     <container.volume>/fitnesse</container.volume>
+    <container.working.dir>/data</container.working.dir>
     <repository.volume>/maven/repository</repository.volume>
     <content.image.from.name>busybox</content.image.from.name>
     <content.image.from.version>latest</content.image.from.version>
