@@ -92,7 +92,7 @@
   </dependencies>
 
   <build>
-    <finalName>fitnesse-connect-testbed-backend</finalName>
+    <finalName>fit-connect-testbed</finalName>
     <plugins>
       <plugin>
         <groupId>org.jacoco</groupId>

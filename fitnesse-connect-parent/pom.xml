@@ -45,7 +45,7 @@
     <skip.install>false</skip.install>
     <skip.integration.test>false</skip.integration.test>
     
-    <ui.server.jar>${project.parent.artifactId}.jar</ui.server.jar>
+    <ui.server.jar>fit-connect-testbed.jar</ui.server.jar>
   </properties>
 
   <inceptionYear>2016</inceptionYear>

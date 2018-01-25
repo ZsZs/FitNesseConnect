@@ -129,7 +129,7 @@
               <type>jar</type>
               <overWrite>false</overWrite>
               <outputDirectory>${project.build.directory}</outputDirectory>
-              <destFileName>fitnesse-connect-testbed-backend.jar</destFileName>
+              <destFileName>${ui.server.jar}</destFileName>
             </artifactItem>
           </artifactItems>
           <outputDirectory>${project.build.directory}/wars</outputDirectory>
@@ -386,7 +386,7 @@
                 </goals>
                 <configuration>
                   <target name="start-test-server">
-                    <java fork="true" spawn="true" jar="${project.build.directory}/fitnesse-connect-testbed-backend.jar">
+                    <java fork="true" spawn="true" jar="${project.build.directory}/${ui.server.jar}">
                       <arg line="--spring.profiles.active=local" />
                     </java>
                   </target>
