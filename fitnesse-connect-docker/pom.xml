@@ -47,7 +47,7 @@
           </execution>
         </executions>
       </plugin>
-      
+
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>docker-maven-plugin</artifactId>
@@ -145,12 +145,12 @@
                 <log>
                   <enabled>true</enabled>
                 </log>
-              </run>              
+              </run>
             </image>
 
             <image>
-              <alias>fit-connect-server</alias>
-              <name>zsuffazs/fit-connect-server:latest</name>
+              <alias>fit-connect-fitnesse</alias>
+              <name>zsuffazs/fit-connect-fitnesse:latest</name>
               <build>
                 <from>${server.image.from.name}</from>
                 <tags>
@@ -183,23 +183,13 @@
                         <directory>${project.build.directory}/mavenRepository</directory>
                         <outputDirectory>${repository.volume}</outputDirectory>
                       </fileSet>
-<!-- 
-                       <fileSet>
-                        <directory>${project.basedir}/docker</directory>
-                        <includes>
-                          <include>pom.xml</include>
-                        </includes>
-                        <outputDirectory>${container.volume}</outputDirectory>
-                      </fileSet>
- -->
                     </fileSets>
                   </inline>
                 </assembly>
                 <ports>
                   <port>9123</port>
-                  <port>9124</port>
                 </ports>
-                <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true</cmd>
+                <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true -DskipIntegrationTests=true</cmd>
               </build>
               <run>
                 <volumes>
@@ -212,11 +202,13 @@
                 </volumes>
                 <ports>
                   <port>9123:9123</port>
-                  <port>9124:9124</port>
                 </ports>
                 <log>
                   <enabled>true</enabled>
                 </log>
+                <dependsOn>
+                  <container>fit-connect-testbed</container>
+                </dependsOn>
                 <wait>
                   <http>
                     <url>http://localhost:9123</url>
@@ -225,7 +217,62 @@
                   </http>
                   <time>600000</time>
                 </wait>
-                <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true</cmd>
+                <cmd>mvn -f fitnesse-connect-connect/pom.xml clean install -P wiki -Dmaven.test.skip=true -DskipIntegrationTests=true</cmd>
+              </run>
+            </image>
+
+            <image>
+              <alias>fit-connect-testbed</alias>
+              <name>zsuffazs/fit-connect-testbed:latest</name>
+              <build>
+                <from>store/oracle/serverjre:8</from>
+                <tags>
+                  <tag>${project.version}</tag>
+                </tags>
+                <maintainer>zsolt.zsuffa@gmail.com</maintainer>
+                <workdir>${container.working.dir}</workdir>
+                <assembly>
+                  <basedir>${container.working.dir}</basedir>
+                  <mode>dir</mode>
+                  <inline xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+                    <id>server-jar</id>
+                    <fileSets>
+                      <fileSet>
+                        <directory>${project.basedir}/../fitnesse-connect-testbed-backend/target</directory>
+                        <includes>
+                          <include>fitnesse-connect-testbed-backend.jar</include>
+                        </includes>
+                        <outputDirectory>.</outputDirectory>
+                      </fileSet>
+                    </fileSets>
+                  </inline>
+                </assembly>
+                <env>
+                  <JAVA_PKG>server-jre-8u*-linux-x64.tar.gz</JAVA_PKG>
+                  <JAVA_HOME>/usr/java/default</JAVA_HOME>
+                </env>
+                <ports>
+                  <port>9124</port>
+                </ports>
+                <cmd>java -jar ${ui.server.jar}</cmd>
+              </build>
+
+              <run>
+                <ports>
+                  <port>9124:9124</port>
+                </ports>
+                <log>
+                  <enabled>true</enabled>
+                </log>
+                <wait>
+                  <http>
+                    <url>http://localhost:9124</url>
+                    <method>GET</method>
+                    <status>200..399</status>
+                  </http>
+                  <time>30000</time>
+                </wait>
+                <cmd>java -jar ${ui.server.jar}</cmd>
               </run>
             </image>
           </images>
