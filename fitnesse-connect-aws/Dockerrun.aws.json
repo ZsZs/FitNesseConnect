@@ -39,6 +39,7 @@
         }
       ],
       "links": [
+        "testbed-app",
         "fitnesse-app"
       ],
       "mountPoints": [
@@ -60,8 +61,19 @@
     },
 	
 	{
+      "name": "testbed-app",
+      "image": "zsuffazs/fit-connect-testbed:latest",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [{
+        "hostPort": 9124,
+        "containerPort": 9124
+      }]
+    },
+	
+	{
       "name": "fitnesse-app",
-      "image": "zsuffazs/fit-connect-server:latest",
+      "image": "zsuffazs/fit-connect-fitnesse:latest",
       "essential": true,
       "memory": 512,
       "portMappings": [{
@@ -71,6 +83,9 @@
       "volumesFrom": [{
         "sourceContainer": "fitnesse-content"
       }],
+      "links": [
+        "testbed-app",
+      ],
       "mountPoints": [{
         "sourceVolume": "maven-repository",
         "containerPath": "/maven/repository"
