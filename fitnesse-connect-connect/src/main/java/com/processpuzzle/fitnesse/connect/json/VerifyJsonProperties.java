@@ -5,6 +5,7 @@ import java.util.List;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonReader;
+import javax.json.stream.JsonParsingException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,9 +49,9 @@ public class VerifyJsonProperties {
       this.propertyValueNotNull = null;
       this.returnMessage = null;
    }
-   
+
    public String verifyProperty() {
-      for( String currentObject : this.parseSourceToArray() ) {
+      for( String currentObject : this.parseSourceToArray() ){
          this.currentObject = currentObject;
          determineCurrentProperty();
          verifySingleObjectProperty();
@@ -87,28 +88,38 @@ public class VerifyJsonProperties {
       try{
          DocumentContext document = JsonPath.parse( this.currentObject );
          Object property = document.read( this.propertySelector );
-         if( property != null ) this.propertyValue = property.toString();
-         else this.propertyValue = PROPERTY_NULL_VALUE;
+         if( property != null )
+            this.propertyValue = property.toString();
+         else
+            this.propertyValue = PROPERTY_NULL_VALUE;
       }catch( PathNotFoundException e ){
          log.info( "Selecting property: " + this.propertySelector + " failed." );
       }
    }
-   
-   private List<String> parseSourceToArray(){
-      List<String> sourceArray = Lists.newArrayList();
-      JsonReader jsonReader = Json.createReader( new StringReader( StringUtils.replace( this.sourceObject, "'", "\""  )));
+
+   private void parseSourceArray( List<String> sourceArray, JsonReader jsonReader ) {
       JsonArray jsonArray = null;
+      jsonArray = jsonReader.readArray();
+      for( javax.json.JsonValue jsonValue : jsonArray ){
+         sourceArray.add( jsonValue.toString() );
+      }
+   }
+
+   private void parseSourceObject( List<String> sourceArray, JsonReader jsonReader ) {
+      sourceArray.add( this.sourceObject );
+   }
+
+   private List<String> parseSourceToArray() {
+      List<String> sourceArray = Lists.newArrayList();
+      JsonReader jsonReader = Json.createReader( new StringReader( StringUtils.replace( this.sourceObject, "'", "\"" ) ) );
       try{
-         jsonArray = jsonReader.readArray();
-         for(  javax.json.JsonValue jsonValue : jsonArray ) {
-            sourceArray.add( jsonValue.toString() );
-         }
-      }catch( IllegalStateException e ){
-         sourceArray.add( this.sourceObject );
+         parseSourceArray( sourceArray, jsonReader );
+      }catch( JsonParsingException e ){
+         parseSourceObject( sourceArray, jsonReader );
       }finally{
          jsonReader.close();
       }
-      
+
       return sourceArray;
    }
 
@@ -152,7 +163,7 @@ public class VerifyJsonProperties {
    private void verifyPropertyValueNotNull() {
       String result = PASS_TOKEN;
       if( this.propertyValueNotNull ){
-         if( this.propertyValue == null || this.propertyValue.equals( PROPERTY_NULL_VALUE )){
+         if( this.propertyValue == null || this.propertyValue.equals( PROPERTY_NULL_VALUE ) ){
             result = FAILED_PROPERTY_VALUE_NOT_NULL;
          }
       }
@@ -160,7 +171,7 @@ public class VerifyJsonProperties {
       combineReturnMessage( result );
    }
 
-   private void verifySingleObjectProperty(){
+   private void verifySingleObjectProperty() {
       verifyPropertyName();
 
       if( this.propertyValue != null ){
@@ -171,5 +182,5 @@ public class VerifyJsonProperties {
          if( this.propertyValueNotNull != null )
             verifyPropertyValueNotNull();
       }
-   }   
+   }
 }
