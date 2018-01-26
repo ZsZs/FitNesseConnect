@@ -84,7 +84,7 @@
         "sourceContainer": "fitnesse-content"
       }],
       "links": [
-        "testbed-app",
+        "testbed-app"
       ],
       "mountPoints": [{
         "sourceVolume": "maven-repository",

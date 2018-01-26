@@ -319,6 +319,9 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-antrun-plugin</artifactId>
+            <configuration>
+              <skip>${skipIntegrationTests}</skip>
+            </configuration>
             <executions>
               <execution>
                 <id>integration-test</id>

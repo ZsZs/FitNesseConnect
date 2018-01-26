@@ -6,7 +6,7 @@ networks:
 
 services:
   fit-connect-proxy:
-    build: ./fit-connect-proxy
+    build: ../../fitnesse-connect-aws/proxy
     image: zsuffazs/fit-connect-proxy
     container_name: fit-connect-proxy
     restart: always

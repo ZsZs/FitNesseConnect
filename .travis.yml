@@ -95,12 +95,12 @@ deploy:
       tags: true
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    script: mvn deploy -Pdocker-build-deploy -Dmaven.test.skip=true -DskipIntegrationTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: mvn deploy -Pdocker-build-deploy -Prelease-sign-artifacts -Dmaven.test.skip=true -DskipIntegrationTests --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
+    script: mvn deploy -Pdocker-build-deploy -Prelease-sign-artifacts -Dmaven.test.skip=true -DskipIntegrationTests=true --settings travis-maven-settings.xml -Dsettings.security=travis-maven-settings-security.xml -B
     on:
       branch: master
       tags: true
